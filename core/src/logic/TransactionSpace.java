@@ -1,5 +1,8 @@
 package logic;
 
+/**
+ * Represents an Space where only monetary transaction are made. Example: Start, Jail, Taxes Spaces
+ */
 public class TransactionSpace extends Space {
 	private int value;
 

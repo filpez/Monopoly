@@ -2,6 +2,13 @@ package logic;
 
 import logic.effects.Effect;
 
+/**
+ * Represents an Card.
+ *
+ * Each card has an effect.
+ * value is used to send extra information after selecting the effect.
+ * Effects are not fully implemented yet - TO DO
+ */
 public class Card {
 	private String text;
 	private Effect effect;

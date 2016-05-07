@@ -2,6 +2,11 @@ package logic;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Player
+ *
+ * TO DO Javadoc
+ */
 public class Player {
 	private String name;
 	private int funds;
@@ -31,11 +36,19 @@ public class Player {
 	public void setFunds(int funds) {
 		this.funds = funds;
 	}
-	
+
+	/**
+	 * Takes away an certain amount of money from funds
+	 * @param funds - amount paid
+	 */
 	public void pay(int funds) {
 		this.funds -= funds;
 	}
-	
+
+	/**
+	 * Adds an certain amount of money from funds
+	 * @param funds - amount received
+	 */
 	public void receive(int funds) {
 		this.funds += funds;
 	}
@@ -47,7 +60,8 @@ public class Player {
 	public void setProprieties(ArrayList<Propriety> proprieties) {
 		this.proprieties = proprieties;
 	}
-	
+
+
 	public boolean canBuy(Propriety propriety){
 		if (propriety.getPrice() <= funds)
 			return true;

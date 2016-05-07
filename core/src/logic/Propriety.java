@@ -1,5 +1,10 @@
 package logic;
 
+/**
+ * Represents an Buyable Space.
+ *
+ * Keeps track of the owner and the group of Proprieties it belongs to.
+ */
 public abstract class Propriety extends Space{
 	//public enum Group{UtilitiesOne, UtilitiesTwo, Stations, Brown, LightBlue, Pink, Orange, Red, Yellow, Green, DarkBlue};
 	
@@ -32,7 +37,12 @@ public abstract class Propriety extends Space{
 	public void setMortaged(boolean mortaged) {
 		this.mortaged = mortaged;
 	}
-	
+
+
+	/**
+	 * @param diceValue - the value on dices
+	 * @return the rent, calculated differently by different types of proprieties
+	 */
 	public abstract int getRent(int diceValue);
 
 	public Player getOwner() {
@@ -52,6 +62,7 @@ public abstract class Propriety extends Space{
 	}
 
 	public boolean canAddHouse() {
+		//TO DO
 		return false;
 	}
 }

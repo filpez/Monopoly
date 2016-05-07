@@ -1,5 +1,10 @@
 package logic;
 
+/**
+ * Represents a Building Lot
+ *
+ * Keeps tracks of the Houses and Hotels built.
+ */
 public class BuildingLot extends Propriety{
 	private static int remainingHouses;
 	private static int remainingHotels;
@@ -54,7 +59,11 @@ public class BuildingLot extends Propriety{
 	public void setHouses(int houses) {
 		this.houses = houses;
 	}
-	
+
+	/**
+	 * Adds an house/hotel to the BuildingLot if still possible.
+	 * Updates the remainingHouses and remainingHotels.
+	 */
 	public void addHouse(){
 		if (houses < 4)
 			remainingHouses--;
@@ -62,7 +71,11 @@ public class BuildingLot extends Propriety{
 			remainingHotels--;
 		houses++;
 	}
-	
+
+	/**
+	 * Takes away an house/hotel to the BuildingLot if still possible.
+	 * Updates the remainingHouses and remainingHotels.
+	 */
 	public void removeHouse(){
 		if (houses < 5)
 			remainingHouses++;

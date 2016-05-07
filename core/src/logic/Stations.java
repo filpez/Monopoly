@@ -1,5 +1,8 @@
 package logic;
 
+/**
+ * Represents the stations
+ */
 public class Stations extends Propriety {
 	private static int baseCost;
 	

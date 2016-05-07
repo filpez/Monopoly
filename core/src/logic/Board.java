@@ -2,6 +2,11 @@ package logic;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the gameboard.
+ *
+ * Has a list of players, the 40 spaces and keeps track of the current player.
+ */
 public class Board {
 	private ArrayList<Player> player;
 	private Space[] spaces;

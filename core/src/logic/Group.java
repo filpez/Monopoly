@@ -2,6 +2,11 @@ package logic;
 
 import java.util.ArrayList;
 
+/**
+ * Represents an group of proprieties
+ *
+ * Keeps the list of proprieties and the house development cost if applicable.
+ */
 public class Group {
 	private String name;
 	private ArrayList<Propriety> proprieties;
@@ -36,6 +41,13 @@ public class Group {
 	public void setHouseValue(int houseValue) {
 		this.houseValue = houseValue;
 	}
+
+
+	/**
+	 * Adds a new propriety to group.
+	 *
+	 * @param propriety - propriety to add;
+	 */
 	public void addPropriety(Propriety propriety){
 		this.proprieties.add(propriety);
 	}

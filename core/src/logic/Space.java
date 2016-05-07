@@ -1,5 +1,10 @@
 package logic;
 
+/**
+ * Represents a space on the board.
+ *
+ * Keeps the name of the Space
+ */
 public abstract class Space {
 	private String name;
 

@@ -1,5 +1,8 @@
 package logic;
 
+/**
+ * Representes an Propriety of type service
+ */
 public class Service extends Propriety {
 	private static int singleMultiplier;
 	private static int monopolyMultiplier;
