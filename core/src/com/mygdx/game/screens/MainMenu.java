@@ -5,12 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 /**
  * Created by Filipe on 07/05/2016.
@@ -78,16 +73,16 @@ public class MainMenu  implements Screen {
         batch.end();
 
         if (Gdx.input.getX() > x/2 && Gdx.input.getX() < x/2+x*4 && Gdx.input.isTouched()){
-            if(Gdx.input.getY() > y/2 && Gdx.input.getY() < y/2+y){
+            if(Gdx.input.getY() > y/2+y*4 && Gdx.input.getY() < y/2+y*5){
                 Gdx.app.exit();
             }
-            else if(Gdx.input.getY() > y/2+y && Gdx.input.getY() < y/2+y*2){
-//                game.setScreen(new Splash(game));
-//                dispose();
+            else if(Gdx.input.getY() > y/2+y*3 && Gdx.input.getY() < y/2+y*4){
+                game.setScreen(new Splash(game));
+                dispose();
             }
             else if(Gdx.input.getY() > y/2+y*2 && Gdx.input.getY() < y/2+y*3){
+                game.setScreen(new BoardScreen(game));
                 dispose();
-                game.setScreen(new Splash(game));
             }
         }
     }
