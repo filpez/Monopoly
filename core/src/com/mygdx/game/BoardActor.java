@@ -20,7 +20,9 @@ public class BoardActor extends Actor{
         this.boardBackground = new Sprite(new Texture("img/board.jpg"));
         float min = Math.min(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.boardBackground.setBounds(0, 0, min, min);
+        this.boardBackground.setOrigin(min/2, min/2);
         setBounds(0, 0, min, min);
+
 
         Gdx.app.log("BoardActor", Float.toString(min));
         this.board = board;
