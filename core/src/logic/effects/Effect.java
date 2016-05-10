@@ -9,7 +9,7 @@ public abstract class Effect {
 		this.value = value;
 	}
 
-	public abstract boolean apply();
+	public abstract boolean apply(Board board);
 
 	public int getValue() {
 		return value;

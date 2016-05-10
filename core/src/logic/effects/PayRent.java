@@ -14,8 +14,7 @@ public class PayRent extends Effect {
     }
 
     @Override
-    public boolean apply() {
-        Board board = Board.getInstance();
+    public boolean apply(Board board) {
         Player currentPlayer = board.getCurrentPlayer();
         Propriety currentSpace = (Propriety)board.getSpace(currentPlayer.getPosition());
         Player owner = currentSpace.getOwner();

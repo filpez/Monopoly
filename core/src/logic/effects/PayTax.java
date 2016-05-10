@@ -11,8 +11,7 @@ public class PayTax extends Effect {
 	}
 
 	@Override
-	public boolean apply() {
-		Board board = Board.getInstance();
+	public boolean apply(Board board) {
 		Player currentPlayer = board.getCurrentPlayer();
 		currentPlayer.pay(getValue());
 		return true;

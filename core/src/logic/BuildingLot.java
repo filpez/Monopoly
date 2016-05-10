@@ -1,5 +1,7 @@
 package logic;
 
+import logic.effects.PayRent;
+
 /**
  * Represents a Building Lot
  *
@@ -16,6 +18,7 @@ public class BuildingLot extends Propriety{
 		super(name, group, price);
 		this.rents = rents;
 		this.houses = 0;
+		this.effect = new PayRent(0);
 	}
 
 	@Override

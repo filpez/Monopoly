@@ -12,8 +12,7 @@ public class Move  extends Effect {
     }
 
     @Override
-    public boolean apply() {
-        Board board = Board.getInstance();
+    public boolean apply(Board board) {
         Player currentPlayer = board.getCurrentPlayer();
         //TO DO - avançar player
         return true;

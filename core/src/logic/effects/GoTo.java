@@ -12,8 +12,7 @@ public class GoTo extends Effect {
     }
 
     @Override
-    public boolean apply() {
-        Board board = Board.getInstance();
+    public boolean apply(Board board) {
         Player currentPlayer = board.getCurrentPlayer();
         currentPlayer.setPosition(getValue());
         //TO DO!! -> aplicar o efeito da casa que calhar

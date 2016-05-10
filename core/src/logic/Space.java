@@ -16,8 +16,8 @@ public abstract class Space {
 		this.name = name;
 	}
 
-	public boolean applyEffect(int diceValue){
-		return effect.apply();
+	public boolean applyEffect(Board board, int diceValue){
+		return effect.apply(board);
 	}
 
 	public String getName() {

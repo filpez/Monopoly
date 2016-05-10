@@ -15,23 +15,13 @@ public class Board {
 	private Space[] spaces;
 	private Player currentPlayer;
 	
-//	public Board(ArrayList<Player> player, Space[] spaces) {
-//		super();
-//		this.player = player;
-//		this.spaces = spaces;
-//	}
-
-	protected Board() {
-		this.player = new ArrayList<Player>();
-		this.spaces = new Space[40];
+	public Board(ArrayList<Player> player, Space[] spaces) {
+		super();
+		this.player = player;
+		this.spaces = spaces;
 	}
 
-	public static Board getInstance() {
-		if(instance == null) {
-			instance = new Board();
-		}
-		return instance;
-	}
+
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
