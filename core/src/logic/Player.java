@@ -12,6 +12,7 @@ public class Player {
 	private int funds;
 	private ArrayList<Propriety> proprieties;
 	private int position;
+	private boolean arrested;
 	
 	public Player(String name) {
 		super();
@@ -19,6 +20,7 @@ public class Player {
 		this.funds = 0;
 		this.proprieties = new ArrayList<Propriety>();
 		this.position = 0;
+		this.arrested = false;
 	}
 
 	public String getName() {
@@ -35,6 +37,14 @@ public class Player {
 
 	public void setFunds(int funds) {
 		this.funds = funds;
+	}
+
+	public boolean isArrested() {
+		return arrested;
+	}
+
+	public void setArrested(boolean arrested) {
+		this.arrested = arrested;
 	}
 
 	/**
@@ -63,9 +73,7 @@ public class Player {
 
 
 	public boolean canBuy(Propriety propriety){
-		if (propriety.getPrice() <= funds)
-			return true;
-		return false;
+		return (propriety.getPrice() <= funds);
 	}
 	
 	public void buy(Propriety propriety, int price, Player player){

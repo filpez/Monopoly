@@ -8,16 +8,30 @@ import java.util.ArrayList;
  * Has a list of players, the 40 spaces and keeps track of the current player.
  */
 public class Board {
+	private static Board instance = null;
+
+
 	private ArrayList<Player> player;
 	private Space[] spaces;
 	private Player currentPlayer;
 	
-	public Board(ArrayList<Player> player, Space[] spaces) {
-		super();
-		this.player = player;
-		this.spaces = spaces;
+//	public Board(ArrayList<Player> player, Space[] spaces) {
+//		super();
+//		this.player = player;
+//		this.spaces = spaces;
+//	}
+
+	protected Board() {
+		this.player = new ArrayList<Player>();
+		this.spaces = new Space[40];
 	}
 
+	public static Board getInstance() {
+		if(instance == null) {
+			instance = new Board();
+		}
+		return instance;
+	}
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}

@@ -1,5 +1,7 @@
 package logic;
 
+import logic.effects.Effect;
+
 /**
  * Represents a space on the board.
  *
@@ -7,10 +9,15 @@ package logic;
  */
 public abstract class Space {
 	private String name;
+	protected Effect effect;
 
 	public Space(String name) {
 		super();
 		this.name = name;
+	}
+
+	public boolean applyEffect(int diceValue){
+		return effect.apply();
 	}
 
 	public String getName() {

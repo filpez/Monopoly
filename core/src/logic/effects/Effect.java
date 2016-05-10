@@ -3,16 +3,20 @@ package logic.effects;
 import logic.Board;
 
 public abstract class Effect {
-	private static int value = 0;
-	
-	public abstract void apply(Board board);
+	private int value = 0;
 
-	public static int getValue() {
+	public Effect(int value) {
+		this.value = value;
+	}
+
+	public abstract boolean apply();
+
+	public int getValue() {
 		return value;
 	}
 
-	public static void setValue(int value) {
-		Effect.value = value;
+	public void setValue(int value) {
+		this.value = value;
 	}
 	
 	
