@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import monopoly.logic.BuildingLot;
-import monopoly.logic.Group;
-import monopoly.logic.Player;
-import monopoly.logic.Propriety;
+import logic.BuildingLot;
+import logic.Group;
+import logic.Player;
+import logic.Propriety;
 
 public class ProprietyTest {
 

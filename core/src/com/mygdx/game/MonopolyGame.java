@@ -21,6 +21,9 @@ public class MonopolyGame extends Game {
 		Player p = new Player("Filipe");
 		ArrayList<Player> players = new ArrayList<Player>();
 		players.add(p);
+		players.add(p);
+		players.add(p);
+		players.add(p);
 		Space[] spaces = new Space[40];
 		return new Board(players, spaces);
 	}
@@ -31,7 +34,7 @@ public class MonopolyGame extends Game {
 		//img = new Texture("badlogic.jpg");
 
 		board = generateNewBoard();
-		board.setCurrentPlayer(board.getPlayer().get(0));
+		board.setCurrentPlayer(board.getPlayers().get(0));
 		setScreen(new Splash(this));
 	}
 
