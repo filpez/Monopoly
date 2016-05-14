@@ -11,11 +11,15 @@ public class Board {
 	private ArrayList<Player> players;
 	private Space[] spaces;
 	private Player currentPlayer;
+	private String log;
+	private BoardController controller;
 	
 	public Board(ArrayList<Player> players, Space[] spaces) {
 		super();
 		this.players = players;
 		this.spaces = spaces;
+		this.log = new String("The game has started!\n");
+		this.controller = new BoardController(this);
 	}
 
 
@@ -46,5 +50,20 @@ public class Board {
 	public Space getSpace(int i){
 		return spaces[i];
 	}
-	
+
+	public String getLog() {
+		return log;
+	}
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+
+	public BoardController getController() {
+		return controller;
+	}
+
+	public void setController(BoardController controller) {
+		this.controller = controller;
+	}
 }

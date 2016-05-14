@@ -12,7 +12,7 @@ public class Player {
 	private int funds;
 	private ArrayList<Propriety> proprieties;
 	private int position;
-	private boolean arrested;
+	private int remainingArrestedTurns;
 	
 	public Player(String name) {
 		super();
@@ -20,7 +20,7 @@ public class Player {
 		this.funds = 0;
 		this.proprieties = new ArrayList<Propriety>();
 		this.position = 0;
-		this.arrested = false;
+		this.remainingArrestedTurns = 0;
 	}
 
 	public String getName() {
@@ -40,11 +40,15 @@ public class Player {
 	}
 
 	public boolean isArrested() {
-		return arrested;
+		return remainingArrestedTurns > 0;
 	}
 
-	public void setArrested(boolean arrested) {
-		this.arrested = arrested;
+	public int getRemainingArrestedTurns() {
+		return remainingArrestedTurns;
+	}
+
+	public void setRemainingArrestedTurns(int remainingArrestedTurns) {
+		this.remainingArrestedTurns = remainingArrestedTurns;
 	}
 
 	/**
