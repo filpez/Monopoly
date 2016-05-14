@@ -25,7 +25,7 @@ public class BoardActor extends Actor{
         this.boardBackground = new Sprite(new Texture("img/board.jpg"));
         float min = Math.min(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.boardBackground.setBounds(0, 0, min, min);
-        setOrigin(min/2, min/2);
+       // setOrigin(min/2, min/2);
         setBounds(0, 0, min, min);
         this.pSize = min/26;
 
@@ -63,13 +63,13 @@ public class BoardActor extends Actor{
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
+       // int currentPosition = board.getCurrentPlayer().getPosition();
+       // setRotation(90 * (currentPosition/10));
         boardBackground.draw(batch);
-        for (int i = 0; i < board.getPlayers().size(); i++){
+        for (int i = 0; i < board.getPlayers().size(); i++) {
             Player p = board.getPlayers().get(i);
             drawPlayer(batch, p, i);
         }
-        int currentPosition = board.getCurrentPlayer().getPosition();
-        setRotation(90 * (currentPosition/10));
 
 
     }
