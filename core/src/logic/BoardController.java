@@ -48,8 +48,6 @@ public class BoardController {
             addActionToLog(" moved to " + board.getSpace(nextPosition).getName() + ".\n");
             return true;
         }
-
-
     }
 
     public void addActionToLog(String log) {

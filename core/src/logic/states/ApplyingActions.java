@@ -18,9 +18,7 @@ public class ApplyingActions implements State{
     public void next(BoardController boardController) {
         Board board = boardController.getBoard();
         int currPos = board.getCurrentPlayer().getPosition();
-        board.getSpace(currPos).applyEffect(board, boardController.getLastMovement());
-
-        boardController.setState(new ThrowingDice());
-
+        if(board.getSpace(currPos).applyEffect(board, boardController.getLastMovement()))
+            boardController.setState(new WaitingNextTurn());
     }
 }

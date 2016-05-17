@@ -16,6 +16,6 @@ public class GoTo extends Effect {
         Player currentPlayer = board.getCurrentPlayer();
         currentPlayer.setPosition(getValue());
         //TO DO!! -> aplicar o efeito da casa que calhar
-        return true;
+        return false;
     }
 }

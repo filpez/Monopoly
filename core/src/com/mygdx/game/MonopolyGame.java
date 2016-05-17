@@ -21,15 +21,18 @@ public class MonopolyGame extends Game {
 
 	//TO DO move to another class
 	public Board generateNewBoard(){
-		Player p = new Player("Filipe");
+		Player p1 = new Player("Filipe");
+		Player p2 = new Player("derp");
+		Player p3 = new Player("derpina");
+		Player p4 = new Player("Loli");
 		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(p);
-		players.add(p);
-		players.add(p);
-		players.add(p);
+		players.add(p1);
+		players.add(p2);
+		players.add(p3);
+		players.add(p4);
 		Space[] spaces = new Space[40];
 		for (int i = 0; i < 40; i++)
-			spaces[i] = new TransactionSpace("Lisbon", 0);
+			spaces[i] = new TransactionSpace("Lisbon", 1);
 		return new Board(players, spaces);
 	}
 

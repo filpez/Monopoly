@@ -27,4 +27,12 @@ public abstract class Space {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Effect getEffect() {
+		return effect;
+	}
+
+	public void setEffect(Effect effect) {
+		this.effect = effect;
+	}
 }

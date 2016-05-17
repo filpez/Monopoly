@@ -23,8 +23,8 @@ public class PayRent extends Effect {
             currentPlayer.pay(rent);
             owner.receive(rent);
             board.getController().addActionToLog(" paid " + getValue() + " to " + owner.getName() +"!\n");
-            return true;
+            //return true;
         }
-        return false;
+        return true;
     }
 }

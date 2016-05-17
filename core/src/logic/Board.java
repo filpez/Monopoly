@@ -66,4 +66,12 @@ public class Board {
 	public void setController(BoardController controller) {
 		this.controller = controller;
 	}
+
+	public Player nextPlayer(){
+		for (int i = 0; i < players.size(); i++){
+			if (currentPlayer == players.get(i))
+				return players.get((i + 1) %  players.size());
+		}
+		return null;
+	}
 }

@@ -6,8 +6,8 @@ import logic.Player;
 /**
  * Created by Claudia Marinho on 10/05/2016.
  */
-public class GoToPrison extends Effect {
-    public GoToPrison(int value) {
+public class GoToJail extends Effect {
+    public GoToJail(int value) {
         super(value);
     }
 
