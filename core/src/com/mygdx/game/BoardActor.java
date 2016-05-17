@@ -22,7 +22,7 @@ public class BoardActor extends Actor{
     private float pSize;
 
     public BoardActor(logic.Board board){
-        this.boardBackground = new Sprite(new Texture("img/board.jpg"));
+        this.boardBackground = new Sprite(new Texture("img/board.png"));
         float min = Math.min(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.boardBackground.setBounds(0, 0, min, min);
        // setOrigin(min/2, min/2);
@@ -88,7 +88,7 @@ public class BoardActor extends Actor{
         else if (p.getPosition() < 30)
             this.playerSprites[i].setPosition(s,boardSize -  t - pSize);
         else
-            this.playerSprites[i].setPosition(boardSize - t - pSize, boardSize -   s);
+            this.playerSprites[i].setPosition(boardSize - t - pSize, boardSize - s  - pSize);
         this.playerSprites[i].draw(batch);
     }
 

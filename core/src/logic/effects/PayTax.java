@@ -14,6 +14,15 @@ public class PayTax extends Effect {
 	public boolean apply(Board board) {
 		Player currentPlayer = board.getCurrentPlayer();
 		currentPlayer.pay(getValue());
-		return true;
+
+		if (getValue() == 0)
+			return false;
+		else {
+			if (getValue() > 0)
+				board.getController().addActionToLog(" paid " + getValue() + " to Bank!\n");
+			else
+				board.getController().addActionToLog(" received " + getValue() + " from Bank!\n");
+			return true;
+		}
 	}
 }

@@ -37,4 +37,9 @@ public class Service extends Propriety {
 			return diceValue * singleMultiplier;
 	}
 
+	@Override
+	public boolean applyEffect(Board board, int diceValue) {
+		effect.setValue(diceValue);
+		return super.applyEffect(board, diceValue);
+	}
 }

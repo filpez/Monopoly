@@ -19,25 +19,11 @@ public class ThrowingDice implements State{
         Random rand = new Random();
         int a = rand.nextInt(6) + 1;
         int b = rand.nextInt(6) + 1;
-        boolean doubles = (a == b);
-        String s = new String("has throwed the dice for ");
-        s = " has throwed the dice for " + a + " and " + b + "!\n";
+        String s = new String(" has throwed the dice for " + a + " and " + b + "!\n");
+        //s = " has throwed the dice for " + a + " and " + b + "!\n";
         boardController.addActionToLog(s);
 
-        if (doubles) {
-            s = " got doubles!\n";
-            boardController.addActionToLog(s);
-        }
-
-        if(boardController.move(a+b, doubles)) {
-            Board board = boardController.getBoard();
-            int newPos = board.getCurrentPlayer().getPosition();
-            s = " moved to " + board.getSpace(newPos).getName() + ".\n";
-        }
-        else{
-            s = " is jailed!\n";
-        }
-        boardController.addActionToLog(s);
+        boardController.move(a+b, (a == b));
 
         boardController.setState(new ApplyingActions());
     }

@@ -14,8 +14,9 @@ public class GoToPrison extends Effect {
     @Override
     public boolean apply(Board board) {
         Player currentPlayer = board.getCurrentPlayer();
-        currentPlayer.setRemainingArrestedTurns(3);
+        currentPlayer.setRemainingArrestedTurns(2);
         currentPlayer.setPosition(10);
+        board.getController().addActionToLog(" was sent to Jail!\n");
         return true;
     }
 }

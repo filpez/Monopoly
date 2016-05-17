@@ -19,9 +19,10 @@ public class PayRent extends Effect {
         Propriety currentSpace = (Propriety)board.getSpace(currentPlayer.getPosition());
         Player owner = currentSpace.getOwner();
         if(owner != null && owner != currentPlayer){
-            int rent = currentSpace.getRent(0);
-            currentPlayer.pay(rent); //TO DO dice value!!!!!!!!!!!!!!!!!
+            int rent = currentSpace.getRent(getValue());
+            currentPlayer.pay(rent);
             owner.receive(rent);
+            board.getController().addActionToLog(" paid " + getValue() + " to " + owner.getName() +"!\n");
             return true;
         }
         return false;
