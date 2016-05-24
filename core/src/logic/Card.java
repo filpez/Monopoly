@@ -1,6 +1,7 @@
 package logic;
 
 import logic.effects.Effect;
+import logic.effects.Move;
 
 /**
  * Represents an Card.
@@ -12,13 +13,11 @@ import logic.effects.Effect;
 public class Card {
 	private String text;
 	private Effect effect;
-	private int value;
 	
-	public Card(String text, Effect effect, int value) {
+	public Card(String text, String effect, int value) {
 		super();
 		this.text = text;
-		this.effect = effect;
-		this.value = value;
+		this.effect = createEffect(effect, value);
 	}
 
 	public String getText() {
@@ -33,10 +32,9 @@ public class Card {
 	public void setEffect(Effect effect) {
 		this.effect = effect;
 	}
-	public int getValue() {
-		return value;
+	private Effect createEffect(String effect, int value){
+		return new Move(value);
 	}
-	public void setValue(int value) {
-		this.value = value;
-	}
+
+
 }

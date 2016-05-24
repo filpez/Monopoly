@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class Board {
 	private ArrayList<Player> players;
 	private Space[] spaces;
+	private Deck community;
+	private Deck chance;
 	private Player currentPlayer;
 	private String log;
 	private BoardController controller;
@@ -22,6 +24,13 @@ public class Board {
 		this.controller = new BoardController(this);
 	}
 
+	public Board(ArrayList<Player> players, Space[] spaces, Deck community, Deck chance) {
+		this(players, spaces);
+		this.chance = chance;
+		this.chance.shuffle();
+		this.community = community;
+		this.community.shuffle();
+	}
 
 	public Player getCurrentPlayer() {
 		return currentPlayer;
@@ -73,5 +82,21 @@ public class Board {
 				return players.get((i + 1) %  players.size());
 		}
 		return null;
+	}
+
+	public Deck getCommunity() {
+		return community;
+	}
+
+	public void setCommunity(Deck community) {
+		this.community = community;
+	}
+
+	public Deck getChance() {
+		return chance;
+	}
+
+	public void setChance(Deck chance) {
+		this.chance = chance;
 	}
 }

@@ -43,6 +43,8 @@ public class BoardController {
             if (currentPlayer.getPosition() + i >= 40)
                 currentPlayer.receive(2000);
             int nextPosition = (currentPlayer.getPosition() + i) % 40;
+            if(nextPosition < 0)
+                nextPosition = 40 + nextPosition;
             lastMovement = i;
             currentPlayer.setPosition(nextPosition);
             addActionToLog(" moved to " + board.getSpace(nextPosition).getName() + ".\n");
