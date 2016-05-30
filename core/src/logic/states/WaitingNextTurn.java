@@ -9,8 +9,8 @@ import logic.Player;
  */
 public class WaitingNextTurn implements State{
     @Override
-    public void buy(BoardController boardController, int i) {
-        boardController.addMessageToLog("You can't buy right now.");
+    public void buy(BoardController boardController) {
+
     }
 
     @Override
