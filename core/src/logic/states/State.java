@@ -7,5 +7,5 @@ import logic.BoardController;
  */
 public interface State {
     public void next(BoardController boardController);
-    public void buy(BoardController boardController);
+    public void buy(BoardController boardController, int i);
 }

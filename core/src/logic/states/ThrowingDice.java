@@ -10,8 +10,8 @@ import logic.BoardController;
  */
 public class ThrowingDice implements State{
     @Override
-    public void buy(BoardController boardController) {
-
+    public void buy(BoardController boardController, int i) {
+        boardController.addMessageToLog("You can't buy right now.");
     }
 
     @Override
