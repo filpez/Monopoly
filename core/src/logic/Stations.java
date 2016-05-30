@@ -9,8 +9,6 @@ public class Stations extends Propriety {
 	public Stations(String name, Group group, int price) {
 		super(name, group, price);
 	}
-
-
 	
 	public static int getBaseCost() {
 		return baseCost;
