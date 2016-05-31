@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.BoardActor;
 import com.mygdx.game.MonopolyGame;
+import com.mygdx.game.SpacesActor;
 
 /**
  * Created by Filipe on 07/05/2016.
@@ -25,6 +26,14 @@ public class BoardScreen implements Screen {
 
     private ScrollPane LogPanel;
     private Stage stage;
+
+    private Actor actor;
+    private BoardActor boardActor;
+    private SpacesActor spacesActor;
+    private TextButton SpacesButton;
+    private TextButton NextButton;
+
+    private boolean spacesActorOn = false;
 
     public BoardScreen(Game game) {
         this.game = (MonopolyGame)game;
@@ -36,22 +45,35 @@ public class BoardScreen implements Screen {
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
-        BoardActor actor = new BoardActor(game.board);
+        boardActor = new BoardActor(game.board);
+        spacesActor = new SpacesActor(game.board);
+        actor = boardActor;
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
-        TextButton SpacesButton = new TextButton("Spaces", skin);
+        SpacesButton = new TextButton("Spaces", skin);
         SpacesButton.setPosition(actor.getWidth(),0);
         SpacesButton.setBounds(actor.getWidth(),0, (stage.getWidth()-actor.getWidth())/2, actor.getHeight()/5);
         SpacesButton.getLabel().setFontScale(5.0f);
 
         SpacesButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-
+                if (!spacesActorOn) {
+                    SpacesButton.getLabel().setText("Board");
+                    stage.addActor(spacesActor);
+                    boardActor.remove();
+                    spacesActorOn = true;
+                }
+                else  {
+                    SpacesButton.getLabel().setText("Spaces");
+                    stage.addActor(boardActor);
+                    spacesActor.remove();
+                    spacesActorOn = false;
+                }
             }
         });
 
-        TextButton NextButton = new TextButton("Next", skin);
+        NextButton = new TextButton("Next", skin);
         NextButton.setPosition(actor.getWidth(),0);
         NextButton.setBounds(actor.getWidth() + SpacesButton.getWidth(),0, (stage.getWidth()-actor.getWidth())/2, actor.getHeight()/5);
         NextButton.getLabel().setFontScale(5.0f);
@@ -72,7 +94,8 @@ public class BoardScreen implements Screen {
 
 
 
-        stage.addActor(actor);
+        //stage.addActor(actor);
+        stage.addActor(boardActor);
         stage.addActor(SpacesButton);
         stage.addActor(NextButton);
         stage.addActor(LogPanel);

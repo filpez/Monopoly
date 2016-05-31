@@ -68,11 +68,13 @@ public class BuildingLot extends Propriety{
 	 * Updates the remainingHouses and remainingHotels.
 	 */
 	public void addHouse(){
-		if (houses < 4)
-			remainingHouses--;
-		else
-			remainingHotels--;
-		houses++;
+		if (houses < 5) {
+			if (houses < 4)
+				remainingHouses--;
+			else
+				remainingHotels--;
+			houses++;
+		}
 	}
 
 	/**
@@ -80,11 +82,13 @@ public class BuildingLot extends Propriety{
 	 * Updates the remainingHouses and remainingHotels.
 	 */
 	public void removeHouse(){
-		if (houses < 5)
-			remainingHouses++;
-		else
-			remainingHotels++;
-		houses--;
+		if (houses > 0) {
+			if (houses < 5)
+				remainingHouses++;
+			else
+				remainingHotels++;
+			houses--;
+		}
 	}
 
 

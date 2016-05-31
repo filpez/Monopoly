@@ -40,8 +40,6 @@ public class BoardActor extends Actor{
         }
 
 
-
-
         Gdx.app.log("BoardActor", Float.toString(min));
         this.board = board;
         setTouchable(Touchable.enabled);
