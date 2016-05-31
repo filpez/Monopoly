@@ -14,10 +14,8 @@ public class WaitingNextTurn implements State{
 
     @Override
     public void next(BoardController boardController) {
-        boardController.getBoard().addActionToLog(" turn has ended!\n");
         Board board = boardController.getBoard();
-        board.setCurrentPlayer(board.nextPlayer());
-        boardController.getBoard().addActionToLog(" turn started!\n");
+        board.endTurn();
         boardController.setState(new ThrowingDice());
     }
 }

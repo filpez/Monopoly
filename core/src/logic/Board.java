@@ -14,7 +14,6 @@ public class Board {
 	private Deck chance;
 	private Player currentPlayer;
 	private String log;
-	//private BoardController controller;
 	private int lastMovement = 0;
 	
 	public Board(ArrayList<Player> players, Space[] spaces) {
@@ -22,7 +21,6 @@ public class Board {
 		this.players = players;
 		this.spaces = spaces;
 		this.log = new String("The game has started!\n");
-		//this.controller = new BoardController(this);
 	}
 
 	public Board(ArrayList<Player> players, Space[] spaces, Deck community, Deck chance) {
@@ -68,14 +66,6 @@ public class Board {
 	public void setLog(String log) {
 		this.log = log;
 	}
-/*
-	public BoardController getController() {
-		return controller;
-	}
-
-	public void setController(BoardController controller) {
-		this.controller = controller;
-	}*/
 
 	public Player nextPlayer(){
 		for (int i = 0; i < players.size(); i++){
@@ -143,4 +133,16 @@ public class Board {
             return true;
         }
     }
+
+	public boolean applyCurrentSpaceEffect() {
+		int currPos = getCurrentPlayer().getPosition();
+		return getSpace(currPos).applyEffect(this, getLastMovement());
+	}
+
+	public void endTurn() {
+		addActionToLog(" turn has ended!\n");
+		setCurrentPlayer(nextPlayer());
+		addActionToLog(" turn started!\n");
+	}
+
 }

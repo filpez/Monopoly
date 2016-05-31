@@ -40,8 +40,7 @@ public class ApplyingActions implements State{
     @Override
     public void next(BoardController boardController) {
         Board board = boardController.getBoard();
-        int currPos = board.getCurrentPlayer().getPosition();
-        if(board.getSpace(currPos).applyEffect(board, boardController.getBoard().getLastMovement()))
+        if(board.applyCurrentSpaceEffect())
             boardController.setState(new WaitingNextTurn());
     }
 }
