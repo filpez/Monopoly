@@ -17,7 +17,7 @@ public class DrawCommunity extends Effect{
         Deck community = board.getCommunity();
         Card card = community.getNextCard();
         community.shuffle();
-        board.getController().addMessageToLog(card.getText());
+        board.addMessageToLog(card.getText());
         return card.getEffect().apply(board);
     }
 }

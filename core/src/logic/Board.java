@@ -14,14 +14,15 @@ public class Board {
 	private Deck chance;
 	private Player currentPlayer;
 	private String log;
-	private BoardController controller;
+	//private BoardController controller;
+	private int lastMovement = 0;
 	
 	public Board(ArrayList<Player> players, Space[] spaces) {
 		super();
 		this.players = players;
 		this.spaces = spaces;
 		this.log = new String("The game has started!\n");
-		this.controller = new BoardController(this);
+		//this.controller = new BoardController(this);
 	}
 
 	public Board(ArrayList<Player> players, Space[] spaces, Deck community, Deck chance) {
@@ -67,14 +68,14 @@ public class Board {
 	public void setLog(String log) {
 		this.log = log;
 	}
-
+/*
 	public BoardController getController() {
 		return controller;
 	}
 
 	public void setController(BoardController controller) {
 		this.controller = controller;
-	}
+	}*/
 
 	public Player nextPlayer(){
 		for (int i = 0; i < players.size(); i++){
@@ -99,4 +100,47 @@ public class Board {
 	public void setChance(Deck chance) {
 		this.chance = chance;
 	}
+
+	public void addActionToLog(String log) {
+        setLog(getCurrentPlayer().getName() + log + getLog());
+    }
+
+	public void addMessageToLog(String log) {
+        setLog(log + getLog());
+    }
+
+	public int getLastMovement() {
+		return lastMovement;
+	}
+
+	public void setLastMovement(int lastMovement) {
+		this.lastMovement = lastMovement;
+	}
+
+	public boolean move(int i, boolean doubles){
+        Player currentPlayer = getCurrentPlayer();
+        setLastMovement(0);
+
+        if (doubles) {
+            currentPlayer.setRemainingArrestedTurns(0);
+           addActionToLog(" got doubles!\n");
+        }
+
+        if (currentPlayer.isArrested()) {
+            currentPlayer.setRemainingArrestedTurns(currentPlayer.getRemainingArrestedTurns() - 1);
+            addActionToLog(" is jailed!\n");
+            return false;
+        }
+        else{
+            if (currentPlayer.getPosition() + i >= 40)
+                currentPlayer.receive(2000);
+            int nextPosition = (currentPlayer.getPosition() + i) % 40;
+            if(nextPosition < 0)
+                nextPosition = 40 + nextPosition;
+            setLastMovement(i);
+            currentPlayer.setPosition(nextPosition);
+           addActionToLog(" moved to " + getSpace(nextPosition).getName() + ".\n");
+            return true;
+        }
+    }
 }

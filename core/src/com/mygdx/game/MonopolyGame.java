@@ -43,7 +43,7 @@ public class MonopolyGame extends Game {
 
 		board = generateNewBoard();
 		board.setCurrentPlayer(board.getPlayers().get(0));
-		controller = board.getController();
+		controller = new BoardController(board);
 		setScreen(new Splash(this));
 	}
 

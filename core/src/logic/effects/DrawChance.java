@@ -17,7 +17,7 @@ public class DrawChance extends Effect{
         Deck chance = board.getChance();
         Card card = chance.getNextCard();
         chance.shuffle();
-        board.getController().addMessageToLog(card.getText());
+        board.addMessageToLog(card.getText());
         return card.getEffect().apply(board);
     }
 }

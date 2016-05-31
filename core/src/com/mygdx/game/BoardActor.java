@@ -21,7 +21,7 @@ public class BoardActor extends Actor{
     private Sprite[] playerSprites;
     private float pSize;
 
-    public BoardActor(logic.Board board){
+    public BoardActor(logic.BoardController controller){
         this.boardBackground = new Sprite(new Texture("img/board.png"));
         float min = Math.min(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.boardBackground.setBounds(0, 0, min, min);
@@ -41,7 +41,7 @@ public class BoardActor extends Actor{
 
 
         Gdx.app.log("BoardActor", Float.toString(min));
-        this.board = board;
+        this.board = controller.getBoard();
         setTouchable(Touchable.enabled);
 
         addListener(new InputListener(){

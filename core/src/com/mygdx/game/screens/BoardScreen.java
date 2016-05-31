@@ -45,8 +45,8 @@ public class BoardScreen implements Screen {
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
-        boardActor = new BoardActor(game.board);
-        spacesActor = new SpacesActor(game.board);
+        boardActor = new BoardActor(game.controller);
+        spacesActor = new SpacesActor(game.controller);
         actor = boardActor;
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));

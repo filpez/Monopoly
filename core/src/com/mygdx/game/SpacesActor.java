@@ -27,15 +27,15 @@ import logic.TransactionSpace;
  * Created by Filipe on 07/05/2016.
  */
 public class SpacesActor extends Group{
-    private logic.Board board;
+    private logic.BoardController controller;
     private int currSpaceIndex = 0;
     Label spaceText;
 
-    public SpacesActor(logic.Board board){
+    public SpacesActor(logic.BoardController controller){
         float min = Math.min(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         setBounds(getX(), getY(), min, min);
 
-        this.board = board;
+        this.controller = controller;
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
@@ -72,7 +72,7 @@ public class SpacesActor extends Group{
         BuyButton.getLabel().setFontScale(3.0f);
         BuyButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                BoardController controller = SpacesActor.this.board.getController();
+                BoardController controller = SpacesActor.this.controller;
                 //controller.getState().buy(controller, currSpace);
             }
         });
@@ -82,7 +82,7 @@ public class SpacesActor extends Group{
         SellButton.getLabel().setFontScale(3.0f);
         SellButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                BoardController controller = SpacesActor.this.board.getController();
+                BoardController controller = SpacesActor.this.controller;
                 //controller.getState().sell(controller, currSpace);
             }
         });
@@ -96,7 +96,7 @@ public class SpacesActor extends Group{
     }
 
     void updateText(){
-        Space currSpace = board.getSpace(currSpaceIndex);
+        Space currSpace = controller.getBoard().getSpace(currSpaceIndex);
         String s;
         if (currSpace instanceof TransactionSpace)
             s = TransactionSpaceText((TransactionSpace)currSpace);

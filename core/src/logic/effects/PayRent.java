@@ -3,7 +3,6 @@ package logic.effects;
 import logic.Board;
 import logic.Player;
 import logic.Propriety;
-import logic.Space;
 
 /**
  * Created by Claudia Marinho on 10/05/2016.
@@ -19,10 +18,10 @@ public class PayRent extends Effect {
         Propriety currentSpace = (Propriety)board.getSpace(currentPlayer.getPosition());
         Player owner = currentSpace.getOwner();
         if(owner != null && owner != currentPlayer){
-            int rent = currentSpace.getRent(board.getController().getLastMovement());
+            int rent = currentSpace.getRent(board.getLastMovement());
             currentPlayer.pay(rent);
             owner.receive(rent);
-            board.getController().addActionToLog(" paid " + getValue() + " to " + owner.getName() +"!\n");
+            board.addActionToLog(" paid " + getValue() + " to " + owner.getName() +"!\n");
             //return true;
         }
         return true;

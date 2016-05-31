@@ -16,7 +16,7 @@ public class GoToJail extends Effect {
         Player currentPlayer = board.getCurrentPlayer();
         currentPlayer.setRemainingArrestedTurns(2);
         currentPlayer.setPosition(10);
-        board.getController().addActionToLog(" was sent to Jail!\n");
+        board.addActionToLog(" was sent to Jail!\n");
         return true;
     }
 }
