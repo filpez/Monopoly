@@ -7,16 +7,14 @@ import java.util.ArrayList;
 
 import logic.Board;
 import logic.BoardController;
+import logic.BoardControllerClient;
 import logic.Player;
 import logic.Space;
 import logic.TransactionSpace;
 
 
 public class MonopolyGame extends Game {
-	//SpriteBatch batch;
-	//Texture img;
-
-	public Board board;
+	//public Board board;
 	public BoardController controller;
 
 	//TO DO move to another class
@@ -40,10 +38,10 @@ public class MonopolyGame extends Game {
 	public void create () {
 		//batch = new SpriteBatch();
 		//img = new Texture("badlogic.jpg");
-
+		Board board;
 		board = generateNewBoard();
 		board.setCurrentPlayer(board.getPlayers().get(0));
-		controller = new BoardController(board);
+		controller = new BoardControllerClient(board);
 		setScreen(new Splash(this));
 	}
 

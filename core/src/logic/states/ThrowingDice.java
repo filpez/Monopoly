@@ -2,6 +2,7 @@ package logic.states;
 
 import java.util.Random;
 
+import logic.Board;
 import logic.BoardController;
 
 /**
@@ -15,14 +16,11 @@ public class ThrowingDice implements State{
 
     @Override
     public void next(BoardController boardController) {
-        Random rand = new Random();
-        int a = rand.nextInt(6) + 1;
-        int b = rand.nextInt(6) + 1;
-        String s = new String(" has throwed the dice for " + a + " and " + b + "!\n");
-        //s = " has throwed the dice for " + a + " and " + b + "!\n";
-        boardController.getBoard().addActionToLog(s);
+        Board board = boardController.getBoard();
+        int a = board.throwDice();
+        int b =  board.throwDice();
 
-        boardController.board.move(a+b, (a == b));
+        boardController.getBoard().move(a+b, (a == b));
 
         boardController.setState(new ApplyingActions());
     }

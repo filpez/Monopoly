@@ -1,16 +1,25 @@
 package logic;
 
+import java.util.ArrayList;
+
 import logic.states.State;
 import logic.states.ThrowingDice;
 
 /**
  * Created by Filipe on 13/05/2016.
  */
-public class BoardController {
-    protected Board board;
-    protected State state;
+public class BoardControllerServer extends BoardController{
+    ArrayList<Player> players;
+    public Board board;
+    private State state;
 
-    public BoardController() {
+    public BoardControllerServer() {
+        super();
+        players = new ArrayList<Player>();
+    }
+
+    public void addPlayer(String name){
+        players.add(new Player(name));
     }
 
     public Board getBoard() {

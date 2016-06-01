@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Represents the gameboard.
@@ -143,6 +144,19 @@ public class Board {
 		addActionToLog(" turn has ended!\n");
 		setCurrentPlayer(nextPlayer());
 		addActionToLog(" turn started!\n");
+	}
+
+	public int throwDice() {
+		Random rand = new Random();
+		int value = rand.nextInt(6) + 1;
+		String s = new String(" has throwed the dice for " + value +"!\n");
+		addActionToLog(s);
+		return value;
+	}
+
+	public void throwDice(int value) {
+		String s = new String(" has throwed the dice for " + value +"!\n");
+		addActionToLog(s);
 	}
 
 }

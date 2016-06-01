@@ -82,11 +82,11 @@ public class BoardScreen implements Screen {
             public void changed (ChangeEvent event, Actor actor) {
                 game.controller.getState().next(game.controller);
                 Label l = (Label)LogPanel.getWidget();
-                l.setText(game.board.getLog());
+                l.setText(game.controller.getBoard().getLog());
             }
         });
 
-        Label LogLabel = new Label(game.board.getLog(), skin);
+        Label LogLabel = new Label(game.controller.getBoard().getLog(), skin);
         LogLabel.setFontScale(2.0f);
         LogLabel.setAlignment(Align.bottomLeft);
         LogPanel = new ScrollPane(LogLabel);

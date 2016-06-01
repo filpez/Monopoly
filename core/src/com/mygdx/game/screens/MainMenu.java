@@ -2,47 +2,111 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.MonopolyGame;
+
+import java.net.InetAddress;
+import java.util.ArrayList;
+
+import logic.BoardController;
+import logic.BoardControllerServer;
+import logic.Player;
 
 /**
  * Created by Filipe on 07/05/2016.
  */
 public class MainMenu  implements Screen {
-    private final Game game;
+    private final MonopolyGame game;
 
-    private SpriteBatch batch;
-    private Texture heading, background, startButton, exitButton, settingsButton;
+    private Stage stage;
+
+    private ImageButton startButton, exitButton, settingsButton;
+    private Image heading, background;
+    private Dialog dialog;
+
+    private int x = Gdx.graphics.getWidth()/6;
+    private int y = Gdx.graphics.getHeight()/6;
+
+    //private SpriteBatch batch;
+   // private Texture heading, background, startButton, exitButton, settingsButton;
 
    /* Skin skin;
     Stage stage;
     public ImageButton startButton, exitButton, settingsButton;*/
 
     public MainMenu(Game game) {
-        this.game = game;
+        this.game = (MonopolyGame)game;
         create();
     }
 
     private void create(){
-        batch = new SpriteBatch();
-        startButton = new Texture("img/start_button.png");
-        exitButton = new Texture("img/exit_button.png");
-        settingsButton = new Texture("img/settings_button.png");
-        background = new Texture("img/main_menu_background.jpg");
-        heading = new Texture("img/main_menu_logo.png");
+       // ScreenViewport viewport = new ScreenViewport();
+        //stage = new Stage(viewport);
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+
+        TextureRegionDrawable startButtonDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("img/start_button.png")));
+        startButton = new ImageButton(startButtonDrawable);
+        startButton.setBounds(x, y/2+y*2, x*4, y);
+        startButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                startGame();
+            }
+        });
+
+        TextureRegionDrawable exitButtonDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("img/exit_button.png")));
+        exitButton = new ImageButton(exitButtonDrawable);
+        exitButton.setBounds(x, y/2, x*4, y);
+        exitButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
+
+        TextureRegionDrawable  settingsButtonDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("img/settings_button.png")));
+        settingsButton = new ImageButton( settingsButtonDrawable);
+        settingsButton.setBounds(x, y/2+y, x*4, y);
+        settingsButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
+
+        background = new Image(new Texture("img/main_menu_background.jpg"));
+
+        heading =new Image( new Texture("img/main_menu_logo.png"));
+        heading.setBounds(x/2, y/2+y*3, x*5, y*5/2);;
+
+        stage.addActor(background);
+        stage.addActor(startButton);
+        stage.addActor(exitButton);
+        stage.addActor(settingsButton);
+        stage.addActor(heading);
     }
 
 
     @Override
     public void dispose() {
-        startButton.dispose();
-        exitButton.dispose();
-        settingsButton.dispose();
-        background.dispose();
-        heading.dispose();
-        batch.dispose();
+        stage.dispose();
     }
 
     @Override
@@ -60,31 +124,130 @@ public class MainMenu  implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.begin();
-        int x = Gdx.graphics.getWidth()/6;
-        int y = Gdx.graphics.getHeight()/6;
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+    }
 
-        batch.draw(background,0,0);
-        batch.draw(exitButton, x, y/2, x*4, y);
-        batch.draw(settingsButton, x, y/2+y, x*4, y);
-        batch.draw(startButton, x, y/2+y*2, x*4, y);
-        batch.draw(heading, x/2, y/2+y*3, x*5, y*5/2);
+    private void cancelDialog(){
+        Gdx.input.setCatchBackKey(false);
+        game.setScreen(new MainMenu(game));
+        dispose();
+    }
 
-        batch.end();
-
-        if (Gdx.input.getX() > x/2 && Gdx.input.getX() < x/2+x*4 && Gdx.input.isTouched()){
-            if(Gdx.input.getY() > y/2+y*4 && Gdx.input.getY() < y/2+y*5){
-                Gdx.app.exit();
+    private void startGame() {
+        Gdx.input.setCatchBackKey(true);
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        dialog = new Dialog("", skin, "default") {
+            public void result(Object obj) {
+                if (obj.equals("cancel"))
+                    cancelDialog();
             }
-            else if(Gdx.input.getY() > y/2+y*3 && Gdx.input.getY() < y/2+y*4){
-                game.setScreen(new Splash(game));
-                dispose();
-            }
-            else if(Gdx.input.getY() > y/2+y*2 && Gdx.input.getY() < y/2+y*3){
+        };
+        Label label = new Label("Do you want to join a server?", skin);
+        label.setWrap(true);
+        label.setFontScale(5.0f);
+        label.setAlignment(Align.center);
+
+        dialog.padTop(50).padBottom(50);
+        dialog.getContentTable().add(label).width(x*4).height(y).row();
+        dialog.getButtonTable().padTop(50);
+
+        TextButton yesButton = new TextButton("Yes", skin);
+        yesButton.getLabel().setFontScale(5.0f);
+        yesButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                //startGameClient();
+                dialog.hide();
                 game.setScreen(new BoardScreen(game));
-                dispose();
             }
+        });
+
+        TextButton noButton = new TextButton("No", skin);
+        noButton.getLabel().setFontScale(5.0f);
+        noButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                dialog.hide();
+                startGameServer();
+            }
+        });
+
+        TextButton cancelButton = new TextButton("Cancel", skin);
+        cancelButton.getLabel().setFontScale(5.0f);
+        cancelButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                cancelDialog();
+            }
+        });
+
+        Table t = dialog.getButtonTable();
+        t.add(cancelButton).width(x).pad(x/10);
+        t.add(noButton).width(x).pad(x/10);
+        t.add(yesButton).width(x).pad(x/10).row();
+
+        dialog.key(Input.Keys.BACK, "cancel");
+        dialog.show(stage);
+    }
+
+    private void startGameServer() {
+        BoardControllerServer server = new BoardControllerServer();
+        game.controller = server;
+        server.addPlayer("Filipe");
+
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));dialog = new Dialog("", skin, "default") {
+            public void result(Object obj) {
+                if (obj.equals("cancel"))
+                    game.setScreen(new MainMenu(game));
+                dispose();
+
+            }
+        };
+        Label label = new Label("Press Start when you are ready!", skin);
+        label.setWrap(true);
+        label.setFontScale(5.0f);
+        label.setAlignment(Align.center);
+
+        String IPaddress = "";
+        try {
+            /*ChatServer chatServer = new ChatServer();
+            CallHandler callHandler = new CallHandler();
+            callHandler.registerGlobal(ChatServerInterface.class, chatServer);
+            Server server = new Server();*/
+            int thePortIWantToBind = 4456;
+            //server.bind(thePortIWantToBind, callHandler);
+            InetAddress IP = InetAddress.getLocalHost();
+            IPaddress = IP.getHostAddress();
+            //System.err.println("Server ready at " + IP.getHostAddress() + " port " + 4456);
+        } catch (Exception e) {
+            System.err.println("Server exception: " + e.toString());
+            e.printStackTrace();
+            cancelDialog();
         }
+        Label label2 = new Label("IP: "+ IPaddress, skin);
+        label2.setWrap(true);
+        label2.setFontScale(5.0f);
+        label2.setAlignment(Align.center);
+
+        dialog.padTop(50).padBottom(50);
+        dialog.getContentTable().add(label).width(x*4).height(y).row();
+        dialog.getContentTable().add(label2).width(x*4).height(y).row();
+        dialog.getButtonTable().padTop(50);
+
+        TextButton button = new TextButton("Start", skin);
+        button.getLabel().setFontScale(5.0f);
+        button.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                //startGameClient();
+                dialog.hide();
+                game.setScreen(new BoardScreen(game));
+            }
+        });
+
+
+        Table t = dialog.getButtonTable();
+        t.add(button).width(x*3).row();
+
+        dialog.key(Input.Keys.BACK, "cancel");
+        dialog.show(stage);
     }
 
     @Override
@@ -101,4 +264,6 @@ public class MainMenu  implements Screen {
     public void show() {
 
     }
+
+
 }
