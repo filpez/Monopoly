@@ -1,9 +1,7 @@
 package logic.states;
 
-import java.util.Random;
-
 import logic.Board;
-import logic.BoardController;
+import logic.controller.BoardController;
 
 /**
  * Created by Filipe on 14/05/2016.
@@ -23,5 +21,10 @@ public class ThrowingDice implements State{
         boardController.getBoard().move(a+b, (a == b));
 
         boardController.setState(new ApplyingActions());
+    }
+
+    @Override
+    public void sell(BoardController boardController, int i) {
+        boardController.getBoard().addMessageToLog("You can't sell right now.");
     }
 }

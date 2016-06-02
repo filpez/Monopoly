@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
-import logic.BoardController;
+import logic.controller.BoardController;
 import logic.Player;
 
 /**
@@ -21,7 +21,7 @@ public class BoardActor extends Actor{
     private Sprite[] playerSprites;
     private float pSize;
 
-    public BoardActor(logic.BoardController controller){
+    public BoardActor(BoardController controller){
         this.boardBackground = new Sprite(new Texture("img/board.png"));
         float min = Math.min(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.boardBackground.setBounds(0, 0, min, min);

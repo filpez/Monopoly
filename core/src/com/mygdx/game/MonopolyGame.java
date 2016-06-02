@@ -6,8 +6,8 @@ import com.mygdx.game.screens.Splash;
 import java.util.ArrayList;
 
 import logic.Board;
-import logic.BoardController;
-import logic.BoardControllerClient;
+import logic.controller.BoardController;
+import logic.controller.BoardControllerClient;
 import logic.Player;
 import logic.Space;
 import logic.TransactionSpace;

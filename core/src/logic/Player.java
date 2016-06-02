@@ -96,6 +96,13 @@ public class Player {
 		this.pay(price);
 	}
 
+	public void sell(Propriety propriety){
+		int price = propriety.getPrice();
+		propriety.setOwner(null);
+		this.proprieties.remove(propriety);
+		this.receive(price/2);
+	}
+
 	public int getPosition() {
 		return position;
 	}

@@ -1,22 +1,15 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
-import logic.BoardController;
+import logic.controller.BoardController;
 import logic.BuildingLot;
 import logic.GoToJailSpace;
 import logic.Space;
@@ -27,11 +20,11 @@ import logic.TransactionSpace;
  * Created by Filipe on 07/05/2016.
  */
 public class SpacesActor extends Group{
-    private logic.BoardController controller;
+    private BoardController controller;
     private int currSpaceIndex = 0;
     Label spaceText;
 
-    public SpacesActor(logic.BoardController controller){
+    public SpacesActor(BoardController controller){
         float min = Math.min(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         setBounds(getX(), getY(), min, min);
 

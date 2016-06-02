@@ -6,30 +6,28 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.MonopolyGame;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
 
-import logic.BoardController;
-import logic.BoardControllerServer;
-import logic.Player;
+import lipermi.handler.CallHandler;
+import lipermi.net.Server;
+import logic.controller.BoardControllerServer;
+import logic.controller.ControllerServerInterface;
 
 /**
  * Created by Filipe on 07/05/2016.
@@ -156,9 +154,9 @@ public class MainMenu  implements Screen {
         yesButton.getLabel().setFontScale(5.0f);
         yesButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                //startGameClient();
                 dialog.hide();
-                game.setScreen(new BoardScreen(game));
+                startGameClient();
+                //game.setScreen(new BoardScreen(game));
             }
         });
 
@@ -188,11 +186,62 @@ public class MainMenu  implements Screen {
         dialog.show(stage);
     }
 
-    private void startGameServer() {
-        BoardControllerServer server = new BoardControllerServer();
+    private void startGameClient() {
+        /*BoardControllerServer server = new BoardControllerServer();
         game.controller = server;
         server.addPlayer("Filipe");
+*/
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        skin.get(TextField.TextFieldStyle.class).font.getData().setScale(5.0f);
 
+
+        dialog = new Dialog("", skin, "default") {
+            public void result(Object obj) {
+                if (obj.equals("cancel"))
+                    game.setScreen(new MainMenu(game));
+                dispose();
+
+            }
+        };
+
+        String IPaddress = "";
+        TextField IPTextField = new TextField(IPaddress, skin);
+        IPTextField.setAlignment(Align.center);
+
+        Label label = new Label("Insert IP and click Join", skin);
+        label.setWrap(true);
+        label.setFontScale(4.0f);
+        label.setAlignment(Align.center);
+
+        Label label2 = new Label("IP: ", skin);
+        label2.setFontScale(5.0f);
+        label2.setAlignment(Align.center);
+
+        dialog.padTop(50).padBottom(50);
+        dialog.getContentTable().add(label).width(x*5).height(y).colspan(2).row();
+        dialog.getContentTable().add(label2).width(x).height(y);
+        dialog.getContentTable().add(IPTextField).width(x*3).height(y).row();
+        dialog.getButtonTable().padTop(50);
+
+        TextButton button = new TextButton("Join", skin);
+        button.getLabel().setFontScale(5.0f);
+        button.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                //startGameClient();
+                dialog.hide();
+                game.setScreen(new BoardScreen(game));
+            }
+        });
+
+
+        Table t = dialog.getButtonTable();
+        t.add(button).width(x*3).row();
+
+        dialog.key(Input.Keys.BACK, "cancel");
+        dialog.show(stage);
+    }
+
+    private void startGameServer() {
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));dialog = new Dialog("", skin, "default") {
             public void result(Object obj) {
                 if (obj.equals("cancel"))
@@ -208,15 +257,16 @@ public class MainMenu  implements Screen {
 
         String IPaddress = "";
         try {
-            /*ChatServer chatServer = new ChatServer();
+            BoardControllerServer controllerServer = new BoardControllerServer("Filipe");
+            game.controller = controllerServer;
             CallHandler callHandler = new CallHandler();
-            callHandler.registerGlobal(ChatServerInterface.class, chatServer);
-            Server server = new Server();*/
+            callHandler.registerGlobal(ControllerServerInterface.class, controllerServer);
+            Server server = new Server();
             int thePortIWantToBind = 4456;
-            //server.bind(thePortIWantToBind, callHandler);
+            server.bind(thePortIWantToBind, callHandler);
             InetAddress IP = InetAddress.getLocalHost();
             IPaddress = IP.getHostAddress();
-            //System.err.println("Server ready at " + IP.getHostAddress() + " port " + 4456);
+            System.err.println("Server ready at " + IP.getHostAddress() + " port " + 4456);
         } catch (Exception e) {
             System.err.println("Server exception: " + e.toString());
             e.printStackTrace();

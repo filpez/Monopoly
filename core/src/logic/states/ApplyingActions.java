@@ -1,7 +1,7 @@
 package logic.states;
 
 import logic.Board;
-import logic.BoardController;
+import logic.controller.BoardController;
 import logic.Propriety;
 import logic.Player;
 
@@ -42,5 +42,26 @@ public class ApplyingActions implements State{
         Board board = boardController.getBoard();
         if(board.applyCurrentSpaceEffect())
             boardController.setState(new WaitingNextTurn());
+    }
+
+    @Override
+    public void sell(BoardController boardController, int i) {
+        Board board = boardController.getBoard();
+        Propriety selectedSpace;
+        Player currentPlayer = board.getCurrentPlayer();
+        if (!(board.getSpace(i) instanceof Propriety)) {
+            boardController.getBoard().addMessageToLog("You can't sell " + board.getSpace(i).getName() + "!\n");
+            return;
+        }
+        else
+            selectedSpace = (Propriety) board.getSpace(i);
+
+        if (selectedSpace.getOwner() != currentPlayer){
+            boardController.getBoard().addMessageToLog("You don't own " +board.getSpace(i).getName() + "!\n");
+        }
+        else{
+            boardController.getBoard().addActionToLog(" bought "+ selectedSpace.getName() + "!\n");
+            currentPlayer.sell(selectedSpace);
+        }
     }
 }

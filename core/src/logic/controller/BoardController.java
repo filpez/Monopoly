@@ -1,5 +1,6 @@
-package logic;
+package logic.controller;
 
+import logic.Board;
 import logic.states.State;
 import logic.states.ThrowingDice;
 

@@ -1,7 +1,7 @@
 package logic.states;
 
 import logic.Board;
-import logic.BoardController;
+import logic.controller.BoardController;
 
 /**
  * Created by Filipe on 17/05/2016.
@@ -17,5 +17,10 @@ public class WaitingNextTurn implements State{
         Board board = boardController.getBoard();
         board.endTurn();
         boardController.setState(new ThrowingDice());
+    }
+
+    @Override
+    public void sell(BoardController boardController, int i) {
+        boardController.getBoard().addMessageToLog("You can't buy right now.");
     }
 }

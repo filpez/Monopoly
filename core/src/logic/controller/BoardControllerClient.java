@@ -1,12 +1,12 @@
-package logic;
+package logic.controller;
 
-import logic.states.State;
+import logic.Board;
 import logic.states.ThrowingDice;
 
 /**
  * Created by Filipe on 13/05/2016.
  */
-public class BoardControllerClient extends BoardController{
+public class BoardControllerClient extends logic.controller.BoardController {
 
     public BoardControllerClient(Board board) {
         super();
