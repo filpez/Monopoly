@@ -286,7 +286,8 @@ public class MainMenu  implements Screen {
         button.getLabel().setFontScale(5.0f);
         button.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                //startGameClient();
+                BoardControllerServer controllerServer = (BoardControllerServer)game.controller;
+                controllerServer.start();
                 dialog.hide();
                 game.setScreen(new BoardScreen(game));
             }

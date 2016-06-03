@@ -27,9 +27,9 @@ public class Board {
 	public Board(ArrayList<Player> players, Space[] spaces, Deck community, Deck chance) {
 		this(players, spaces);
 		this.chance = chance;
-		this.chance.shuffle();
+		//this.chance.shuffle(); TO DO CHECK
 		this.community = community;
-		this.community.shuffle();
+		//this.community.shuffle();
 	}
 
 	public Player getCurrentPlayer() {

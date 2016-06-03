@@ -1,44 +1,32 @@
 package logic.states;
 
 import logic.Board;
-import logic.controller.BoardController;
 import logic.Propriety;
 import logic.Player;
+import logic.controller.BoardController;
+import logic.controller.BoardControllerClient;
 
 /**
  * Created by Filipe on 14/05/2016.
  */
-public class ApplyingActions implements State{
+public class ApplyingActions implements State {
     @Override
     public void buy(BoardController boardController, int i) {
-        Board board = boardController.getBoard();
-        Propriety selectedSpace;
-        Player currentPlayer = board.getCurrentPlayer();
-        if (!(board.getSpace(i) instanceof Propriety)) {
-            boardController.getBoard().addMessageToLog("You can't buy " + board.getSpace(i).getName() + "!\n");
-            return;
-        }
-        else if(currentPlayer.getPosition() != i){
-            boardController.getBoard().addMessageToLog("You aren't at " + board.getSpace(i).getName() + "!\n");
-            return;
-        }
-        else
-            selectedSpace = (Propriety) board.getSpace(i);
+        boardController.getBoard().addMessageToLog("You can't buy right now.");
+    }
 
-        if (selectedSpace.getOwner() != null){
-            boardController.getBoard().addMessageToLog(board.getSpace(i).getName() + " already has an owner!\n");
-        }
-        else if (currentPlayer.canBuy(selectedSpace)){
-            boardController.getBoard().addActionToLog(" bought "+ selectedSpace.getName() + "!\n");
-            currentPlayer.buy(selectedSpace);
-        }
-        else{
-            boardController.getBoard().addMessageToLog("You don't have enough money to buy " + board.getSpace(i).getName() + "!\n");
-        }
+    @Override
+    public void buyEcho(BoardController boardController, int i) {
     }
 
     @Override
     public void next(BoardController boardController) {
+        BoardControllerClient client = (BoardControllerClient)boardController;
+        client.getProxy().next(0, false);
+    }
+
+    @Override
+    public void nextEcho(BoardController boardController, int i, boolean doubles) {
         Board board = boardController.getBoard();
         if(board.applyCurrentSpaceEffect())
             boardController.setState(new WaitingNextTurn());
@@ -46,22 +34,10 @@ public class ApplyingActions implements State{
 
     @Override
     public void sell(BoardController boardController, int i) {
-        Board board = boardController.getBoard();
-        Propriety selectedSpace;
-        Player currentPlayer = board.getCurrentPlayer();
-        if (!(board.getSpace(i) instanceof Propriety)) {
-            boardController.getBoard().addMessageToLog("You can't sell " + board.getSpace(i).getName() + "!\n");
-            return;
-        }
-        else
-            selectedSpace = (Propriety) board.getSpace(i);
+        boardController.getBoard().addMessageToLog("You can't sell right now.");
+    }
 
-        if (selectedSpace.getOwner() != currentPlayer){
-            boardController.getBoard().addMessageToLog("You don't own " +board.getSpace(i).getName() + "!\n");
-        }
-        else{
-            boardController.getBoard().addActionToLog(" bought "+ selectedSpace.getName() + "!\n");
-            currentPlayer.sell(selectedSpace);
-        }
+    @Override
+    public void sellEcho(BoardController boardController, int i) {
     }
 }

@@ -4,12 +4,12 @@ import logic.Board;
 import logic.Player;
 import logic.Propriety;
 import logic.controller.BoardController;
-import logic.controller.BoardControllerClient;
+import logic.controller.BoardControllerServer;
 
 /**
  * Created by Filipe on 17/05/2016.
  */
-public class WaitingNextTurn implements State {
+public class WaitingNextTurnServer implements State {
     @Override
     public void buy(BoardController boardController, int i) {
         Board board = boardController.getBoard();
@@ -30,8 +30,8 @@ public class WaitingNextTurn implements State {
             board.addMessageToLog(board.getSpace(i).getName() + " already has an owner!\n");
         }
         else if (currentPlayer.canBuy(selectedSpace)){
-            BoardControllerClient client = (BoardControllerClient)boardController;
-            client.getProxy().buy();
+            BoardControllerServer server = (BoardControllerServer)boardController;
+            server.sell();
         }
         else{
             board.addMessageToLog("You don't have enough money to buy " + board.getSpace(i).getName() + "!\n");
@@ -49,15 +49,15 @@ public class WaitingNextTurn implements State {
 
     @Override
     public void next(BoardController boardController) {
-        BoardControllerClient client = (BoardControllerClient)boardController;
-        client.getProxy().next(0, false);
+        BoardControllerServer server = (BoardControllerServer)boardController;
+        server.next(0, false);
     }
 
     @Override
     public void nextEcho(BoardController boardController, int i, boolean doubles) {
         Board board = boardController.getBoard();
         board.endTurn();
-        boardController.setState(new ThrowingDice());
+        boardController.setState(new ThrowingDiceServer());
     }
 
     @Override
@@ -76,17 +76,17 @@ public class WaitingNextTurn implements State {
             boardController.getBoard().addMessageToLog("You don't own " +board.getSpace(i).getName() + "!\n");
         }
         else{
-            BoardControllerClient client = (BoardControllerClient)boardController;
-            client.getProxy().sell();
+            BoardControllerServer server = (BoardControllerServer)boardController;
+            server.sell();
         }
     }
 
+    @Override
     public void sellEcho(BoardController boardController, int i) {
         Board board = boardController.getBoard();
         Propriety selectedSpace = (Propriety) board.getSpace(i);
         Player currentPlayer = board.getCurrentPlayer();
         boardController.getBoard().addActionToLog(" bought "+ selectedSpace.getName() + "!\n");
         currentPlayer.sell(selectedSpace);
-
     }
 }
