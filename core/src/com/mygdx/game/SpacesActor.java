@@ -144,7 +144,11 @@ public class SpacesActor extends Group{
     private String BuildingLotText(BuildingLot space) {
         String s;
         s =space.getName() + "\n";
-        s += "Color: " + space.getGroup().getName() + "\n" + "\n";
+        s += "Color: " + space.getGroup().getName() + "\n";
+        if (space.getOwner() != null)
+            s += "Owner: " + space.getOwner().getName() + "\n" + "\n";
+        else
+            s += "Owner: none\n\n";
         s += "Rent..." + "\n";
         s += "... without houses: " + space.getRents()[0] + "\n";
         s += "... with a house:   " + space.getRents()[1] + "\n";
@@ -160,7 +164,12 @@ public class SpacesActor extends Group{
     private String StationsText(Stations space) {
         String s;
         s =space.getName() + "\n";
-        s += "Type: " + space.getGroup().getName() + "\n" + "\n";
+        s += "Type: " + space.getGroup().getName() + "\n";
+        if (space.getOwner() != null)
+            s += "Owner: " + space.getOwner().getName() + "\n" + "\n";
+        else
+            s += "Owner: none\n\n";
+
         s += "Rent..." + "\n";
         s += "... with 1 station: " + space.getBaseCost() + "\n";
         s += "... with 2 stations:   " + space.getBaseCost()*2 + "\n";
@@ -173,7 +182,11 @@ public class SpacesActor extends Group{
 
     private String ServicesText(Service space) {
         String s = space.getName() + "\n";;
-        s += "Type: " + space.getGroup().getName() + "\n" + "\n";
+        s += "Type: " + space.getGroup().getName() + "\n";
+        if (space.getOwner() != null)
+            s += "Owner: " + space.getOwner().getName() + "\n" + "\n";
+        else
+            s += "Owner: none\n\n";
         s += "Rent..." + "\n";
         s += "... with 1 service: 4 times the value of dices" + "\n";
         s += "... with 1 service: 10 times the value of dices" + "\n";

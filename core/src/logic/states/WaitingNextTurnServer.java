@@ -10,6 +10,10 @@ import logic.controller.BoardControllerServer;
  * Created by Filipe on 17/05/2016.
  */
 public class WaitingNextTurnServer implements State {
+    public String getNextActionName(){
+        return "End Turn";
+    }
+
     @Override
     public void buy(BoardController boardController, int i) {
         Board board = boardController.getBoard();
@@ -31,7 +35,7 @@ public class WaitingNextTurnServer implements State {
         }
         else if (currentPlayer.canBuy(selectedSpace)){
             BoardControllerServer server = (BoardControllerServer)boardController;
-            server.sell();
+            server.buy();
         }
         else{
             board.addMessageToLog("You don't have enough money to buy " + board.getSpace(i).getName() + "!\n");

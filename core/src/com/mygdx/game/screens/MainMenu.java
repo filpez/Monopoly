@@ -255,24 +255,17 @@ public class MainMenu  implements Screen {
         label.setFontScale(5.0f);
         label.setAlignment(Align.center);
 
-        String IPaddress = "";
         try {
             BoardControllerServer controllerServer = new BoardControllerServer("Filipe");
             game.controller = controllerServer;
-            CallHandler callHandler = new CallHandler();
-            callHandler.registerGlobal(ControllerServerInterface.class, controllerServer);
-            Server server = new Server();
-            int thePortIWantToBind = 4456;
-            server.bind(thePortIWantToBind, callHandler);
-            InetAddress IP = InetAddress.getLocalHost();
-            IPaddress = IP.getHostAddress();
-            System.err.println("Server ready at " + IP.getHostAddress() + " port " + 4456);
+            System.err.println("Server ready at " + controllerServer.getIPAddress() + " port " + 4456);
         } catch (Exception e) {
             System.err.println("Server exception: " + e.toString());
             e.printStackTrace();
             cancelDialog();
         }
-        Label label2 = new Label("IP: "+ IPaddress, skin);
+
+        Label label2 = new Label("IP: "+ ((BoardControllerServer)game.controller).getIPAddress() , skin);
         label2.setWrap(true);
         label2.setFontScale(5.0f);
         label2.setAlignment(Align.center);

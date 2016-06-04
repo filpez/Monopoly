@@ -1,9 +1,15 @@
 package logic.controller;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import lipermi.exception.LipeRMIException;
+import lipermi.handler.CallHandler;
+import lipermi.net.Server;
 import logic.BoardCreator;
 import logic.Player;
 import logic.states.ThrowingDiceServer;
@@ -14,18 +20,32 @@ import logic.states.ThrowingDiceServer;
 public class BoardControllerServer extends logic.controller.BoardController implements ControllerServerInterface {
     private HashMap<Player, ControllerClientInterface> clients;
     private ArrayList<Player> players;
+    private String IPAddress;
 
 
-    public BoardControllerServer(String playerName) {
+    public BoardControllerServer(String playerName) throws LipeRMIException, IOException{
         super();
         clients = new HashMap<Player, ControllerClientInterface>();
         player = new Player(playerName);
         players = new ArrayList<Player>();
         players.add(player);
+
+        //Initiate Server
+        CallHandler callHandler = new CallHandler();
+        callHandler.registerGlobal(ControllerServerInterface.class, this);
+        Server server = new Server();
+        int thePortIWantToBind = 4456;
+        server.bind(thePortIWantToBind, callHandler);
+        InetAddress IP = InetAddress.getLocalHost();
+        IPAddress = IP.getHostAddress();
     }
 
     public HashMap<Player, ControllerClientInterface> getClients() {
         return clients;
+    }
+
+    public String getIPAddress() {
+        return IPAddress;
     }
 
     @Override

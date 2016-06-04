@@ -10,6 +10,10 @@ import logic.controller.BoardControllerClient;
  * Created by Filipe on 14/05/2016.
  */
 public class ThrowingDice implements State {
+    public String getNextActionName(){
+        return "Throw Dices";
+    }
+
     @Override
     public void buy(BoardController boardController, int i) {
         boardController.getBoard().addMessageToLog("You can't buy right now.");

@@ -10,6 +10,10 @@ import logic.controller.BoardControllerClient;
  * Created by Filipe on 17/05/2016.
  */
 public class WaitingNextTurn implements State {
+    public String getNextActionName(){
+        return "End Turn";
+    }
+
     @Override
     public void buy(BoardController boardController, int i) {
         Board board = boardController.getBoard();

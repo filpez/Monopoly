@@ -54,9 +54,11 @@ public class BoardScreen implements Screen {
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
         SpacesButton = new TextButton("Spaces", skin);
+        SpacesButton.getLabel().setWrap(true);
+        SpacesButton.getLabel().setAlignment(Align.center);
         SpacesButton.setPosition(actor.getWidth(),0);
         SpacesButton.setBounds(actor.getWidth(),0, (stage.getWidth()-actor.getWidth())/2, actor.getHeight()/5);
-        SpacesButton.getLabel().setFontScale(5.0f);
+        SpacesButton.getLabel().setFontScale(4.0f);
 
         SpacesButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
@@ -78,23 +80,24 @@ public class BoardScreen implements Screen {
         });
 
         NextButton = new TextButton("Next", skin);
+        NextButton.getLabel().setWrap(true);
+        NextButton.getLabel().setAlignment(Align.center);
         NextButton.setPosition(actor.getWidth(),0);
         NextButton.setBounds(actor.getWidth() + SpacesButton.getWidth(),0, (stage.getWidth()-actor.getWidth())/2, actor.getHeight()/5);
-        NextButton.getLabel().setFontScale(5.0f);
+        NextButton.getLabel().setFontScale(4.0f);
 
         NextButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 spacesActor.updateFunds();
                 if (game.controller.isPlayer()) {
                     game.controller.getState().next(game.controller);
-                    Label l = (Label) LogPanel.getWidget();
-                    l.setText(game.controller.getBoard().getLog());
                 }
             }
         });
 
         Label LogLabel = new Label(game.controller.getBoard().getLog(), skin);
         LogLabel.setFontScale(2.0f);
+        LogLabel.setWrap(true);
         LogLabel.setAlignment(Align.bottomLeft);
         LogPanel = new ScrollPane(LogLabel);
         LogPanel.setBounds(actor.getWidth() ,SpacesButton.getHeight(),stage.getWidth()-actor.getWidth(), actor.getHeight()-SpacesButton.getHeight());
@@ -129,6 +132,14 @@ public class BoardScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        Label l = (Label) LogPanel.getWidget();
+        l.setText(game.controller.getBoard().getLog());
+
+        spacesActor.updateFunds();
+        spacesActor.updateText();
+
+        NextButton.getLabel().setText(game.controller.getState().getNextActionName());
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
