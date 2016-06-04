@@ -6,6 +6,7 @@ import com.mygdx.game.screens.Splash;
 import java.util.ArrayList;
 
 import logic.Board;
+import logic.BoardCreator;
 import logic.controller.BoardController;
 import logic.controller.BoardControllerClient;
 import logic.Player;
@@ -19,6 +20,8 @@ public class MonopolyGame extends Game {
 
 	//TO DO move to another class
 	public Board generateNewBoard(){
+		BoardCreator creator = new BoardCreator();
+
 		Player p1 = new Player("Filipe");
 		Player p2 = new Player("derp");
 		Player p3 = new Player("derpina");
@@ -28,10 +31,12 @@ public class MonopolyGame extends Game {
 		players.add(p2);
 		players.add(p3);
 		players.add(p4);
-		Space[] spaces = new Space[40];
+
+		/*Space[] spaces = new Space[40];
 		for (int i = 0; i < 40; i++)
-			spaces[i] = new TransactionSpace("Lisbon", 1);
-		return new Board(players, spaces);
+			spaces[i] = new TransactionSpace("Lisbon", 1);*/
+
+		return creator.createBoard(players);
 	}
 
 	@Override
