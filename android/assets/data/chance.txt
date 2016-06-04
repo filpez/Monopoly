@@ -1,5 +1,5 @@
 
-;GoTo;Advance to Go;Transaction;
+;GoTo;Advance to Go (Collect $200);Start;
 ;GoTo;Advance to Illinois Ave;Illinois Avenue;
 ;GoTo;Advance to St. Charles Place;St. Charles Place;
 ;GoToJail;Go to Jail;0;

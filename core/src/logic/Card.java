@@ -1,7 +1,11 @@
 package logic;
 
 import logic.effects.Effect;
+import logic.effects.GoTo;
+import logic.effects.GoToJail;
 import logic.effects.Move;
+import logic.effects.PayRent;
+import logic.effects.PayTax;
 
 /**
  * Represents an Card.
@@ -32,8 +36,18 @@ public class Card {
 		this.effect = effect;
 	}
 	private Effect createEffect(String effect, int value){
-		return new Move(value);
+		if(effect.equals("GoTo"))
+			return new GoTo(value);
+		else if(effect.equals("GoToJail"))
+			return new GoToJail(value);
+		else if(effect.equals("Move"))
+			return new Move(value);
+		else if(effect.equals("PayRent"))
+			return new PayRent(value);
+		else return new PayTax(value);
 	}
+
+
 
 
 }

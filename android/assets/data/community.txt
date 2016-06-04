@@ -1,5 +1,5 @@
 
-;GoTo;Advance to Go (Collect $200);Transaction;
+;GoTo;Advance to Go (Collect $200);Start;
 ;PayTax;Bank error in your favor – Collect $200;200;
 ;PayTax;Doctor's fees – Pay $50;-50;
 ;GoToJail;Go to Jail;0;
