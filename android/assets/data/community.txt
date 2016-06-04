@@ -1,0 +1,14 @@
+
+;GoTo;Advance to Go (Collect $200);Transaction;
+;PayTax;Bank error in your favor – Collect $200;200;
+;PayTax;Doctor's fees – Pay $50;-50;
+;GoToJail;Go to Jail;0;
+;PayTax;You inherit $100;100;
+;PayTax;You have won second prize in a beauty contest – Collect $10;10;
+;PayTax;Pay hospital fees of $100;-100;
+;PayTax;Life insurance matures – Collect $100;100;
+;PayTax;Pay school fees of $150;-150;
+;PayTax;Holiday Fund matures;100;
+;PayTax;Income tax refund;20;
+;PayTax;From sale of stock you get $50;50;
+;PayTax;Receive $25 consultancy fee;25;

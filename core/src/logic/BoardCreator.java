@@ -1,92 +1,275 @@
 package logic;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
+import com.mygdx.game.MonopolyGame;
+
 import java.util.ArrayList;
 import java.io.*;
 import java.util.Scanner;
 
+
+import javax.naming.Context;
+
+import logic.effects.DrawCommunity;
 import logic.effects.GoToJail;
+import sun.rmi.runtime.Log;
 
 /**
  * Created by up201404493 on 17-05-2016.
  */
+
+
 public class BoardCreator {
+    private static Space[] spaces;
+
     public static Board createBoard(ArrayList<Player> players){
-        //Deck community = createCommunityDeck();
-        //Deck chance = createChanceDeck();
-        Space[] spaces = createSpaces();
-        return new Board(players, spaces);
+        spaces = createSpaces();
+        Deck community = createCommunityDeck();
+        Deck chance = createChanceDeck();
+        return new Board(players, spaces, community, chance);
+
     }
 
-    private static Space[] createSpaces(){
+    public static int[] convertIntegers(ArrayList<Integer> integers)
+    {
+        int[] ret = new int[integers.size()];
+        for (int i=0; i < ret.length; i++)
+        {
+            ret[i] = integers.get(i).intValue();
+        }
+        return ret;
+    }
+
+    private static Space[] createSpaces() {
         Space[] spaces = new Space[40];
         ArrayList<Group> groups = new ArrayList<Group>();
-        Scanner s;
+        BufferedReader tmp_buffer;
+        Scanner s = null;
 
-        try {
-            s = new Scanner(new BufferedReader(new FileReader("spaces.txt"))).useDelimiter(";");
+        FileHandle file = Gdx.files.internal("data/spaces.txt");
 
-            for (int i = 0; i < 10 && s.hasNextLine();i++) {
-                String name = s.next();
-                int houseValue = s.nextInt();
+        if (file.exists()) {
+            try {
+                tmp_buffer = new BufferedReader(new InputStreamReader(file.read()), 2048);
+                s = new Scanner(tmp_buffer).useDelimiter(";");
 
-                Group g = new Group(name, houseValue);
-                groups.add(g);
-            }
+                for (int i = 0; i < 10 && s.hasNextLine(); i++) {
+                    String ignore = s.next();
+                    String name = s.next();
+                    int houseValue = s.nextInt();
 
-            s.skip("\n");
+                    Group g = new Group(name, houseValue);
+                    groups.add(g);
+                }
 
-            int i = 0;
+                int i = 0;
 
-            while (s.hasNextLine()) {
-                String type = s.next();
-                String name = s.next();
+                while (s.hasNext()) {
+                    String ignore = s.next();
+                    String type = s.next();
+                    String name = s.next();
 
-                if (i < 40)
-                    if (type.equals("GoToJailSpace")) {
-                        GoToJailSpace gtj = new GoToJailSpace(name);
-                        spaces[i] = gtj;
-                    } else {
-                        int value = s.nextInt();
-
-                        if (type.equals("TransactionSpace")) {
-                            TransactionSpace t = new TransactionSpace(name, value);
-                            spaces[i] = t;
-
+                    if (i < 40) {
+                        if (type.equals("GoToJail")) {
+                            spaces[i] = new GoToJailSpace(name);
+                        } else if (type.equals("DrawChance")) {
+                            spaces[i] = new DrawChanceSpace(name);
+                        } else if (type.equals("DrawCommunity")) {
+                            spaces[i] = new DrawCommunitySpace(name);
                         } else {
-                        String group = s.next();
-                        int i_group = -1;
+                            int value = s.nextInt();
 
-                        for (int index = 0; index < groups.size(); index++) {
-                            if ((groups.get(index).getName()).equals(group)) {
-                                i_group = index;
+                            if (type.equals("Transaction")) {
+                                TransactionSpace transaction = new TransactionSpace(name, value);
+                                spaces[i] = transaction;
+                            } else {
+                                String group = s.next();
+                                int i_group = -1;
+
+                                for(int index = 0; index < groups.size(); index++) {
+                                    if ((groups.get(index).getName()).equals(group)) {
+                                        i_group = index;
+                                    }
+                                }
+
+                                if (i_group != -1){
+                                    if (type.equals("Stations"))
+                                        spaces[i] = new Stations(name, groups.get(i_group),value);
+                                    else if (type.equals("Service"))
+                                        spaces[i] = new Service(name, groups.get(i_group),value);
+                                    else {
+                                        ArrayList<Integer> array = new ArrayList<Integer>();
+                                        String values = s.next();
+
+                                        Scanner scanner = new Scanner(values).useDelimiter(" ");
+                                        while(scanner.hasNextInt()){
+                                            int tmp = scanner.nextInt();
+                                            array.add(tmp);
+                                        }
+                                        int[] rents = convertIntegers(array);
+
+                                        spaces[i] = new BuildingLot(name, groups.get(i_group), value, rents);
+                                    }
+                                } else {
+                                    System.out.println("Group not found!");
+                                    return null;
+                                }
                             }
                         }
-
-                        if (i_group != -1) {
-
-                            if (type.equals("Stations")) {
-                                Stations st = new Stations(name, groups.get(i_group), value);
-                                spaces[i] = st;
-                            } else if (type.equals("Service")){
-                                Service ser = new Service(name, groups.get(i_group), value);
-                                spaces[i] = ser;
-                            } //else if (type.equals())
-                            // else too many spaces
-                        } // else non-existent group!
                     }
-
-                    }
-                i++;
+                    i++;
+                }
             }
-
-        }
-        catch (FileNotFoundException e) {
-
-        }
-        finally{
-
+            finally {
+                if (s != null) {
+                    s.close();
+                }
+            }
+        } else{
+            System.out.println("File not found");
+            return null;
         }
 
         return spaces;
     }
+
+    private static Deck createChanceDeck(){
+        Deck chance;
+        BufferedReader tmp_buffer;
+        Scanner s = null;
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        FileHandle file = Gdx.files.internal("data/chance.txt");
+
+        if (file.exists()) {
+            try {
+                tmp_buffer = new BufferedReader(new InputStreamReader(file.read()), 2048);
+                s = new Scanner(tmp_buffer).useDelimiter(";");
+
+                while (s.hasNext()){
+                    String ignore;
+                    String effect;
+                    String text;
+                    String value;
+
+                    ignore = s.next();
+                    effect = s.next();
+                    text = s.next();
+                    value = s.next();
+
+                    if(effect.equals("GoTo")){
+                        int index = -1;
+
+                        for(int i = 0; i < spaces.length; i++) {
+                            String sp = spaces[i].getName();
+                            if (sp.equals(value))
+                                index = i;
+                        }
+
+                        if (index != -1){
+                            Card goTo = new Card(text,effect,index);
+                            cards.add(goTo);
+                        } else {
+                            System.out.println("Space not found!");
+                            return null;
+                        }
+                    } else if(effect.equals("GoToJail")){
+                        int tmp = Integer.parseInt(value);
+                        Card jail = new Card(text,effect,tmp);
+                        cards.add(jail);
+                    } else if(effect.equals("Move")){
+                        int tmp = Integer.parseInt(value);
+                        Card move = new Card(text, effect, tmp);
+                        cards.add(move);
+                    } else if(effect.equals("PayTax")){
+                        int tmp = Integer.parseInt(value);
+                        Card pay = new Card(text, effect, tmp);
+                        cards.add(pay);
+                    }
+                }
+
+
+            } finally {
+                if (s != null) {
+                    s.close();
+                }
+            }
+        } else{
+            System.out.println("File not found!");
+            return null;
+        }
+
+        chance = new Deck(cards);
+
+        return chance;
+    }
+
+    private static Deck createCommunityDeck(){
+        Deck community;
+        BufferedReader tmp_buffer;
+        Scanner s = null;
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        FileHandle file = Gdx.files.internal("data/community.txt");
+
+        if (file.exists()) {
+            try {
+                tmp_buffer = new BufferedReader(new InputStreamReader(file.read()), 2048);
+                s = new Scanner(tmp_buffer).useDelimiter(";");
+
+                while (s.hasNext()) {
+                    String ignore;
+                    String effect;
+                    String text;
+                    String value;
+
+                    ignore = s.next();
+                    effect = s.next();
+                    text = s.next();
+                    value = s.next();
+
+                    if(effect.equals("GoTo")){
+                        int index = -1;
+
+                        for(int i = 0; i < spaces.length; i++) {
+                            String sp = spaces[i].getName();
+                            if (sp.equals(value))
+                                index = i;
+                        }
+
+                        if (index != -1){
+                            Card goTo = new Card(text,effect,index);
+                            cards.add(goTo);
+                        } else {
+                            System.out.println("Space not found!");
+                            return null;
+                        }
+                    } else if(effect.equals("GoToJail")){
+                        int tmp = Integer.parseInt(value);
+                        Card jail = new Card(text,effect,tmp);
+                        cards.add(jail);
+                    } else if(effect.equals("PayTax")){
+                        int tmp = Integer.parseInt(value);
+                        Card pay = new Card(text, effect, tmp);
+                        cards.add(pay);
+                    }
+                }
+            } finally {
+                if (s != null) {
+                    s.close();
+                }
+            }
+        } else{
+            System.out.println("File not found!");
+            return null;
+        }
+
+        community = new Deck(cards);
+        return community;
+    }
+
 }
+
+

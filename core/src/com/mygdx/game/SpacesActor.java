@@ -118,7 +118,7 @@ public class SpacesActor extends Group{
         s += "... with a house:   " + space.getRents()[1] + "\n";
         s += "... with 2 houses:  " + space.getRents()[2] + "\n";
         s += "... with 3 houses:  " + space.getRents()[3] + "\n";
-        s += "... with an hotel:  " + space.getRents()[5] + "\n";
+        s += "... with an hotel:  " + space.getRents()[4] + "\n";
         s += "The rent is double on an empty lot\nif you have all Proprieties of that color\n\n";
         s += "Price: " + space.getPrice() + "\n";
 

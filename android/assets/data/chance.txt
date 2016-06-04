@@ -1,0 +1,8 @@
+
+;GoTo;Advance to Go;Transaction;
+;GoTo;Advance to Illinois Ave;Illinois Avenue;
+;GoTo;Advance to St. Charles Place;St. Charles Place;
+;GoToJail;Go to Jail;0;
+;Move;Go Back 3 Spaces;-3;
+;GoTo;Take a trip to Reading Railroad;Reading Railroad;
+;PayTax;Pay poor tax of $15;-15;
