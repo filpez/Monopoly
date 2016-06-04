@@ -15,7 +15,6 @@ public class Move  extends Effect {
     public boolean apply(Board board) {
         Player currentPlayer = board.getCurrentPlayer();
         board.move(getValue(), false);
-        //TO DO - testar com numeros negativos
         return false;
     }
 }

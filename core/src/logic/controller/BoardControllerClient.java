@@ -1,7 +1,6 @@
 package logic.controller;
 
 import logic.Board;
-import logic.states.State;
 import logic.states.ThrowingDice;
 
 /**
@@ -22,8 +21,8 @@ public class BoardControllerClient extends BoardController implements Controller
     }
 
     @Override
-    public void next(int i, boolean doubles) {
-        state.nextEcho(this, i, doubles);
+    public void next(int a, int b) {
+        state.nextEcho(this, a, b);
     }
 
     @Override

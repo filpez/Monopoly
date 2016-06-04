@@ -45,6 +45,8 @@ public class BoardScreen implements Screen {
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
 
+
+
         boardActor = new BoardActor(game.controller);
         spacesActor = new SpacesActor(game.controller);
         actor = boardActor;
@@ -58,8 +60,10 @@ public class BoardScreen implements Screen {
 
         SpacesButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
+                spacesActor.updateFunds();
                 if (!spacesActorOn) {
                     SpacesButton.getLabel().setText("Board");
+                    spacesActor.setCurrSpaceIndex(game.controller.getBoard().getCurrentPlayer().getPosition());
                     stage.addActor(spacesActor);
                     boardActor.remove();
                     spacesActorOn = true;
@@ -80,9 +84,12 @@ public class BoardScreen implements Screen {
 
         NextButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                game.controller.getState().next(game.controller);
-                Label l = (Label)LogPanel.getWidget();
-                l.setText(game.controller.getBoard().getLog());
+                spacesActor.updateFunds();
+                if (game.controller.isPlayer()) {
+                    game.controller.getState().next(game.controller);
+                    Label l = (Label) LogPanel.getWidget();
+                    l.setText(game.controller.getBoard().getLog());
+                }
             }
         });
 
@@ -120,7 +127,7 @@ public class BoardScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(Gdx.graphics.getDeltaTime());

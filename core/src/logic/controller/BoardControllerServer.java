@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import logic.Board;
+import logic.BoardCreator;
 import logic.Player;
-import logic.Space;
-import logic.TransactionSpace;
-import logic.states.ThrowingDice;
 import logic.states.ThrowingDiceServer;
 
 /**
@@ -22,8 +19,9 @@ public class BoardControllerServer extends logic.controller.BoardController impl
     public BoardControllerServer(String playerName) {
         super();
         clients = new HashMap<Player, ControllerClientInterface>();
+        player = new Player(playerName);
         players = new ArrayList<Player>();
-        players.add(new Player(playerName));
+        players.add(player);
     }
 
     public HashMap<Player, ControllerClientInterface> getClients() {
@@ -51,10 +49,10 @@ public class BoardControllerServer extends logic.controller.BoardController impl
     }
 
     @Override
-    public void next(int i, boolean doubles) {
+    public void next(int a, int b) {
         for (Player p: clients.keySet())
-            clients.get(p).next(i, doubles);
-        state.nextEcho(this, i, doubles);
+            clients.get(p).next(a, b);
+        state.nextEcho(this, a, b);
     }
 
     @Override
@@ -65,13 +63,14 @@ public class BoardControllerServer extends logic.controller.BoardController impl
     }
 
     public void start(){
-        // Read Board TO DO
+        /*// Read Board TO DO
         Space[] spaces = new Space[40];
         for (int i = 0; i < 40; i++)
             spaces[i] = new TransactionSpace("Lisbon", 1);
 
         // Create Board
-        board = new Board(players, spaces);
+        board = new Board(players, spaces);*/
+        board = BoardCreator.createBoard(players);
 
         //Select Random Player
         Random rand = new Random();

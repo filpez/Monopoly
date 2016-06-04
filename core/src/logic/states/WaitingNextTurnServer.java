@@ -49,12 +49,16 @@ public class WaitingNextTurnServer implements State {
 
     @Override
     public void next(BoardController boardController) {
-        BoardControllerServer server = (BoardControllerServer)boardController;
-        server.next(0, false);
+        if (boardController.getBoard().getCurrentPlayer().getFunds() < 0 && !boardController.getBoard().getCurrentPlayer().isBankrupt())
+            boardController.getBoard().addMessageToLog("You must sell something!");
+        else {
+            BoardControllerServer server = (BoardControllerServer)boardController;
+            server.next(0, 0);
+        }
     }
 
     @Override
-    public void nextEcho(BoardController boardController, int i, boolean doubles) {
+    public void nextEcho(BoardController boardController, int a, int b) {
         Board board = boardController.getBoard();
         board.endTurn();
         boardController.setState(new ThrowingDiceServer());

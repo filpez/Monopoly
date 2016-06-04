@@ -142,17 +142,14 @@ public class Board {
 
 	public void endTurn() {
 		addActionToLog(" turn has ended!\n");
-		setCurrentPlayer(nextPlayer());
+		Player nextPlayer = nextPlayer();
+		if (currentPlayer.isBankrupt()){
+			players.remove(currentPlayer);
+		}
+		setCurrentPlayer(nextPlayer);
 		addActionToLog(" turn started!\n");
 	}
 
-	public int throwDice() {
-		Random rand = new Random();
-		int value = rand.nextInt(6) + 1;
-		String s = new String(" has throwed the dice for " + value +"!\n");
-		addActionToLog(s);
-		return value;
-	}
 
 	public void throwDice(int value) {
 		String s = new String(" has throwed the dice for " + value +"!\n");

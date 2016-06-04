@@ -6,6 +6,6 @@ package logic.controller;
 public interface ControllerServerInterface {
     public boolean join(String name, ControllerClientInterface c);
     public void buy();
-    public void next(int i, boolean doubles);
+    public void next(int a, int b);
     public void sell();
 }

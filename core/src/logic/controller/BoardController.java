@@ -1,6 +1,7 @@
 package logic.controller;
 
 import logic.Board;
+import logic.Player;
 import logic.states.State;
 
 /**
@@ -9,6 +10,7 @@ import logic.states.State;
 public class BoardController {
     protected Board board;
     protected State state;
+    protected Player player;
 
     public BoardController() {
     }
@@ -30,5 +32,15 @@ public class BoardController {
         this.board = board;
     }
 
+    public boolean isPlayer(){
+        return board.getCurrentPlayer() == player;
+    }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 }

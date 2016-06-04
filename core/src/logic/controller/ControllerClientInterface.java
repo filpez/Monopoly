@@ -5,6 +5,6 @@ package logic.controller;
  */
 public interface ControllerClientInterface {
     public void buy();
-    public void next(int i, boolean doubles);
+    public void next(int a, int b);
     public void sell();
 }

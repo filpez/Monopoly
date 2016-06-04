@@ -1,5 +1,7 @@
 package logic.states;
 
+import java.util.Random;
+
 import logic.Board;
 import logic.controller.BoardController;
 import logic.controller.BoardControllerClient;
@@ -19,17 +21,20 @@ public class ThrowingDice implements State {
 
     @Override
     public void next(BoardController boardController) {
-        Board board = boardController.getBoard();
-        int a = board.throwDice();
-        int b =  board.throwDice();
+        Random rand = new Random();
+        int a = rand.nextInt(6) + 1;
+        int b = rand.nextInt(6) + 1;
 
         BoardControllerClient client = (BoardControllerClient)boardController;
-        client.getProxy().next(a+b, a==b);
+        client.getProxy().next(a, b);
     }
 
     @Override
-    public void nextEcho(BoardController boardController, int i, boolean doubles) {
-        boardController.getBoard().move(i, doubles);
+    public void nextEcho(BoardController boardController, int a, int b) {
+        Board board =  boardController.getBoard();
+        board.throwDice(a);
+        board.throwDice(b);
+        board.move(a+b, a==b);
         boardController.setState(new ApplyingActions());
     }
 

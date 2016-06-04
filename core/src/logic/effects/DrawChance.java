@@ -16,8 +16,8 @@ public class DrawChance extends Effect{
     public boolean apply(Board board) {
         Deck chance = board.getChance();
         Card card = chance.getNextCard();
-        chance.shuffle();
-        board.addMessageToLog(card.getText());
+        //chance.shuffle();
+        board.addMessageToLog(card.getText() + "\n");
         return card.getEffect().apply(board);
     }
 }

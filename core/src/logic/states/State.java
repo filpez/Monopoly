@@ -11,7 +11,7 @@ public interface State {
     public void buy(BoardController boardController, int i);
     public void sell(BoardController boardController, int i);
 
-    public void nextEcho(BoardController boardController, int i, boolean doubles);
+    public void nextEcho(BoardController boardController, int a, int b);
     public void buyEcho(BoardController boardController, int i);
     public void sellEcho(BoardController boardController, int i);
 }

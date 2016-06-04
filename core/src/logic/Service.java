@@ -1,5 +1,7 @@
 package logic;
 
+import logic.effects.PayRent;
+
 /**
  * Representes an Propriety of type service
  */
@@ -9,6 +11,7 @@ public class Service extends Propriety {
 	
 	public Service(String name, Group group, int price) {
 		super(name, group, price);
+		this.effect = new PayRent(0);
 	}
 
 	public static int getSingleMultiplier() {

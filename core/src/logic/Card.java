@@ -8,7 +8,6 @@ import logic.effects.Move;
  *
  * Each card has an effect.
  * value is used to send extra information after selecting the effect.
- * Effects are not fully implemented yet - TO DO
  */
 public class Card {
 	private String text;

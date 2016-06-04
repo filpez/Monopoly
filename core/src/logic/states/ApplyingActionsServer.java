@@ -1,8 +1,6 @@
 package logic.states;
 
 import logic.Board;
-import logic.Player;
-import logic.Propriety;
 import logic.controller.BoardController;
 import logic.controller.BoardControllerServer;
 
@@ -22,11 +20,11 @@ public class ApplyingActionsServer implements State {
     @Override
     public void next(BoardController boardController) {
         BoardControllerServer server = (BoardControllerServer)boardController;
-        server.next(0, false);
+        server.next(0, 0);
     }
 
     @Override
-    public void nextEcho(BoardController boardController, int i, boolean doubles) {
+    public void nextEcho(BoardController boardController, int a, int b) {
         Board board = boardController.getBoard();
         if(board.applyCurrentSpaceEffect())
             boardController.setState(new WaitingNextTurnServer());

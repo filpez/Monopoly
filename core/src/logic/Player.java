@@ -17,7 +17,7 @@ public class Player {
 	public Player(String name) {
 		super();
 		this.name = name;
-		this.funds = 0;
+		this.funds = 1500;
 		this.proprieties = new ArrayList<Propriety>();
 		this.position = 0;
 		this.remainingArrestedTurns = 0;
@@ -124,6 +124,17 @@ public class Player {
 			if (propriety.getOwner() == this)
 				n++;
 		return n;
+	}
+
+	public boolean isBankrupt() {
+		int totalMoney = funds;
+		for (Propriety propriety: getProprieties()) {
+			totalMoney += propriety.getPrice() / 2;
+			if (propriety instanceof BuildingLot){
+				totalMoney += ((BuildingLot)propriety).getHouses() * propriety.getGroup().getHouseValue()/2;
+			}
+		}
+		return totalMoney < 0;
 	}
 
 	

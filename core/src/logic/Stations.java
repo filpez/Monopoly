@@ -1,5 +1,7 @@
 package logic;
 
+import logic.effects.PayRent;
+
 /**
  * Represents the stations
  */
@@ -8,6 +10,8 @@ public class Stations extends Propriety {
 	
 	public Stations(String name, Group group, int price) {
 		super(name, group, price);
+		this.effect = new PayRent(0);
+		this.baseCost = price/8;
 	}
 	
 	public static int getBaseCost() {
