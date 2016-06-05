@@ -14,7 +14,7 @@ public class ApplyingActions implements State {
 
     @Override
     public void buy(BoardController boardController, int i) {
-        boardController.getBoard().addMessageToLog("You can't buy right now.");
+        boardController.getBoard().addMessageToLog("You can't buy right now.\n");
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ApplyingActions implements State {
 
     @Override
     public void sell(BoardController boardController, int i) {
-        boardController.getBoard().addMessageToLog("You can't sell right now.");
+        boardController.getBoard().addMessageToLog("You can't sell right now.\n");
     }
 
     @Override

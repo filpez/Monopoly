@@ -44,13 +44,6 @@ public class MainMenu  implements Screen {
     private int x = Gdx.graphics.getWidth()/6;
     private int y = Gdx.graphics.getHeight()/6;
 
-    //private SpriteBatch batch;
-   // private Texture heading, background, startButton, exitButton, settingsButton;
-
-   /* Skin skin;
-    Stage stage;
-    public ImageButton startButton, exitButton, settingsButton;*/
-
     public MainMenu(Game game) {
         this.game = (MonopolyGame)game;
         create();
@@ -85,7 +78,8 @@ public class MainMenu  implements Screen {
         settingsButton.setBounds(x, y/2+y, x*4, y);
         settingsButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
+                game.setScreen(new SettingsScreen(game));
+                //dispose();
             }
         });
 
@@ -141,6 +135,7 @@ public class MainMenu  implements Screen {
                     cancelDialog();
             }
         };
+
         Label label = new Label("Do you want to join a server?", skin);
         label.setWrap(true);
         label.setFontScale(5.0f);
@@ -242,7 +237,8 @@ public class MainMenu  implements Screen {
     }
 
     private void startGameServer() {
-        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));dialog = new Dialog("", skin, "default") {
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        dialog = new Dialog("", skin, "default") {
             public void result(Object obj) {
                 if (obj.equals("cancel"))
                     game.setScreen(new MainMenu(game));
@@ -250,13 +246,14 @@ public class MainMenu  implements Screen {
 
             }
         };
+
         Label label = new Label("Press Start when you are ready!", skin);
         label.setWrap(true);
         label.setFontScale(5.0f);
         label.setAlignment(Align.center);
 
         try {
-            BoardControllerServer controllerServer = new BoardControllerServer("Filipe");
+            BoardControllerServer controllerServer = new BoardControllerServer(game.username);
             game.controller = controllerServer;
             System.err.println("Server ready at " + controllerServer.getIPAddress() + " port " + 4456);
         } catch (Exception e) {

@@ -5,4 +5,4 @@
 ;GoToJail;Go to Jail;0;
 ;Move;Go Back 3 Spaces;-3;
 ;GoTo;Take a trip to Reading Railroad;Reading Railroad;
-;PayTax;Pay poor tax of $15;-15;
+;PayTax;Pay poor tax of $15;15;

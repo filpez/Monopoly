@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,7 +25,6 @@ public class BoardActor extends Actor{
         this.boardBackground = new Sprite(new Texture("img/board.png"));
         float min = Math.min(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.boardBackground.setBounds(0, 0, min, min);
-       // setOrigin(min/2, min/2);
         setBounds(0, 0, min, min);
         this.pSize = min/26;
 

@@ -1,20 +1,12 @@
 package logic;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
-import com.mygdx.game.MonopolyGame;
 
 import java.util.ArrayList;
 import java.io.*;
 import java.util.Scanner;
 
-
-import javax.naming.Context;
-
-import logic.effects.DrawCommunity;
-import logic.effects.GoToJail;
-import sun.rmi.runtime.Log;
 
 /**
  * Created by up201404493 on 17-05-2016.

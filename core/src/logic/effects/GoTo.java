@@ -15,7 +15,7 @@ public class GoTo extends Effect {
     public boolean apply(Board board) {
         Player currentPlayer = board.getCurrentPlayer();
         currentPlayer.setPosition(getValue());
-        board.addActionToLog(" MOVED TO " + board.getSpace(getValue()).getName() + "!");
+        board.addActionToLog(" moved to " + board.getSpace(getValue()).getName() + "!\n");
         return false;
     }
 }
