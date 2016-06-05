@@ -1,9 +1,13 @@
 package logic.controller;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -13,6 +17,7 @@ import lipermi.net.Server;
 import logic.BoardCreator;
 import logic.Player;
 import logic.states.ThrowingDiceServer;
+import sun.rmi.runtime.Log;
 
 /**
  * Created by Filipe on 13/05/2016.
@@ -21,6 +26,24 @@ public class BoardControllerServer extends logic.controller.BoardController impl
     private HashMap<Player, ControllerClientInterface> clients;
     private ArrayList<Player> players;
     private String IPAddress;
+
+    public static String getIpAddress(){
+        try {
+            for (Enumeration en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf =(NetworkInterface) en.nextElement();
+                for (Enumeration enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = (InetAddress)enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()&&inetAddress instanceof Inet4Address) {
+                        String ipAddress=inetAddress.getHostAddress().toString();
+                        //Log.e("IP address",""+ipAddress);
+                        return ipAddress;
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+        }
+        return null;
+    }
 
 
     public BoardControllerServer(String playerName) throws LipeRMIException, IOException{
@@ -37,7 +60,8 @@ public class BoardControllerServer extends logic.controller.BoardController impl
         int thePortIWantToBind = 4456;
         server.bind(thePortIWantToBind, callHandler);
         InetAddress IP = InetAddress.getLocalHost();
-        IPAddress = IP.getHostAddress();
+        //IPAddress = IP.getHostAddress();
+        IPAddress = getIpAddress();
     }
 
     public HashMap<Player, ControllerClientInterface> getClients() {
@@ -83,19 +107,20 @@ public class BoardControllerServer extends logic.controller.BoardController impl
     }
 
     public void start(){
-        /*// Read Board TO DO
-        Space[] spaces = new Space[40];
-        for (int i = 0; i < 40; i++)
-            spaces[i] = new TransactionSpace("Lisbon", 1);
-
-        // Create Board
-        board = new Board(players, spaces);*/
         board = BoardCreator.createBoard(players);
 
         //Select Random Player
         Random rand = new Random();
-        Player firstPlayer = players.get(rand.nextInt(players.size()));
+        int i = rand.nextInt(players.size());
+        Player firstPlayer = players.get(i);
         board.setCurrentPlayer(firstPlayer);
+
+        ArrayList<String> playerNames = new ArrayList<String>();
+        for (Player p: players)
+            playerNames.add(p.getName());
+
+        for (Player p: clients.keySet())
+            clients.get(p).start(playerNames, i);
 
         //Set state
         setState(new ThrowingDiceServer());

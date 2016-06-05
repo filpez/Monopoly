@@ -33,7 +33,7 @@ public class BoardController {
     }
 
     public boolean isPlayer(){
-        return board.getCurrentPlayer() == player;
+        return board.getCurrentPlayer().getName().equals(player.getName());
     }
 
     public Player getPlayer() {

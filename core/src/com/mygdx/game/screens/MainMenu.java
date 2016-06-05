@@ -26,8 +26,10 @@ import java.net.InetAddress;
 
 import lipermi.handler.CallHandler;
 import lipermi.net.Server;
+import logic.controller.BoardControllerClient;
 import logic.controller.BoardControllerServer;
 import logic.controller.ControllerServerInterface;
+import sun.rmi.runtime.Log;
 
 /**
  * Created by Filipe on 07/05/2016.
@@ -123,6 +125,7 @@ public class MainMenu  implements Screen {
     private void cancelDialog(){
         Gdx.input.setCatchBackKey(false);
         game.setScreen(new MainMenu(game));
+        game.controller = null;
         dispose();
     }
 
@@ -138,7 +141,7 @@ public class MainMenu  implements Screen {
 
         Label label = new Label("Do you want to join a server?", skin);
         label.setWrap(true);
-        label.setFontScale(5.0f);
+        label.setFontScale(3.0f);
         label.setAlignment(Align.center);
 
         dialog.padTop(50).padBottom(50);
@@ -146,7 +149,7 @@ public class MainMenu  implements Screen {
         dialog.getButtonTable().padTop(50);
 
         TextButton yesButton = new TextButton("Yes", skin);
-        yesButton.getLabel().setFontScale(5.0f);
+        yesButton.getLabel().setFontScale(3.0f);
         yesButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 dialog.hide();
@@ -156,7 +159,7 @@ public class MainMenu  implements Screen {
         });
 
         TextButton noButton = new TextButton("No", skin);
-        noButton.getLabel().setFontScale(5.0f);
+        noButton.getLabel().setFontScale(3.0f);
         noButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 dialog.hide();
@@ -165,7 +168,7 @@ public class MainMenu  implements Screen {
         });
 
         TextButton cancelButton = new TextButton("Cancel", skin);
-        cancelButton.getLabel().setFontScale(5.0f);
+        cancelButton.getLabel().setFontScale(3.0f);
         cancelButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 cancelDialog();
@@ -182,34 +185,26 @@ public class MainMenu  implements Screen {
     }
 
     private void startGameClient() {
-        /*BoardControllerServer server = new BoardControllerServer();
-        game.controller = server;
-        server.addPlayer("Filipe");
-*/
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-        skin.get(TextField.TextFieldStyle.class).font.getData().setScale(5.0f);
-
+        skin.get(TextField.TextFieldStyle.class).font.getData().setScale(2.0f);
 
         dialog = new Dialog("", skin, "default") {
             public void result(Object obj) {
-                if (obj.equals("cancel"))
-                    game.setScreen(new MainMenu(game));
-                dispose();
-
+                cancelDialog();
             }
         };
 
         String IPaddress = "";
-        TextField IPTextField = new TextField(IPaddress, skin);
+        final TextField IPTextField = new TextField(IPaddress, skin);
         IPTextField.setAlignment(Align.center);
 
         Label label = new Label("Insert IP and click Join", skin);
         label.setWrap(true);
-        label.setFontScale(4.0f);
+        label.setFontScale(3.0f);
         label.setAlignment(Align.center);
 
         Label label2 = new Label("IP: ", skin);
-        label2.setFontScale(5.0f);
+        label2.setFontScale(3.0f);
         label2.setAlignment(Align.center);
 
         dialog.padTop(50).padBottom(50);
@@ -218,13 +213,28 @@ public class MainMenu  implements Screen {
         dialog.getContentTable().add(IPTextField).width(x*3).height(y).row();
         dialog.getButtonTable().padTop(50);
 
-        TextButton button = new TextButton("Join", skin);
-        button.getLabel().setFontScale(5.0f);
+        final TextButton button = new TextButton("Join", skin);
+        button.getLabel().setFontScale(3.0f);
         button.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                //startGameClient();
-                dialog.hide();
-                game.setScreen(new BoardScreen(game));
+                if (button.getText().toString().equals("Start")){//) && game.controller.getBoard() != null
+                    dialog.hide();
+                    game.setScreen(new BoardScreen(game));
+                    dispose();
+                }
+                else {
+                    try {
+                        BoardControllerClient controllerClient = new BoardControllerClient(game.username, IPTextField.getText());
+                        game.controller = controllerClient;
+                        button.getLabel().setText("Start");
+                    } catch (Exception e) {
+                        Gdx.app.log("Main menu", e.toString());
+                        Gdx.app.exit();
+                        e.printStackTrace();
+                        cancelDialog();
+                    }
+
+                }
             }
         });
 
@@ -238,18 +248,16 @@ public class MainMenu  implements Screen {
 
     private void startGameServer() {
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+
         dialog = new Dialog("", skin, "default") {
             public void result(Object obj) {
-                if (obj.equals("cancel"))
-                    game.setScreen(new MainMenu(game));
-                dispose();
-
+                cancelDialog();
             }
         };
 
         Label label = new Label("Press Start when you are ready!", skin);
         label.setWrap(true);
-        label.setFontScale(5.0f);
+        label.setFontScale(3.0f);
         label.setAlignment(Align.center);
 
         try {
@@ -264,7 +272,7 @@ public class MainMenu  implements Screen {
 
         Label label2 = new Label("IP: "+ ((BoardControllerServer)game.controller).getIPAddress() , skin);
         label2.setWrap(true);
-        label2.setFontScale(5.0f);
+        label2.setFontScale(3.0f);
         label2.setAlignment(Align.center);
 
         dialog.padTop(50).padBottom(50);
@@ -273,13 +281,15 @@ public class MainMenu  implements Screen {
         dialog.getButtonTable().padTop(50);
 
         TextButton button = new TextButton("Start", skin);
-        button.getLabel().setFontScale(5.0f);
+        button.getLabel().setFontScale(3.0f);
         button.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                BoardControllerServer controllerServer = (BoardControllerServer)game.controller;
-                controllerServer.start();
-                dialog.hide();
-                game.setScreen(new BoardScreen(game));
+                if (((BoardControllerServer) game.controller).getClients().size() >= 1) {
+                    BoardControllerServer controllerServer = (BoardControllerServer) game.controller;
+                    controllerServer.start();
+                    dialog.hide();
+                    game.setScreen(new BoardScreen(game));
+                }
             }
         });
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.mygdx.game.screens.Splash;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import logic.Board;
 import logic.BoardCreator;
@@ -20,7 +21,8 @@ public class MonopolyGame extends Game {
 
 	@Override
 	public void create () {
-		username = "Player";
+		Random rand = new Random();
+		username = "Player" + Integer.toString(rand.nextInt(1000));
 		setScreen(new Splash(this));
 	}
 }

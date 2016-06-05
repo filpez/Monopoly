@@ -103,7 +103,6 @@ public class BoardScreen implements Screen {
 
 
 
-        //stage.addActor(actor);
         stage.addActor(boardActor);
         stage.addActor(SpacesButton);
         stage.addActor(NextButton);
