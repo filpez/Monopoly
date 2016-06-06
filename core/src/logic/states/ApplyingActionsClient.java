@@ -7,7 +7,7 @@ import logic.controller.BoardControllerClient;
 /**
  * Created by Filipe on 14/05/2016.
  */
-public class ApplyingActions implements State {
+public class ApplyingActionsClient implements State {
     public String getNextActionName(){
         return "Apply Effects";
     }
@@ -31,7 +31,7 @@ public class ApplyingActions implements State {
     public void nextEcho(BoardController boardController, int a, int b) {
         Board board = boardController.getBoard();
         if(board.applyCurrentSpaceEffect())
-            boardController.setState(new WaitingNextTurn());
+            boardController.setState(new WaitingNextTurnClient());
     }
 
     @Override

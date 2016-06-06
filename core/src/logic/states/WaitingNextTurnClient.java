@@ -9,7 +9,7 @@ import logic.controller.BoardControllerClient;
 /**
  * Created by Filipe on 17/05/2016.
  */
-public class WaitingNextTurn implements State {
+public class WaitingNextTurnClient implements State {
     public String getNextActionName(){
         return "End Turn";
     }
@@ -65,7 +65,7 @@ public class WaitingNextTurn implements State {
     public void nextEcho(BoardController boardController, int a, int b) {
         Board board = boardController.getBoard();
         board.endTurn();
-        boardController.setState(new ThrowingDice());
+        boardController.setState(new ThrowingDiceClient());
     }
 
     @Override

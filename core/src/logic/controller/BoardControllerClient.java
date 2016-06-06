@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import lipermi.exception.LipeRMIException;
 import lipermi.handler.CallHandler;
 import lipermi.net.Client;
-import logic.Board;
 import logic.BoardCreator;
 import logic.Player;
-import logic.states.ThrowingDice;
+import logic.states.ThrowingDiceClient;
 
 /**
  * Created by Filipe on 13/05/2016.
@@ -26,7 +25,7 @@ public class BoardControllerClient extends BoardController implements Controller
         //String remoteHost = "localhost";
         int portWasBinded = 4456;
         Client client = new Client(IPAddress, portWasBinded, callHandler);
-        ControllerServerInterface proxy = ( ControllerServerInterface)client.getGlobal(ControllerServerInterface.class);
+        proxy = ( ControllerServerInterface)client.getGlobal(ControllerServerInterface.class);
         callHandler.exportObject(ControllerClientInterface.class, this);
 
         proxy.join(playerName, this);
@@ -55,7 +54,7 @@ public class BoardControllerClient extends BoardController implements Controller
         board = BoardCreator.createBoard(players);
         Player firstPlayer = players.get(i);
         board.setCurrentPlayer(firstPlayer);
-        setState(new ThrowingDice());
+        setState(new ThrowingDiceClient());
 
     }
 

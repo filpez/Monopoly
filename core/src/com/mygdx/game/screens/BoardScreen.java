@@ -43,6 +43,7 @@ public class BoardScreen implements Screen {
         ScreenViewport viewport = new ScreenViewport();
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(false);
 
 
 
@@ -57,7 +58,7 @@ public class BoardScreen implements Screen {
         SpacesButton.getLabel().setAlignment(Align.center);
         SpacesButton.setPosition(actor.getWidth(),0);
         SpacesButton.setBounds(actor.getWidth(),0, (stage.getWidth()-actor.getWidth())/2, actor.getHeight()/5);
-        SpacesButton.getLabel().setFontScale(4.0f);
+        SpacesButton.getLabel().setFontScale(2.0f);
 
         SpacesButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
@@ -83,7 +84,7 @@ public class BoardScreen implements Screen {
         NextButton.getLabel().setAlignment(Align.center);
         NextButton.setPosition(actor.getWidth(),0);
         NextButton.setBounds(actor.getWidth() + SpacesButton.getWidth(),0, (stage.getWidth()-actor.getWidth())/2, actor.getHeight()/5);
-        NextButton.getLabel().setFontScale(4.0f);
+        NextButton.getLabel().setFontScale(2.0f);
 
         NextButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {

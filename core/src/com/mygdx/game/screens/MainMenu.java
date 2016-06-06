@@ -194,7 +194,7 @@ public class MainMenu  implements Screen {
             }
         };
 
-        String IPaddress = "";
+        String IPaddress = "192.168.1.";
         final TextField IPTextField = new TextField(IPaddress, skin);
         IPTextField.setAlignment(Align.center);
 

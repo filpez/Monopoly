@@ -9,7 +9,7 @@ import logic.controller.BoardControllerClient;
 /**
  * Created by Filipe on 14/05/2016.
  */
-public class ThrowingDice implements State {
+public class ThrowingDiceClient implements State {
     public String getNextActionName(){
         return "Throw Dices";
     }
@@ -30,6 +30,8 @@ public class ThrowingDice implements State {
         int b = rand.nextInt(6) + 1;
 
         BoardControllerClient client = (BoardControllerClient)boardController;
+       /* ControllerServerInterface proxy = client.getProxy();
+        proxy.next(a, b);*/
         client.getProxy().next(a, b);
     }
 
@@ -39,7 +41,7 @@ public class ThrowingDice implements State {
         board.throwDice(a);
         board.throwDice(b);
         board.move(a+b, a==b);
-        boardController.setState(new ApplyingActions());
+        boardController.setState(new ApplyingActionsClient());
     }
 
     @Override

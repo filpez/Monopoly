@@ -53,7 +53,7 @@ public class SpacesActor extends Group{
 
         TextButton NextButton = new TextButton("N\ne\nx\nt", skin);
         NextButton.setBounds(getWidth()*5/6,getHeight()/6, getWidth()/6, getHeight()*5/6);
-        NextButton.getLabel().setFontScale(3.0f);
+        NextButton.getLabel().setFontScale(2.0f);
         NextButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 currSpaceIndex =  (currSpaceIndex + 1) % 40;
@@ -63,7 +63,7 @@ public class SpacesActor extends Group{
 
         TextButton PrevButton = new TextButton("P\nr\ne\nv\ni\no\nu\ns", skin);
         PrevButton.setBounds(0,getHeight()/6, getWidth()/6, getHeight()*5/6);
-        PrevButton.getLabel().setFontScale(3.0f);
+        PrevButton.getLabel().setFontScale(2.0f);
         PrevButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 if (currSpaceIndex == 0)
@@ -76,7 +76,7 @@ public class SpacesActor extends Group{
 
         TextButton BuyButton = new TextButton("Buy", skin);
         BuyButton.setBounds(getWidth()*2/3,0, getWidth()/3, getHeight()/6);
-        BuyButton.getLabel().setFontScale(3.0f);
+        BuyButton.getLabel().setFontScale(2.0f);
         BuyButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 BoardController controller = SpacesActor.this.controller;
@@ -88,7 +88,7 @@ public class SpacesActor extends Group{
 
         TextButton SellButton = new TextButton("Sell", skin);
         SellButton.setBounds(0,0, getWidth()/3, getHeight()/6);
-        SellButton.getLabel().setFontScale(3.0f);
+        SellButton.getLabel().setFontScale(2.0f);
         SellButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 BoardController controller = SpacesActor.this.controller;
