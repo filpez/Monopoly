@@ -297,7 +297,8 @@ public class MainMenu  implements Screen {
                         button.getLabel().setText("Start");
                     } catch (Exception e) {
                         Gdx.app.log("Main menu", e.toString());
-                        Gdx.app.exit();
+                        game.controller = null;
+                        game.online = true;
                         e.printStackTrace();
                         cancelDialog();
                     }

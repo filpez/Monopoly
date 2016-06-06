@@ -5,7 +5,7 @@ import logic.Player;
 import logic.states.State;
 
 /**
- * Created by Filipe on 13/05/2016.
+ * Controls the state of the game
  */
 public class BoardController {
     protected Board board;
@@ -32,10 +32,6 @@ public class BoardController {
         this.board = board;
     }
 
-    public boolean isPlayer(){
-        return board.getCurrentPlayer().getName().equals(player.getName());
-    }
-
     public Player getPlayer() {
         return player;
     }
@@ -43,4 +39,14 @@ public class BoardController {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
+    /**
+     * Checks if the Player using this boardController is the current player.
+     * @return true if The players are the same, false otherwise.
+     */
+    public boolean isPlayer(){
+        return board.getCurrentPlayer().getName().equals(player.getName());
+    }
+
+
 }

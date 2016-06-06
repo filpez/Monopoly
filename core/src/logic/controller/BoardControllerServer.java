@@ -27,15 +27,18 @@ public class BoardControllerServer extends logic.controller.BoardController impl
     private ArrayList<Player> players;
     private String IPAddress;
 
+    /**
+     * Gets the public IP address of the machine this program is running.
+     * @return a string representing the IP
+     */
     public static String getIpAddress(){
         try {
             for (Enumeration en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
                 NetworkInterface intf =(NetworkInterface) en.nextElement();
                 for (Enumeration enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
                     InetAddress inetAddress = (InetAddress)enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress()&&inetAddress instanceof Inet4Address) {
-                        String ipAddress=inetAddress.getHostAddress().toString();
-                        //Log.e("IP address",""+ipAddress);
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+                        String ipAddress = inetAddress.getHostAddress().toString();
                         return ipAddress;
                     }
                 }
@@ -106,6 +109,10 @@ public class BoardControllerServer extends logic.controller.BoardController impl
         state.sellEcho(this, board.getCurrentPlayer().getPosition());
     }
 
+    /**
+     * Start the game itself.
+     * Load the board, chooses the first player and repeats these actions to the clients side.
+     */
     public void start(){
         board = BoardCreator.createBoard(players);
 

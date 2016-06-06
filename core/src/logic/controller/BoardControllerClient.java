@@ -11,10 +11,10 @@ import logic.Player;
 import logic.states.ThrowingDiceClient;
 
 /**
- * Created by Filipe on 13/05/2016.
+ * Board Controler in Client Mode
  */
 public class BoardControllerClient extends BoardController implements ControllerClientInterface {
-    private ControllerServerInterface proxy;
+    private ControllerServerInterface proxy; // Server
 
     public BoardControllerClient(String playerName, String IPAddress ) throws LipeRMIException, IOException {
         super();
@@ -22,7 +22,6 @@ public class BoardControllerClient extends BoardController implements Controller
         player = new Player(playerName);
 
         CallHandler callHandler = new CallHandler();
-        //String remoteHost = "localhost";
         int portWasBinded = 4456;
         Client client = new Client(IPAddress, portWasBinded, callHandler);
         proxy = ( ControllerServerInterface)client.getGlobal(ControllerServerInterface.class);
@@ -30,6 +29,7 @@ public class BoardControllerClient extends BoardController implements Controller
 
         proxy.join(playerName, this);
     }
+
 
     @Override
     public void buy() {
