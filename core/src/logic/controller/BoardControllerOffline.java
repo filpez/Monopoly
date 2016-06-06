@@ -16,9 +16,9 @@ public class BoardControllerOffline extends BoardController {
         ArrayList<Player> players = new ArrayList<Player>();
         players.add(new Player("Red"));
         players.add(new Player("Blue"));
-        if (numPlayers >= 3);
+        if (numPlayers >= 3)
             players.add(new Player("Green"));
-        if (numPlayers >= 4);
+        if (numPlayers >= 4)
             players.add(new Player("Yellow"));
 
         board = BoardCreator.createBoard(players);
