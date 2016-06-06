@@ -47,7 +47,4 @@ public class Card {
 		else return new PayTax(value);
 	}
 
-
-
-
 }

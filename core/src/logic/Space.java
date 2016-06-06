@@ -12,7 +12,6 @@ public abstract class Space {
 	protected Effect effect;
 
 	public Space(String name) {
-		super();
 		this.name = name;
 	}
 

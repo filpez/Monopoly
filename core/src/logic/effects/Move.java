@@ -13,7 +13,6 @@ public class Move  extends Effect {
 
     @Override
     public boolean apply(Board board) {
-        Player currentPlayer = board.getCurrentPlayer();
         board.move(getValue(), false);
         return false;
     }

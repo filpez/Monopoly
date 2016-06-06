@@ -30,6 +30,7 @@ public class Stations extends Propriety {
 		int cost = baseCost;
 		while (n > 0){
 			cost *= 2;
+			n--;
 		}
 		return cost;
 	}
