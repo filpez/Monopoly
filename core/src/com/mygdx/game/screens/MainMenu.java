@@ -27,6 +27,7 @@ import java.net.InetAddress;
 import lipermi.handler.CallHandler;
 import lipermi.net.Server;
 import logic.controller.BoardControllerClient;
+import logic.controller.BoardControllerOffline;
 import logic.controller.BoardControllerServer;
 import logic.controller.ControllerServerInterface;
 import sun.rmi.runtime.Log;
@@ -139,7 +140,7 @@ public class MainMenu  implements Screen {
             }
         };
 
-        Label label = new Label("Do you want to join a server?", skin);
+        Label label = new Label("Select Mode:", skin);
         label.setWrap(true);
         label.setFontScale(3.0f);
         label.setAlignment(Align.center);
@@ -148,37 +149,103 @@ public class MainMenu  implements Screen {
         dialog.getContentTable().add(label).width(x*4).height(y).row();
         dialog.getButtonTable().padTop(50);
 
-        TextButton yesButton = new TextButton("Yes", skin);
-        yesButton.getLabel().setFontScale(3.0f);
-        yesButton.addListener(new ChangeListener() {
+        TextButton clientButton = new TextButton("Client", skin);
+        clientButton.getLabel().setFontScale(3.0f);
+        clientButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 dialog.hide();
                 startGameClient();
-                //game.setScreen(new BoardScreen(game));
             }
         });
 
-        TextButton noButton = new TextButton("No", skin);
-        noButton.getLabel().setFontScale(3.0f);
-        noButton.addListener(new ChangeListener() {
+        TextButton serverButton = new TextButton("Server", skin);
+        serverButton.getLabel().setFontScale(3.0f);
+        serverButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 dialog.hide();
                 startGameServer();
             }
         });
 
-        TextButton cancelButton = new TextButton("Cancel", skin);
-        cancelButton.getLabel().setFontScale(3.0f);
-        cancelButton.addListener(new ChangeListener() {
+        TextButton offlineButton = new TextButton("Offline", skin);
+        offlineButton.getLabel().setFontScale(3.0f);
+        offlineButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                cancelDialog();
+                dialog.hide();
+                startGameOffline();
             }
+
+
         });
 
         Table t = dialog.getButtonTable();
-        t.add(cancelButton).width(x).pad(x/10);
-        t.add(noButton).width(x).pad(x/10);
-        t.add(yesButton).width(x).pad(x/10).row();
+        t.add(offlineButton).width(x).pad(x/10);
+        t.add(serverButton).width(x).pad(x/10);
+        t.add(clientButton).width(x).pad(x/10).row();
+
+        dialog.key(Input.Keys.BACK, "cancel");
+        dialog.show(stage);
+    }
+
+    private void startGameOffline() {
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        skin.get(TextField.TextFieldStyle.class).font.getData().setScale(2.0f);
+
+        dialog = new Dialog("", skin, "default") {
+            public void result(Object obj) {
+                cancelDialog();
+            }
+        };
+
+
+        Label label = new Label("Number of Players", skin);
+        label.setWrap(true);
+        label.setFontScale(3.0f);
+        label.setAlignment(Align.center);
+
+        TextButton twoButton = new TextButton("2", skin);
+        twoButton.getLabel().setFontScale(3.0f);
+        twoButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                game.controller = new BoardControllerOffline(2);
+                game.online = false;
+                dialog.hide();
+                game.setScreen(new BoardScreen(game));
+                dispose();
+            }
+        });
+
+        TextButton threeButton = new TextButton("3", skin);
+        threeButton.getLabel().setFontScale(3.0f);
+        threeButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                game.controller = new BoardControllerOffline(3);
+                game.online = false;
+                dialog.hide();
+                game.setScreen(new BoardScreen(game));
+                dispose();
+            }
+        });
+
+        TextButton fourButton = new TextButton("4", skin);
+        fourButton.getLabel().setFontScale(3.0f);
+        fourButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                game.controller = new BoardControllerOffline(4);
+                game.online = false;
+                dialog.hide();
+                game.setScreen(new BoardScreen(game));
+                dispose();
+            }
+        });
+
+        dialog.padTop(50).padBottom(50);
+        dialog.getContentTable().add(label);
+        dialog.getButtonTable().padTop(50);
+        dialog.getButtonTable().add(twoButton).width(x);
+        dialog.getButtonTable().add(threeButton).width(x);
+        dialog.getButtonTable().add(fourButton).width(x);
+
 
         dialog.key(Input.Keys.BACK, "cancel");
         dialog.show(stage);
@@ -226,6 +293,7 @@ public class MainMenu  implements Screen {
                     try {
                         BoardControllerClient controllerClient = new BoardControllerClient(game.username, IPTextField.getText());
                         game.controller = controllerClient;
+                        game.online = true;
                         button.getLabel().setText("Start");
                     } catch (Exception e) {
                         Gdx.app.log("Main menu", e.toString());
@@ -263,6 +331,7 @@ public class MainMenu  implements Screen {
         try {
             BoardControllerServer controllerServer = new BoardControllerServer(game.username);
             game.controller = controllerServer;
+            game.online = true;
             System.err.println("Server ready at " + controllerServer.getIPAddress() + " port " + 4456);
         } catch (Exception e) {
             System.err.println("Server exception: " + e.toString());

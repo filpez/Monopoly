@@ -18,6 +18,7 @@ import logic.TransactionSpace;
 public class MonopolyGame extends Game {
 	public BoardController controller;
 	public String username;
+	public boolean online;
 
 	@Override
 	public void create () {

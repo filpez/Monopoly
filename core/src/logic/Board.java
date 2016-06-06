@@ -140,14 +140,21 @@ public class Board {
 		return getSpace(currPos).applyEffect(this, getLastMovement());
 	}
 
-	public void endTurn() {
+	public boolean endTurn() {
 		addActionToLog(" turn has ended!\n");
 		Player nextPlayer = nextPlayer();
 		if (currentPlayer.isBankrupt()){
 			players.remove(currentPlayer);
 		}
 		setCurrentPlayer(nextPlayer);
-		addActionToLog(" turn started!\n");
+		if (players.size() >= 1) {
+			addActionToLog(" turn started!\n");
+			return true;
+		}
+		else{
+			addActionToLog(" won!\n");
+			return false;
+		}
 	}
 
 

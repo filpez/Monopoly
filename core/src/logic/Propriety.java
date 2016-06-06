@@ -61,8 +61,5 @@ public abstract class Propriety extends Space{
 		this.group = group;
 	}
 
-	public boolean canAddHouse() {
-		//TO DO
-		return false;
-	}
+
 }

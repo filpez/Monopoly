@@ -137,6 +137,24 @@ public class Player {
 		return totalMoney < 0;
 	}
 
+	public boolean canBuild(BuildingLot buildingLot){
+		return (hasMonopoly(buildingLot.getGroup()) &&
+				buildingLot.getGroup().getHouseValue() <= funds &&
+				buildingLot.canAddHouse()
+				);
+	}
+
+	public void build(BuildingLot buildingLot){
+		int price = buildingLot.getGroup().getHouseValue();
+		buildingLot.addHouse();
+		this.pay(price);
+	}
+
+	public void demolish(BuildingLot buildingLot){
+		int price = buildingLot.getGroup().getHouseValue();
+		buildingLot.removeHouse();
+		this.receive(price/2);
+	}
 	
 	
 }

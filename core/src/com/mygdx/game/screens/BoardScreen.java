@@ -46,9 +46,8 @@ public class BoardScreen implements Screen {
         Gdx.input.setCatchBackKey(false);
 
 
-
         boardActor = new BoardActor(game.controller);
-        spacesActor = new SpacesActor(game.controller);
+        spacesActor = new SpacesActor(game);
         actor = boardActor;
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
@@ -88,9 +87,13 @@ public class BoardScreen implements Screen {
 
         NextButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                spacesActor.updateFunds();
-                if (game.controller.isPlayer()) {
-                    game.controller.getState().next(game.controller);
+                if (game.controller.getState().getNextActionName().equals("Finish"))
+                    Gdx.app.exit();
+                else {
+                    spacesActor.updateFunds();
+                    if (!game.online || game.controller.isPlayer()) {
+                        game.controller.getState().next(game.controller);
+                    }
                 }
             }
         });

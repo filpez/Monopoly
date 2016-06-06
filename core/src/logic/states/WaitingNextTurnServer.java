@@ -1,6 +1,7 @@
 package logic.states;
 
 import logic.Board;
+import logic.BuildingLot;
 import logic.Player;
 import logic.Propriety;
 import logic.controller.BoardController;
@@ -17,28 +18,41 @@ public class WaitingNextTurnServer implements State {
     @Override
     public void buy(BoardController boardController, int i) {
         Board board = boardController.getBoard();
-        Propriety selectedSpace;
         Player currentPlayer = board.getCurrentPlayer();
+
+        //Check if it is a Propriety
         if (!(board.getSpace(i) instanceof Propriety)) {
             board.addMessageToLog("You can't buy " + board.getSpace(i).getName() + "!\n");
             return;
         }
-        else if(currentPlayer.getPosition() != i){
-            board.addMessageToLog("You aren't at " + board.getSpace(i).getName() + "!\n");
-            return;
-        }
-        else
-            selectedSpace = (Propriety) board.getSpace(i);
+        Propriety selectedSpace = (Propriety) board.getSpace(i);
 
-        if (selectedSpace.getOwner() != null){
+        //Owner == null
+        if (selectedSpace.getOwner() == null){
+            if (currentPlayer.getPosition() != i){
+                board.addMessageToLog("You aren't at " + board.getSpace(i).getName() + "!\n");
+            }
+            else if (currentPlayer.canBuy(selectedSpace)){
+                BoardControllerServer server = (BoardControllerServer)boardController;
+                server.buy();
+            }
+            else{
+                board.addMessageToLog("You don't have enough money to buy " + board.getSpace(i).getName() + "!\n");
+            }
+        }
+        //Owner is different player
+        else if (selectedSpace.getOwner() != currentPlayer ){
             board.addMessageToLog(board.getSpace(i).getName() + " already has an owner!\n");
         }
-        else if (currentPlayer.canBuy(selectedSpace)){
-            BoardControllerServer server = (BoardControllerServer)boardController;
-            server.buy();
-        }
+        //Owner is player
         else{
-            board.addMessageToLog("You don't have enough money to buy " + board.getSpace(i).getName() + "!\n");
+            if (selectedSpace instanceof BuildingLot && currentPlayer.canBuild((BuildingLot)selectedSpace)) {
+                BoardControllerServer server = (BoardControllerServer)boardController;
+                server.buy();
+            }
+            else {
+                board.addMessageToLog("You can't build at " + board.getSpace(i).getName() + "!\n");
+            }
         }
     }
 
@@ -47,8 +61,14 @@ public class WaitingNextTurnServer implements State {
         Board board = boardController.getBoard();
         Propriety selectedSpace = (Propriety) board.getSpace(i);
         Player currentPlayer = board.getCurrentPlayer();
-        board.addActionToLog(" bought "+ selectedSpace.getName() + "!\n");
-        currentPlayer.buy(selectedSpace);
+        if (selectedSpace.getOwner() == currentPlayer){
+            board.addActionToLog(" built at " + selectedSpace.getName() + "!\n");
+            currentPlayer.build((BuildingLot)selectedSpace);
+        }
+        else {
+            board.addActionToLog(" bought " + selectedSpace.getName() + "!\n");
+            currentPlayer.buy(selectedSpace);
+        }
     }
 
     @Override
@@ -64,8 +84,10 @@ public class WaitingNextTurnServer implements State {
     @Override
     public void nextEcho(BoardController boardController, int a, int b) {
         Board board = boardController.getBoard();
-        board.endTurn();
-        boardController.setState(new ThrowingDiceServer());
+        if (board.endTurn())
+            boardController.setState(new ThrowingDiceClient());
+        else
+            boardController.setState(new DisplayingResults());
     }
 
     @Override
@@ -94,7 +116,13 @@ public class WaitingNextTurnServer implements State {
         Board board = boardController.getBoard();
         Propriety selectedSpace = (Propriety) board.getSpace(i);
         Player currentPlayer = board.getCurrentPlayer();
-        boardController.getBoard().addActionToLog(" bought "+ selectedSpace.getName() + "!\n");
-        currentPlayer.sell(selectedSpace);
+        if (selectedSpace instanceof BuildingLot && ((BuildingLot)selectedSpace).getHouses() > 0 ){
+            board.addActionToLog(" demolished an house at " + selectedSpace.getName() + "!\n");
+            currentPlayer.demolish((BuildingLot)selectedSpace);
+        }
+        else {
+            board.addActionToLog(" sold " + selectedSpace.getName() + "!\n");
+            currentPlayer.sell(selectedSpace);
+        }
     }
 }

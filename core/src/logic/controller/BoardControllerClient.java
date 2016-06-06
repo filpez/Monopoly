@@ -54,6 +54,7 @@ public class BoardControllerClient extends BoardController implements Controller
         board = BoardCreator.createBoard(players);
         Player firstPlayer = players.get(i);
         board.setCurrentPlayer(firstPlayer);
+        board.addActionToLog(" turn started!\n");
         setState(new ThrowingDiceClient());
 
     }

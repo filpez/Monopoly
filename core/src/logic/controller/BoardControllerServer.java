@@ -114,7 +114,7 @@ public class BoardControllerServer extends logic.controller.BoardController impl
         int i = rand.nextInt(players.size());
         Player firstPlayer = players.get(i);
         board.setCurrentPlayer(firstPlayer);
-
+        board.addActionToLog(" turn started!\n");
         ArrayList<String> playerNames = new ArrayList<String>();
         for (Player p: players)
             playerNames.add(p.getName());

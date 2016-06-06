@@ -9,9 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.game.MonopolyGame;
 
 import logic.DrawChanceSpace;
 import logic.DrawCommunitySpace;
+import logic.Player;
 import logic.Service;
 import logic.controller.BoardController;
 import logic.BuildingLot;
@@ -24,18 +26,21 @@ import logic.TransactionSpace;
  * Created by Filipe on 07/05/2016.
  */
 public class SpacesActor extends Group{
+    private final MonopolyGame game;
     private BoardController controller;
     private int currSpaceIndex = 0;
     Label spaceText;
     Label fundsText;
 
-    public SpacesActor(BoardController controller){
+    public SpacesActor(MonopolyGame game){
+
         float min = Math.min(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         setBounds(getX(), getY(), min, min);
 
         setColor(Color.BLACK);
 
-        this.controller = controller;
+        this.game = game;
+        this.controller = game.controller;
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
@@ -81,7 +86,7 @@ public class SpacesActor extends Group{
             public void changed (ChangeEvent event, Actor actor) {
                 BoardController controller = SpacesActor.this.controller;
                 updateFunds();
-                if (controller.isPlayer())
+                if (!SpacesActor.this.game.online || controller.isPlayer())
                     controller.getState().buy(controller, currSpaceIndex);
             }
         });
@@ -93,7 +98,7 @@ public class SpacesActor extends Group{
             public void changed (ChangeEvent event, Actor actor) {
                 BoardController controller = SpacesActor.this.controller;
                 updateFunds();
-                if (controller.isPlayer())
+                if (!SpacesActor.this.game.online || controller.isPlayer())
                     controller.getState().sell(controller, currSpaceIndex);
             }
         });
@@ -113,6 +118,11 @@ public class SpacesActor extends Group{
     }
 
     public void updateFunds(){
+        Player player;
+        if (game.online)
+            player = controller.getPlayer();
+        else
+            player = controller.getBoard().getCurrentPlayer();
         int funds = controller.getPlayer().getFunds();
         String s = "Funds:\n" + Integer.toString(funds);
         fundsText.setText(s);

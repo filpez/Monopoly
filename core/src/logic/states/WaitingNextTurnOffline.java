@@ -10,7 +10,7 @@ import logic.controller.BoardControllerClient;
 /**
  * Created by Filipe on 17/05/2016.
  */
-public class WaitingNextTurnClient implements State {
+public class WaitingNextTurnOffline implements State {
     public String getNextActionName(){
         return "End Turn";
     }
@@ -33,8 +33,7 @@ public class WaitingNextTurnClient implements State {
                 board.addMessageToLog("You aren't at " + board.getSpace(i).getName() + "!\n");
             }
             else if (currentPlayer.canBuy(selectedSpace)){
-                BoardControllerClient client = (BoardControllerClient)boardController;
-                client.getProxy().buy();
+                buyEcho(boardController,  currentPlayer.getPosition());
             }
             else{
                 board.addMessageToLog("You don't have enough money to buy " + board.getSpace(i).getName() + "!\n");
@@ -47,8 +46,7 @@ public class WaitingNextTurnClient implements State {
         //Owner is player
         else{
             if (selectedSpace instanceof BuildingLot && currentPlayer.canBuild((BuildingLot)selectedSpace)) {
-                BoardControllerClient client = (BoardControllerClient)boardController;
-                client.getProxy().buy();
+                buyEcho(boardController,  currentPlayer.getPosition());
             }
             else {
                 board.addMessageToLog("You can't build at " + board.getSpace(i).getName() + "!\n");
@@ -76,8 +74,7 @@ public class WaitingNextTurnClient implements State {
         if (boardController.getBoard().getCurrentPlayer().getFunds() < 0 && !boardController.getBoard().getCurrentPlayer().isBankrupt())
             boardController.getBoard().addMessageToLog("You must sell something!");
         else {
-            BoardControllerClient client = (BoardControllerClient) boardController;
-            client.getProxy().next(0, 0);
+            nextEcho(boardController, 0, 0);
         }
     }
 
@@ -85,7 +82,7 @@ public class WaitingNextTurnClient implements State {
     public void nextEcho(BoardController boardController, int a, int b) {
         Board board = boardController.getBoard();
         if (board.endTurn())
-            boardController.setState(new ThrowingDiceClient());
+            boardController.setState(new ThrowingDiceOffline());
         else
             boardController.setState(new DisplayingResults());
     }
@@ -106,8 +103,7 @@ public class WaitingNextTurnClient implements State {
             boardController.getBoard().addMessageToLog("You don't own " +board.getSpace(i).getName() + "!\n");
         }
         else{
-            BoardControllerClient client = (BoardControllerClient)boardController;
-            client.getProxy().sell();
+            sellEcho(boardController,  currentPlayer.getPosition());
         }
     }
 
@@ -123,6 +119,5 @@ public class WaitingNextTurnClient implements State {
             board.addActionToLog(" sold " + selectedSpace.getName() + "!\n");
             currentPlayer.sell(selectedSpace);
         }
-
     }
 }
