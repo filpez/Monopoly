@@ -8,8 +8,6 @@ import logic.effects.PayRent;
  * Keeps tracks of the Houses and Hotels built.
  */
 public class BuildingLot extends Propriety{
-	private static int remainingHouses;
-	private static int remainingHotels;
 	
 	private int[] rents;// = new int[5];
 	private int houses;
@@ -29,22 +27,6 @@ public class BuildingLot extends Propriety{
 			return rents[0]*2;
 		else
 			return rents[houses];
-	}
-
-	public static int getRemainingHouses() {
-		return remainingHouses;
-	}
-
-	public static void setRemainingHouses(int remainingHouses) {
-		BuildingLot.remainingHouses = remainingHouses;
-	}
-
-	public static int getRemainingHotels() {
-		return remainingHotels;
-	}
-
-	public static void setRemainingHotels(int remainingHotels) {
-		BuildingLot.remainingHotels = remainingHotels;
 	}
 
 	public int[] getRents() {
@@ -84,6 +66,5 @@ public class BuildingLot extends Propriety{
 	public boolean canAddHouse(){
 		return houses < 4;
 	}
-
 
 }

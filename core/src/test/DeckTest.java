@@ -16,7 +16,6 @@ import static org.junit.Assert.assertEquals;
 public class DeckTest {
     @Test
     public void testCardBuilder() {
-        Effect e = new Move(3);
         Card c = new Card("Move 3 positions", "Move", 3);
 
         assertEquals("Move 3 positions", c.getText());

@@ -21,7 +21,7 @@ public class Board {
 		super();
 		this.players = players;
 		this.spaces = spaces;
-		this.log = new String("The game has started!\n");
+		this.log = "The game has started!\n";
 	}
 
 	public Board(ArrayList<Player> players, Space[] spaces, Deck community, Deck chance) {
@@ -159,7 +159,7 @@ public class Board {
 
 
 	public void throwDice(int value) {
-		String s = new String(" has throwed the dice for " + value +"!\n");
+		String s = " has throwed the dice for " + value +"!\n";
 		addActionToLog(s);
 	}
 

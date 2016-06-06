@@ -66,29 +66,24 @@ public class ProprietyTest {
 		
 		Player player = new Player("Derp");
 		player.buy(p1);
-		assertEquals(p1.getRent(0), 20);
-		assertFalse(p1.canAddHouse());
+		assertEquals(p1.getRent(0), 20);			// rents[houses] with houses=0
 		
 		player.buy(p2);
-		assertEquals(p1.getRent(0), 40);
+		assertEquals(p1.getRent(0), 40);			// 2*rents[0]
 		assertEquals(true, player.hasMonopoly(g1));
-		//assertTrue(p1.canAddHouse());
-		
+
+		assertEquals(true, p1.canAddHouse());
 		p1.addHouse();
-		assertEquals(p1.getRent(0), 100);
+		assertEquals(1, p1.getHouses());
+		assertEquals(p1.getRent(0), 100);			// rents[1]
 
-		p1.setRemainingHouses(2);
-		assertEquals(2, p1.getRemainingHouses());
-
-		p1.setRemainingHotels(1);
-		assertEquals(1, p1.getRemainingHotels());
+		p1.setHouses(4);
+		assertEquals(4, p1.getHouses());
+		assertEquals(false, p1.canAddHouse());
 
 		int[] rents = {1,2,3,4,5};
 		p1.setRents(rents);
 		assertEquals(rents, p1.getRents());
-
-		p1.setHouses(3);
-		assertEquals(3, p1.getHouses());
 	}
 
 	@Test
