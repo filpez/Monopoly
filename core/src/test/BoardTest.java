@@ -71,8 +71,8 @@ public class BoardTest {
 		ArrayList<Player> p = new ArrayList<Player>();
 		Player p1 = new Player("yandere");
 		p.add(p1);
-		board.setPlayers(p);
 
+		board.setPlayers(p);
 		assertEquals(p, board.getPlayers());
 
 		ArrayList<Card>ch = new ArrayList<Card>();
@@ -80,6 +80,7 @@ public class BoardTest {
 		Card move = new Card("Move 3 positions backwards", "Move", 3);
 		ch.add(move);
 		chance.setCards(ch);
+
 		board.setChance(chance);
 		assertEquals(chance, board.getChance());
 
@@ -87,11 +88,13 @@ public class BoardTest {
 		Deck community = new Deck(co);
 		Card goTo = new Card("Go to position 0", "GoTo", 0);
 		co.add(goTo);
+
 		board.setCommunity(community);
 		assertEquals(community, board.getCommunity());
 
 		Space[] spaces = new Space[40];
 		spaces[0] = new Service("Service1", new Group("Red"), 100);
+
 		board.setSpaces(spaces);
 		assertEquals(spaces[0], board.getSpaces()[0]);
 	}
@@ -248,8 +251,8 @@ public class BoardTest {
 	}
 
 	@Test
-	public void testWinLose() {
-		//Test winning and losing conditions.
+	public void testLose() {
+		//Test losing conditions.
 		Board b = getBoard();
 		b.setCurrentPlayer(b.getPlayers().get(0));
 
@@ -259,7 +262,5 @@ public class BoardTest {
 		assertEquals(2, b.getPlayers().size());
 		b.endTurn();							// player that lost is removed from the game
 		assertEquals(1, b.getPlayers().size());
-
-
 	}
 }

@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import logic.Card;
+import logic.Deck;
 import logic.effects.Effect;
 import logic.effects.Move;
 
@@ -31,13 +32,20 @@ public class DeckTest {
     @Test
     public void testDeckBuilder() {
         ArrayList<Card> cards = new ArrayList<Card>();
-        Card c = new Card("Move 3 positions", "Move", 3);
-        Card g = new Card("Go to Jail", "GoToJail", 0);
-        cards.add(c);
-        cards.add(g);
+        Deck d = new Deck(cards);
 
-        /*Deck d = new Deck(cards);
-        assertEquals(c.getText(), d.getNextCard().getText());
+        assertEquals(cards, d.getCards());
+
+        ArrayList<Card> c = new ArrayList<Card>();
+        Card m = new Card("Move 3 positions", "Move", 3);
+        Card g = new Card("Go to Jail", "GoToJail", 0);
+        c.add(m);
+        c.add(g);
+
+        d.setCards(c);
+        assertEquals(c, d.getCards());
+
+        /*assertEquals(c.getText(), d.getNextCard().getText());
         assertEquals(g.getText(), d.getNextCard().getText());*/
     }
 }
