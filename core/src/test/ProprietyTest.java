@@ -96,16 +96,12 @@ public class ProprietyTest {
 
 		Player player = new Player("Derp");
 		p1.setOwner(player);
-		p1.setSingleMultiplier(1);
 
-		assertEquals(1, p1.getSingleMultiplier());
-		assertEquals(2, p1.getRent(2));
+		assertEquals(8, p1.getRent(2));
 
 		p2.setOwner(player);
-		p2.setMonopolyMultiplier(2);
 
-		assertEquals(2, p1.getMonopolyMultiplier());
-		assertEquals(4, p1.getRent(2));
+		assertEquals(20, p1.getRent(2));
 	}
 	@Test
 	public void testStationsRents(){
