@@ -105,7 +105,7 @@ public class BoardCreator {
                                         spaces[i] = new BuildingLot(name, groups.get(i_group), value, rents);
                                     }
                                 } else {
-                                    System.out.println("Group not found!");
+                                    System.out.println("Group not found!\n");
                                     return null;
                                 }
                             }
@@ -120,7 +120,7 @@ public class BoardCreator {
                 }
             }
         } else{
-            System.out.println("File not found");
+            System.out.println("File not found\n");
             return null;
         }
 
@@ -164,7 +164,7 @@ public class BoardCreator {
                             Card goTo = new Card(text,effect,index);
                             cards.add(goTo);
                         } else {
-                            System.out.println("Space not found!");
+                            System.out.println("Space not found!\n");
                             return null;
                         }
                     } else if(effect.equals("GoToJail")){
@@ -189,7 +189,7 @@ public class BoardCreator {
                 }
             }
         } else{
-            System.out.println("File not found!");
+            System.out.println("File not found!\n");
             return null;
         }
 
@@ -235,7 +235,7 @@ public class BoardCreator {
                             Card goTo = new Card(text,effect,index);
                             cards.add(goTo);
                         } else {
-                            System.out.println("Space not found!");
+                            System.out.println("Space not found!\n");
                             return null;
                         }
                     } else if(effect.equals("GoToJail")){
@@ -254,7 +254,7 @@ public class BoardCreator {
                 }
             }
         } else{
-            System.out.println("File not found!");
+            System.out.println("File not found!\n");
             return null;
         }
 
