@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -29,7 +30,7 @@ public class SpacesActor extends Group{
     private final MonopolyGame game;
     private BoardController controller;
     private int currSpaceIndex = 0;
-    Label spaceText;
+    ScrollPane spaceTextPane;
     Label fundsText;
 
     public SpacesActor(MonopolyGame game){
@@ -44,11 +45,17 @@ public class SpacesActor extends Group{
 
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
-        spaceText = new Label("", skin);
+
+
+        Label spaceText = new Label("", skin);
         spaceText.setWrap(true);
         spaceText.setFontScale(2.0f);
         spaceText.setAlignment(Align.top);
-        spaceText.setBounds(getWidth()/6, getHeight()/6, getWidth()*4/6, getHeight()*5/6);
+        //spaceText.setBounds(getWidth()/6, getHeight()/6, getWidth()*4/6, getHeight()*5/6);
+
+        spaceTextPane = new ScrollPane(spaceText);
+        spaceTextPane.setFadeScrollBars(true);
+        spaceTextPane.setBounds(getWidth()/6, getHeight()/6, getWidth()*4/6, getHeight()*5/6);
 
         fundsText = new Label("", skin);
         fundsText.setWrap(true);
@@ -104,7 +111,7 @@ public class SpacesActor extends Group{
         });
 
 
-        addActor(spaceText);
+        addActor(spaceTextPane);
         addActor(fundsText);
         addActor(NextButton);
         addActor(PrevButton);
@@ -123,7 +130,7 @@ public class SpacesActor extends Group{
             player = controller.getPlayer();
         else
             player = controller.getBoard().getCurrentPlayer();
-        int funds = controller.getPlayer().getFunds();
+        int funds = player.getFunds();
         String s = "Funds:\n" + Integer.toString(funds);
         fundsText.setText(s);
     }
@@ -147,7 +154,7 @@ public class SpacesActor extends Group{
             s = ServicesText((Service)currSpace);
         else
             s = "";
-        spaceText.setText(s);
+        ((Label)spaceTextPane.getWidget()).setText(s);
 
     }
 
@@ -156,16 +163,17 @@ public class SpacesActor extends Group{
         s =space.getName() + "\n";
         s += "Color: " + space.getGroup().getName() + "\n";
         if (space.getOwner() != null)
-            s += "Owner: " + space.getOwner().getName() + "\n" + "\n";
+            s += "Owner: " + space.getOwner().getName() + "\n";
         else
-            s += "Owner: none\n\n";
+            s += "Owner: none\n";
+        s += "Houses: " + space.getHouses() + "\n" + "\n";
         s += "Rent..." + "\n";
         s += "... without houses: " + space.getRents()[0] + "\n";
         s += "... with a house:   " + space.getRents()[1] + "\n";
         s += "... with 2 houses:  " + space.getRents()[2] + "\n";
         s += "... with 3 houses:  " + space.getRents()[3] + "\n";
         s += "... with an hotel:  " + space.getRents()[4] + "\n";
-        s += "The rent is double on an empty lot\nif you have all Proprieties of that color\n\n";
+        s += "The rent is double on an empty lot if you have all Proprieties of that color\n\n";
         s += "Price: " + space.getPrice() + "\n";
 
         return s;
@@ -208,27 +216,27 @@ public class SpacesActor extends Group{
         String s;
         s =space.getName() + "\n\n";
         if (space.getEffect().getValue() > 0)
-            s += "When you land on this space,\nyou pay " + space.getEffect().getValue() + " to the Bank.\n";
+            s += "When you land on this space, you pay " + space.getEffect().getValue() + " to the Bank.\n";
         else if (space.getEffect().getValue() < 0)
-            s += "When you land on this space,\nyou receive " + (-space.getEffect().getValue()) + " from the Bank.\n";
+            s += "When you land on this space, you receive " + (-space.getEffect().getValue()) + " from the Bank.\n";
         return s;
     }
 
     private String GoToJailSpaceText() {
         String s;
-        s = "When you land on this space,\nyou are directly sent to jail\nwithout passing through the start\nand without collecting any money";
+        s = "When you land on this space,you are directly sent to jail without passing through the start and without collecting any money";
         return s;
     }
 
     private String CommunityText() {
         String s;
-        s = "When you land on this space,\nyou pick a card from Community";
+        s = "When you land on this space, you pick a card from Community";
         return s;
     }
 
     private String ChangeText() {
         String s;
-        s = "When you land on this space,\nyou pick a card from Change";
+        s = "When you land on this space, you pick a card from Change";
         return s;
     }
 

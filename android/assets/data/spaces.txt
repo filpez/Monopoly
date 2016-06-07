@@ -20,7 +20,7 @@
 ;DrawChance;CHANCE;
 ;BuildingLot;Vermont Avenue;100;Light Blue;6 30 90 270 400;
 ;BuildingLot;Connecticut Avenue;120;Light Blue;8 40 100 300 450;
-;Transaction;Just Visiting;0;
+;Transaction;Jail/Just Visiting;0;
 ;BuildingLot;St. Charles Place;140;Purple;10 50 150 450 625;
 ;Service;Electric Company;140;Service;
 ;BuildingLot;States Avenue;140;Purple;10 50 150 450 625;

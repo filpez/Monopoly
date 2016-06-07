@@ -59,8 +59,6 @@ public class BoardActor extends Actor{
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-       // int currentPosition = board.getCurrentPlayer().getPosition();
-       // setRotation(90 * (currentPosition/10));
         boardBackground.draw(batch);
         for (int i = 0; i < board.getPlayers().size(); i++) {
             Player p = board.getPlayers().get(i);
