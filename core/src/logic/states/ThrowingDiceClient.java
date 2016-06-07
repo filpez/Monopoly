@@ -30,8 +30,6 @@ public class ThrowingDiceClient implements State {
         int b = rand.nextInt(6) + 1;
 
         BoardControllerClient client = (BoardControllerClient)boardController;
-       /* ControllerServerInterface proxy = client.getProxy();
-        proxy.next(a, b);*/
         client.getProxy().next(a, b);
     }
 

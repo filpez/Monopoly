@@ -85,7 +85,7 @@ public class WaitingNextTurnServer implements State {
     public void nextEcho(BoardController boardController, int a, int b) {
         Board board = boardController.getBoard();
         if (board.endTurn())
-            boardController.setState(new ThrowingDiceClient());
+            boardController.setState(new ThrowingDiceServer());
         else
             boardController.setState(new DisplayingResults());
     }
