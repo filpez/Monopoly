@@ -284,7 +284,9 @@ public class MainMenu  implements Screen {
         button.getLabel().setFontScale(3.0f);
         button.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                if (button.getText().toString().equals("Start") && game.controller.getBoard() != null){//) && game.controller.getBoard() != null
+                if (button.getText().toString().equals("Start")){//) && game.controller.getBoard() != null
+                    if (game.controller.getBoard() != null)
+                        return;
                     dialog.hide();
                     game.setScreen(new BoardScreen(game));
                     dispose();
