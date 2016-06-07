@@ -7,7 +7,7 @@ import logic.Player;
 import logic.states.ThrowingDiceOffline;
 
 /**
- * Board Controler in Client Mode
+ * Board Controller in Offline Mode
  */
 public class BoardControllerOffline extends BoardController {
     public BoardControllerOffline(int numPlayers) {

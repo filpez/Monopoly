@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class Deck {
     private ArrayList<Card> cards;
-    private int currentCardIndex;
+    private int currentCardIndex = 0;
 
     /**
      * Creates a new deck of cards
@@ -35,13 +35,5 @@ public class Deck {
         Card nextCard = cards.get(currentCardIndex);
         currentCardIndex = (currentCardIndex + 1) % cards.size();
         return nextCard;
-    }
-
-    /**
-     * Shuffles the cards
-     */
-    public void shuffle(){
-        Collections.shuffle(cards);
-        currentCardIndex = 0;
     }
 }
