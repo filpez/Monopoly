@@ -14,6 +14,11 @@ public class WaitingNextTurnOffline implements State {
         return "End Turn";
     }
 
+    /**
+     * Buys space if possible.
+     * @param boardController
+     * @param i - current position
+     */
     @Override
     public void buy(BoardController boardController, int i) {
         Board board = boardController.getBoard();
@@ -53,6 +58,11 @@ public class WaitingNextTurnOffline implements State {
         }
     }
 
+    /**
+     * Buys space
+     * @param boardController
+     * @param i - current position
+     */
     @Override
     public void buyEcho(BoardController boardController, int i) {
         Board board = boardController.getBoard();
@@ -68,6 +78,10 @@ public class WaitingNextTurnOffline implements State {
         }
     }
 
+    /**
+     * Tries to end the turn
+     * @param boardController
+     */
     @Override
     public void next(BoardController boardController) {
         if (boardController.getBoard().getCurrentPlayer().getFunds() < 0 && !boardController.getBoard().getCurrentPlayer().isBankrupt())
@@ -77,6 +91,12 @@ public class WaitingNextTurnOffline implements State {
         }
     }
 
+    /**
+     * Ends turn
+     * @param boardController
+     * @param a - not used
+     * @param b - not used
+     */
     @Override
     public void nextEcho(BoardController boardController, int a, int b) {
         Board board = boardController.getBoard();
@@ -86,6 +106,11 @@ public class WaitingNextTurnOffline implements State {
             boardController.setState(new DisplayingResults());
     }
 
+    /**
+     * Sells space if possible.
+     * @param boardController
+     * @param i - current position
+     */
     @Override
     public void sell(BoardController boardController, int i) {
         Board board = boardController.getBoard();
@@ -106,6 +131,11 @@ public class WaitingNextTurnOffline implements State {
         }
     }
 
+    /**
+     * Sells space
+     * @param boardController
+     * @param i - current position
+     */
     public void sellEcho(BoardController boardController, int i) {
         Board board = boardController.getBoard();
         Property selectedSpace = (Property) board.getSpace(i);

@@ -30,7 +30,7 @@ public class PayRent extends Effect {
             int rent = currentSpace.getRent(board.getLastMovement());
             currentPlayer.pay(rent);
             owner.receive(rent);
-            board.addActionToLog(" paid " + getValue() + " to " + owner.getName() +"!\n");
+            board.addActionToLog(" paid " + rent + " to " + owner.getName() +"!\n");
         }
         return true;
     }
