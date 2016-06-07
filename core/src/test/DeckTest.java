@@ -4,9 +4,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import logic.Card;
-import logic.Deck;
-import logic.effects.Effect;
+import logic.board.Card;
+import logic.board.Deck;
 import logic.effects.Move;
 
 import static org.junit.Assert.assertEquals;

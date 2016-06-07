@@ -2,8 +2,8 @@ package logic.controller;
 
 import java.util.ArrayList;
 
-import logic.BoardCreator;
-import logic.Player;
+import logic.board.BoardCreator;
+import logic.board.Player;
 import logic.states.ThrowingDiceOffline;
 
 /**

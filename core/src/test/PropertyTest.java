@@ -2,12 +2,12 @@ package test;
 
 import org.junit.Test;
 
-import logic.BuildingLot;
-import logic.Group;
-import logic.Player;
-import logic.Property;
-import logic.Service;
-import logic.Stations;
+import logic.board.BuildingLot;
+import logic.board.Group;
+import logic.board.Player;
+import logic.board.Property;
+import logic.board.Service;
+import logic.board.Stations;
 import logic.effects.Effect;
 import logic.effects.Move;
 

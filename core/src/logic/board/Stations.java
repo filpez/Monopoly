@@ -1,4 +1,4 @@
-package logic;
+package logic.board;
 
 import logic.effects.PayRent;
 
@@ -16,7 +16,7 @@ public class Stations extends Property {
 	 * @param group - group to which the station belongs ("Station")
 	 * @param price - price of the station (it will also help determining the baseCost of the rents)
      */
-	public Stations(String name, Group group, int price) {
+	public Stations(String name, logic.board.Group group, int price) {
 		super(name, group, price);
 		this.effect = new PayRent(0);
 		this.baseCost = price/8;

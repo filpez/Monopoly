@@ -1,4 +1,4 @@
-package logic;
+package logic.board;
 
 /**
  * Represents an purchasable Space.
@@ -11,7 +11,7 @@ public abstract class Property extends Space{
 	private int price;
 	private boolean mortgaged;
 	private Player owner;
-	private Group group;
+	private logic.board.Group group;
 
 	/**
 	 *
@@ -19,7 +19,7 @@ public abstract class Property extends Space{
 	 * @param group - group to which the propriety belongs
 	 * @param price - price of the propriety
      */
-	public Property(String name, Group group, int price) {
+	public Property(String name, logic.board.Group group, int price) {
 		super(name);
 		this.price = price;
 		this.mortgaged = false;
@@ -59,11 +59,11 @@ public abstract class Property extends Space{
 		this.owner = owner;
 	}
 
-	public Group getGroup() {
+	public logic.board.Group getGroup() {
 		return group;
 	}
 
-	public void setGroup(Group group) {
+	public void setGroup(logic.board.Group group) {
 		this.group = group;
 	}
 

@@ -1,7 +1,7 @@
 package logic.effects;
 
-import logic.Board;
-import logic.Player;
+import logic.board.Board;
+import logic.board.Player;
 
 /**
  * Created by Claudia Marinho on 10/05/2016.

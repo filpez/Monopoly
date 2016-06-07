@@ -1,9 +1,7 @@
-package logic;
+package logic.board;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Deque;
-import java.util.Random;
 
 /**
  * Represents a deck of cards.

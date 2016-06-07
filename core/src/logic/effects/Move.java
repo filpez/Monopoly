@@ -1,7 +1,6 @@
 package logic.effects;
 
-import logic.Board;
-import logic.Player;
+import logic.board.Board;
 
 /**
  * Created by Claudia Marinho on 10/05/2016.
@@ -18,10 +17,11 @@ public class Move  extends Effect {
     /**
      * Applies effect that moves current player a number of positions equivalent to value
      * @param board - board to which the effect will be applied
-     * @return true if move was successful, false if not
+     * @return false
      */
     @Override
     public boolean apply(Board board) {
-        return board.move(getValue(), false);
+        board.move(getValue(), false);
+        return false;
     }
 }

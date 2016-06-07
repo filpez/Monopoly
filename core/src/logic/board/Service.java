@@ -1,4 +1,4 @@
-package logic;
+package logic.board;
 
 import logic.effects.PayRent;
 
@@ -17,7 +17,7 @@ public class Service extends Property {
 	 * @param group - group to which the service belongs ("Service")
 	 * @param price - price of the station
      */
-	public Service(String name, Group group, int price) {
+	public Service(String name, logic.board.Group group, int price) {
 		super(name, group, price);
 		this.effect = new PayRent(0);
 	}
@@ -38,7 +38,7 @@ public class Service extends Property {
 	}
 
 	@Override
-	public boolean applyEffect(Board board, int diceValue) {
+	public boolean applyEffect(logic.board.Board board, int diceValue) {
 		effect.setValue(diceValue);
 		return super.applyEffect(board, diceValue);
 	}

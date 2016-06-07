@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import lipermi.exception.LipeRMIException;
 import lipermi.handler.CallHandler;
 import lipermi.net.Client;
-import logic.BoardCreator;
-import logic.Player;
+import logic.board.BoardCreator;
+import logic.board.Player;
 import logic.states.ThrowingDiceClient;
 
 /**

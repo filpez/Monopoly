@@ -1,7 +1,7 @@
 package logic.controller;
 
-import logic.Board;
-import logic.Player;
+import logic.board.Board;
+import logic.board.Player;
 import logic.states.State;
 
 /**

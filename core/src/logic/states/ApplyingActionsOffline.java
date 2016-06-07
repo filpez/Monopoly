@@ -1,8 +1,7 @@
 package logic.states;
 
-import logic.Board;
+import logic.board.Board;
 import logic.controller.BoardController;
-import logic.controller.BoardControllerClient;
 
 /**
  * Created by Filipe on 14/05/2016.

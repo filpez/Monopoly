@@ -1,8 +1,8 @@
 package logic.effects;
 
-import logic.Board;
-import logic.Card;
-import logic.Deck;
+import logic.board.Board;
+import logic.board.Card;
+import logic.board.Deck;
 
 /**
  * Represents a effect that draws a  chance card
@@ -21,7 +21,6 @@ public class DrawChance extends Effect{
     public boolean apply(Board board) {
         Deck chance = board.getChance();
         Card card = chance.getNextCard();
-        //chance.shuffle();
         board.addMessageToLog(card.getText() + "\n");
         return card.getEffect().apply(board);
     }

@@ -1,8 +1,8 @@
 package logic.effects;
 
-import logic.Board;
-import logic.Player;
-import logic.Property;
+import logic.board.Board;
+import logic.board.Player;
+import logic.board.Property;
 
 /**
  * Created by Claudia Marinho on 10/05/2016.
@@ -19,7 +19,7 @@ public class PayRent extends Effect {
     /**
      * Applies effect that makes currentPlayer pay a rent
      * @param board - board to which the effect will be applied
-     * @return true if rent was paid, false if not
+     * @return true
      */
     @Override
     public boolean apply(Board board) {
@@ -31,8 +31,7 @@ public class PayRent extends Effect {
             currentPlayer.pay(rent);
             owner.receive(rent);
             board.addActionToLog(" paid " + getValue() + " to " + owner.getName() +"!\n");
-            return true;
         }
-        return false;
+        return true;
     }
 }

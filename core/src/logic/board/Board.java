@@ -1,7 +1,6 @@
-package logic;
+package logic.board;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Represents the game board.

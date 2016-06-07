@@ -9,14 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
+import logic.board.Board;
 import logic.controller.BoardController;
-import logic.Player;
+import logic.board.Player;
 
 /**
  * Created by Filipe on 07/05/2016.
  */
 public class BoardActor extends Actor{
-    private logic.Board board;
+    private Board board;
     private Sprite boardBackground;
     private Sprite[] playerSprites;
     private float pSize;
@@ -69,7 +70,6 @@ public class BoardActor extends Actor{
     }
 
     private void  drawPlayer(Batch batch, Player p, int i){
-        Gdx.app.log("BoardActor", Integer.toString(BoardActor.this.board.getCurrentPlayer().getPosition()));
         float boardSize = getHeight();
         float s = pSize*2 + pSize*2*(p.getPosition()%10) +  pSize*(i%2);
         float t = pSize*(i/2);;

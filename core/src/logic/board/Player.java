@@ -1,4 +1,4 @@
-package logic;
+package logic.board;
 
 import java.util.ArrayList;
 
@@ -170,8 +170,8 @@ public class Player {
 		int totalMoney = funds;
 		for (Property property : getProprieties()) {
 			totalMoney += property.getPrice() / 2;		// each property can be sold for half of its original price
-			if (property instanceof BuildingLot){
-				totalMoney += ((BuildingLot) property).getHouses() * property.getGroup().getHouseValue()/2;
+			if (property instanceof logic.board.BuildingLot){
+				totalMoney += ((logic.board.BuildingLot) property).getHouses() * property.getGroup().getHouseValue()/2;
 				// each house can only be sold for half of its original cost
 			}
 		}
@@ -183,7 +183,7 @@ public class Player {
  	 * @param buildingLot - building lot to be checked
 	 * @return true if house can be built, false if otherwise
      */
-	public boolean canBuild(BuildingLot buildingLot){
+	public boolean canBuild(logic.board.BuildingLot buildingLot){
 		return (hasMonopoly(buildingLot.getGroup()) &&		// if player owns all the building lots in the group of buildingLot
 				buildingLot.getGroup().getHouseValue() <= funds &&	// if player has enough money
 				buildingLot.canAddHouse()					// if the maximum number of houses hasn't been achieved
@@ -194,7 +194,7 @@ public class Player {
 	 * Builds a new house in a given building lot
 	 * @param buildingLot - building lot in which a new house will be constructed
      */
-	public void build(BuildingLot buildingLot){
+	public void build(logic.board.BuildingLot buildingLot){
 		int price = buildingLot.getGroup().getHouseValue();
 		buildingLot.addHouse();
 		this.pay(price);
@@ -204,7 +204,7 @@ public class Player {
 	 * Removes a house in a given building lot
 	 * @param buildingLot - building lot that will have one of its houses demolished
      */
-	public void demolish(BuildingLot buildingLot){
+	public void demolish(logic.board.BuildingLot buildingLot){
 		int price = buildingLot.getGroup().getHouseValue();
 		buildingLot.removeHouse();
 		this.receive(price/2);

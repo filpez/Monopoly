@@ -1,4 +1,4 @@
-package logic;
+package logic.board;
 
 import logic.effects.DrawCommunity;
 

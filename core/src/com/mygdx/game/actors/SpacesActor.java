@@ -12,16 +12,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.MonopolyGame;
 
-import logic.DrawChanceSpace;
-import logic.DrawCommunitySpace;
-import logic.Player;
-import logic.Service;
+import logic.board.DrawChanceSpace;
+import logic.board.DrawCommunitySpace;
+import logic.board.Player;
+import logic.board.Service;
 import logic.controller.BoardController;
-import logic.BuildingLot;
-import logic.GoToJailSpace;
-import logic.Space;
-import logic.Stations;
-import logic.TransactionSpace;
+import logic.board.BuildingLot;
+import logic.board.GoToJailSpace;
+import logic.board.Space;
+import logic.board.Stations;
+import logic.board.TransactionSpace;
 
 /**
  * Created by Filipe on 07/05/2016.

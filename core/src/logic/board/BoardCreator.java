@@ -1,4 +1,4 @@
-package logic;
+package logic.board;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

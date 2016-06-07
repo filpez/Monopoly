@@ -5,7 +5,6 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -14,10 +13,9 @@ import java.util.Random;
 import lipermi.exception.LipeRMIException;
 import lipermi.handler.CallHandler;
 import lipermi.net.Server;
-import logic.BoardCreator;
-import logic.Player;
+import logic.board.BoardCreator;
+import logic.board.Player;
 import logic.states.ThrowingDiceServer;
-import sun.rmi.runtime.Log;
 
 /**
  * Created by Filipe on 13/05/2016.

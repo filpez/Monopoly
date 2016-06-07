@@ -1,6 +1,6 @@
 package logic.effects;
 
-import logic.Board;
+import logic.board.Board;
 
 /**
  * Represents an effect associated with spaces.
@@ -20,7 +20,7 @@ public abstract class Effect {
 	/**
 	 * Applies an effect
 	 * @param board - board to which the effect will be applied
-	 * @return true if successful, false if otherwise
+	 * @return true if there are more effects to apply.
      */
 	public abstract boolean apply(Board board);
 

@@ -1,9 +1,9 @@
 package logic.states;
 
-import logic.Board;
-import logic.BuildingLot;
-import logic.Player;
-import logic.Property;
+import logic.board.Board;
+import logic.board.BuildingLot;
+import logic.board.Player;
+import logic.board.Property;
 import logic.controller.BoardController;
 import logic.controller.BoardControllerServer;
 
