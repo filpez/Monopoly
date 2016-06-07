@@ -3,9 +3,14 @@ package logic;
 import logic.effects.DrawCommunity;
 
 /**
- * Created by up201404493 on 17-05-2016.
+ * Represents a Space that draws cards from Community Deck
+ * Associated with DrawCommunity effect
  */
 public class DrawCommunitySpace extends Space {
+    /**
+     * Creates a new DrawCommunitySpace object
+     * @param name - name of the space
+     */
     public DrawCommunitySpace(String name) {
         super(name);
         this.effect = new DrawCommunity(0);

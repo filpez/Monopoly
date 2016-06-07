@@ -11,6 +11,11 @@ public class GoToJail extends Effect {
         super(value);
     }
 
+    /**
+     * Applies effect that moves current player to jail
+     * @param board - board to which the effect will be applied
+     * @return true
+     */
     @Override
     public boolean apply(Board board) {
         Player currentPlayer = board.getCurrentPlayer();

@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Represents the gameboard.
+ * Represents the game board.
  *
- * Has a list of players, the 40 spaces and keeps track of the current player.
+ * Has a list of players, the 40 spaces, a deck of community cards and a deck of chance cards.
+ * Keeps track of the current player.
  */
 public class Board {
 	private ArrayList<Player> players;
@@ -16,7 +17,12 @@ public class Board {
 	private Player currentPlayer;
 	private String log;
 	private int lastMovement = 0;
-	
+
+	/**
+	 * Creates a new board
+	 * @param players - players that will participate on the game
+	 * @param spaces - array of spaces of the board
+     */
 	public Board(ArrayList<Player> players, Space[] spaces) {
 		super();
 		this.players = players;
@@ -24,6 +30,13 @@ public class Board {
 		this.log = "The game has started!\n";
 	}
 
+	/**
+	 * Creates a new board
+	 * @param players - players that will participate on the game
+	 * @param spaces - array of spaces of the board
+	 * @param community - deck of community cards
+     * @param chance - deck of chance cards
+     */
 	public Board(ArrayList<Player> players, Space[] spaces, Deck community, Deck chance) {
 		this(players, spaces);
 		this.chance = chance;
@@ -68,6 +81,10 @@ public class Board {
 		this.log = log;
 	}
 
+	/**
+	 * Returns the next player in the array of players
+	 * @return next player
+     */
 	public Player nextPlayer(){
 		for (int i = 0; i < players.size(); i++){
 			if (currentPlayer == players.get(i))
@@ -92,10 +109,18 @@ public class Board {
 		this.chance = chance;
 	}
 
+	/**
+	 * Updates log with new action of the player
+	 * @param log - message to be added
+     */
 	public void addActionToLog(String log) {
         setLog(getCurrentPlayer().getName() + log + getLog());
     }
 
+	/**
+	 * Updates log with a new message
+	 * @param log - message to be added
+     */
 	public void addMessageToLog(String log) {
         setLog(log + getLog());
     }
@@ -108,11 +133,17 @@ public class Board {
 		this.lastMovement = lastMovement;
 	}
 
+	/**
+	 * Moves current player
+	 * @param i - number of spaces to move
+	 * @param doubles - true if the value on the two dices was the same
+     * @return true if player moved successfully, false if the player is jailed
+     */
 	public boolean move(int i, boolean doubles){
         Player currentPlayer = getCurrentPlayer();
         setLastMovement(0);
 
-        if (doubles) {
+        if (doubles) {			// getting doubles takes the player out of the prison
             currentPlayer.setRemainingArrestedTurns(0);
            addActionToLog(" got doubles!\n");
         }
@@ -135,11 +166,19 @@ public class Board {
         }
     }
 
+	/**
+	 * Applies the effect of current space of current player
+	 * @return true if effect was successfully applied, false if otherwise
+     */
 	public boolean applyCurrentSpaceEffect() {
 		int currPos = getCurrentPlayer().getPosition();
 		return getSpace(currPos).applyEffect(this, getLastMovement());
 	}
 
+	/**
+	 * Ends turn of current player.
+	 * @return true if there's more that one player still playing, false if there's only one player left
+     */
 	public boolean endTurn() {
 		addActionToLog(" turn has ended!\n");
 		Player nextPlayer = nextPlayer();
@@ -157,7 +196,10 @@ public class Board {
 		}
 	}
 
-
+	/**
+	 * Throws a dice, adding a action to the log
+	 * @param value - value of the dice
+     */
 	public void throwDice(int value) {
 		String s = " has throwed the dice for " + value +"!\n";
 		addActionToLog(s);

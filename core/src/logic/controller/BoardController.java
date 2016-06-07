@@ -12,9 +12,7 @@ public class BoardController {
     protected State state;
     protected Player player;
 
-    public BoardController() {
-    }
-
+    public BoardController() {}
 
     public State getState() {
         return state;

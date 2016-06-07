@@ -7,15 +7,19 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.Scanner;
 
-
 /**
- * Created by up201404493 on 17-05-2016.
+ * Creates a board.
+ * Initializes all the spaces and decks.
  */
-
 
 public class BoardCreator {
     private static Space[] spaces;
 
+    /**
+     * Creates a new board
+     * @param players - players that will participate on the game
+     * @return new board
+     */
     public static Board createBoard(ArrayList<Player> players){
         spaces = createSpaces();
         Deck community = createCommunityDeck();
@@ -24,6 +28,11 @@ public class BoardCreator {
 
     }
 
+    /**
+     * Converts an ArrayList in an Array
+     * @param integers - ArrayList of integers
+     * @return - Array of int
+     */
     public static int[] convertIntegers(ArrayList<Integer> integers)
     {
         int[] ret = new int[integers.size()];
@@ -34,6 +43,12 @@ public class BoardCreator {
         return ret;
     }
 
+    /**
+     * Initializes the spaces of the board.
+     * Reads the file spaces.txt that contains info regarding the groups and spaces.
+     *
+     * @return array of spaces
+     */
     private static Space[] createSpaces() {
         Space[] spaces = new Space[40];
         ArrayList<Group> groups = new ArrayList<Group>();
@@ -127,6 +142,12 @@ public class BoardCreator {
         return spaces;
     }
 
+    /**
+     * Initializes the chance deck.
+     * Reads the file chance.txt.
+     *
+     * @return deck of chance cards
+     */
     private static Deck createChanceDeck(){
         Deck chance;
         BufferedReader tmp_buffer;
@@ -198,6 +219,12 @@ public class BoardCreator {
         return chance;
     }
 
+    /**
+     * Initializes the community deck.
+     * Reads the file community.txt.
+     *
+     * @return deck of community cards
+     */
     private static Deck createCommunityDeck(){
         Deck community;
         BufferedReader tmp_buffer;

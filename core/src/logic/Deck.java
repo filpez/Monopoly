@@ -6,12 +6,16 @@ import java.util.Deque;
 import java.util.Random;
 
 /**
- * Created by up201404493 on 17-05-2016.
+ * Represents a deck of cards.
  */
 public class Deck {
     private ArrayList<Card> cards;
     private int currentCardIndex;
 
+    /**
+     * Creates a new deck of cards
+     * @param cards - array of cards
+     */
     public Deck(ArrayList<Card> cards) {
         this.cards = cards;
     }
@@ -19,17 +23,23 @@ public class Deck {
     public ArrayList<Card> getCards() {
         return cards;
     }
-
     public void setCards(ArrayList<Card> cards) {
         this.cards = cards;
     }
 
+    /**
+     * Returns the next card in the deck
+     * @return next card in the deck of cards
+     */
     public Card getNextCard(){
         Card nextCard = cards.get(currentCardIndex);
         currentCardIndex = (currentCardIndex + 1) % cards.size();
         return nextCard;
     }
 
+    /**
+     * Shuffles the cards
+     */
     public void shuffle(){
         Collections.shuffle(cards);
         currentCardIndex = 0;

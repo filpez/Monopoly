@@ -5,13 +5,18 @@ import logic.Card;
 import logic.Deck;
 
 /**
- * Created by up201404493 on 17-05-2016.
+ * Represents a effect that draws a community card
  */
 public class DrawCommunity extends Effect{
     public DrawCommunity(int value) {
         super(value);
     }
 
+    /**
+     * Applies effect that draws a community card
+     * @param board - board to which the effect will be applied
+     * @return true if the card effect was successful, false if otherwise
+     */
     @Override
     public boolean apply(Board board) {
         Deck community = board.getCommunity();

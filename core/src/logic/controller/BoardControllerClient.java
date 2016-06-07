@@ -11,7 +11,7 @@ import logic.Player;
 import logic.states.ThrowingDiceClient;
 
 /**
- * Board Controler in Client Mode
+ * Board Controller in Client Mode
  */
 public class BoardControllerClient extends BoardController implements ControllerClientInterface {
     private ControllerServerInterface proxy; // Server

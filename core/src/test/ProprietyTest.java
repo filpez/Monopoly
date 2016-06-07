@@ -24,14 +24,14 @@ public class ProprietyTest {
 		
 		assertEquals(p1.getPrice(), 300);
 		assertEquals(p1.getName(), "Porto");
-		assertEquals(p1.isMortaged(), false);
+		assertEquals(p1.isMortgaged(), false);
 		assertEquals(p1.getGroup(), new Group("Red"));
 
 		p1.setPrice(200);
 		assertEquals(200, p1.getPrice());
 
-		p1.setMortaged(true);
-		assertEquals(true, p1.isMortaged());
+		p1.setMortgaged(true);
+		assertEquals(true, p1.isMortgaged());
 
 		p1.setName("Lisboa");
 		assertEquals("Lisboa", p1.getName());

@@ -16,7 +16,13 @@ import logic.effects.PayTax;
 public class Card {
 	private String text;
 	private Effect effect;
-	
+
+	/**
+	 * Creates a new card
+	 * @param text - describes the purpose of the card
+	 * @param effect - name of the card effect
+	 * @param value - extra information to the effect of the card
+     */
 	public Card(String text, String effect, int value) {
 		super();
 		this.text = text;
@@ -35,6 +41,13 @@ public class Card {
 	public void setEffect(Effect effect) {
 		this.effect = effect;
 	}
+
+	/**
+	 * Creates a new Effect object
+	 * @param effect - name of the desired effect
+	 * @param value - Effect object parameter
+     * @return new Effect object
+     */
 	private Effect createEffect(String effect, int value){
 		if(effect.equals("GoTo"))
 			return new GoTo(value);

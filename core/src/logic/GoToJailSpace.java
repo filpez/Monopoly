@@ -3,9 +3,14 @@ package logic;
 import logic.effects.GoToJail;
 
 /**
- * Created by Filipe on 17/05/2016.
+ * Represents a Space that sends the players that land on this space to jail
+ * Associated with GoToJail effect
  */
 public class GoToJailSpace extends Space {
+    /**
+     * Creates a new GoToJailSpace object
+     * @param name - name of the space
+     */
     public GoToJailSpace(String name) {
         super(name);
         this.effect = new GoToJail(0);

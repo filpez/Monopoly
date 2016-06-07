@@ -1,22 +1,28 @@
 package logic;
 
 /**
- * Represents an Buyable Space.
- *
+ * Represents an purchasable Space.
  * Keeps track of the owner and the group of Proprieties it belongs to.
+ * BuildingLot, Service and Stations are proprieties.
  */
 public abstract class Propriety extends Space{
 	//public enum Group{UtilitiesOne, UtilitiesTwo, Stations, Brown, LightBlue, Pink, Orange, Red, Yellow, Green, DarkBlue};
 	
 	private int price;
-	private boolean mortaged;
+	private boolean mortgaged;
 	private Player owner;
 	private Group group;
-	
+
+	/**
+	 *
+	 * @param name - name of the propriety
+	 * @param group - group to which the propriety belongs
+	 * @param price - price of the propriety
+     */
 	public Propriety(String name, Group group, int price) {
 		super(name);
 		this.price = price;
-		this.mortaged = false;
+		this.mortgaged = false;
 		this.owner = null;
 		this.group = group;
 		this.group.addPropriety(this);
@@ -30,16 +36,16 @@ public abstract class Propriety extends Space{
 		this.price = price;
 	}
 
-	public boolean isMortaged() {
-		return mortaged;
+	public boolean isMortgaged() {
+		return mortgaged;
 	}
 
-	public void setMortaged(boolean mortaged) {
-		this.mortaged = mortaged;
+	public void setMortgaged(boolean mortgaged) {
+		this.mortgaged = mortgaged;
 	}
-
 
 	/**
+	 * Calculates the rent of the purchasable spaces
 	 * @param diceValue - the value on dices
 	 * @return the rent, calculated differently by different types of proprieties
 	 */
