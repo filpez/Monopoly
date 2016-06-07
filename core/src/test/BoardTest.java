@@ -162,23 +162,12 @@ public class BoardTest {
 		assertEquals(true,p1.getProprieties().contains(property));
 		assertEquals(1, p1.getNumberOfProprieties(property.getGroup()));
 
-		Player p2 = board.nextPlayer();
-		int funds_p2 = p2.getFunds();
+		funds_p1 = funds_p1-price;
+		p1.sell(property);
 
-		p2.buy(property,price,p1);
-
-		assertEquals(funds_p2-price,p2.getFunds());
-		assertEquals(p2, property.getOwner());
-		assertEquals(true,p2.getProprieties().contains(property));
-		assertEquals(false,p1.getProprieties().contains(property));
-		assertEquals(1, p2.getNumberOfProprieties(property.getGroup()));
-
-		funds_p2 = funds_p2-price;
-		p2.sell(property);
-
-		assertEquals(funds_p2+price/2, p2.getFunds());
+		assertEquals(funds_p1+price/2, p1.getFunds());
 		assertEquals(null, property.getOwner());
-		assertEquals(false,p2.getProprieties().contains(property));
+		assertEquals(false,p1.getProprieties().contains(property));
 	}
 
 	@Test

@@ -53,7 +53,7 @@ public class SettingsScreen implements Screen {
 
         Label rulesLabel = new Label(getRulesText(), skin);
         rulesLabel.setWrap(true);
-        rulesLabel.setFontScale(3.0f);
+        rulesLabel.setFontScale(2.0f);
         rulesLabel.setAlignment(Align.top);
 
         ScrollPane rulesPane = new ScrollPane(rulesLabel);
@@ -62,7 +62,7 @@ public class SettingsScreen implements Screen {
         TextButton backButton = new TextButton("Back to Main Menu", skin);
         backButton.getLabel().setWrap(true);
         backButton.getLabel().setAlignment(Align.center);
-        backButton.getLabel().setFontScale(3.0f);
+        backButton.getLabel().setFontScale(2.0f);
         backButton.setBounds(0,0, Gdx.graphics.getWidth()/3, 0);
         backButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {

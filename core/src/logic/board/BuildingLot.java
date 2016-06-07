@@ -38,7 +38,7 @@ public class BuildingLot extends Property {
 		else if (getOwner().hasMonopoly(getGroup()) && houses == 0)
 			return rents[0]*2;
 		else
-			return rents[houses];	// ACHO QUE É rents[houses+1]
+			return rents[houses];
 	}
 
 	public int[] getRents() {
@@ -58,7 +58,7 @@ public class BuildingLot extends Property {
 	 * Adds an house to the BuildingLot if still possible.
 	 */
 	public void addHouse(){
-		if (houses < 4) {		// ACHO QUE E (houses <= 4)
+		if (houses < 4) {
 			houses++;
 		}
 	}
@@ -77,7 +77,7 @@ public class BuildingLot extends Property {
 	 * @return true if less there are less than four houses, false if otherwise
      */
 	public boolean canAddHouse(){
-		return houses < 4;		// ACHO QUE E (houses < 6)
+		return houses < 4;
 	}
 
 }

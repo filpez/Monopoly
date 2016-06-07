@@ -93,21 +93,6 @@ public class Player {
 	}
 
 	/**
-	 * Buy an already owned property
-	 * @param property - property to be bought
-	 * @param price - price of the property
-	 * @param player - owner of given property
-     */
-	public void buy(Property property, int price, Player player){
-		property.setOwner(this);
-		player.proprieties.remove(property);
-		this.proprieties.add(property);
-		
-		this.pay(price);
-		player.receive(price);
-	}
-
-	/**
 	 * Buy a property
 	 * @param property - property to be bought
      */
