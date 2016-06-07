@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Group {
 	private String name;
-	private ArrayList<Propriety> proprieties;
+	private ArrayList<Property> proprieties;
 	private int houseValue;
 
 	/**
@@ -28,7 +28,7 @@ public class Group {
 		super();
 		this.name = name;
 		this.houseValue = houseValue;
-		this.proprieties = new ArrayList<Propriety>();
+		this.proprieties = new ArrayList<Property>();
 	}
 	
 	public String getName() {
@@ -37,10 +37,10 @@ public class Group {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public ArrayList<Propriety> getProprieties() {
+	public ArrayList<Property> getProprieties() {
 		return proprieties;
 	}
-	public void setProprieties(ArrayList<Propriety> proprieties) {
+	public void setProprieties(ArrayList<Property> proprieties) {
 		this.proprieties = proprieties;
 	}
 	public int getHouseValue() {
@@ -52,11 +52,11 @@ public class Group {
 
 
 	/**
-	 * Adds a new propriety to group
-	 * @param propriety - propriety to be added
+	 * Adds a new property to group
+	 * @param property - property to be added
 	 */
-	public void addPropriety(Propriety propriety){
-		this.proprieties.add(propriety);
+	public void addPropriety(Property property){
+		this.proprieties.add(property);
 	}
 
 	/**

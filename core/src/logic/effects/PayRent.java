@@ -2,7 +2,7 @@ package logic.effects;
 
 import logic.Board;
 import logic.Player;
-import logic.Propriety;
+import logic.Property;
 
 /**
  * Created by Claudia Marinho on 10/05/2016.
@@ -24,7 +24,7 @@ public class PayRent extends Effect {
     @Override
     public boolean apply(Board board) {
         Player currentPlayer = board.getCurrentPlayer();
-        Propriety currentSpace = (Propriety)board.getSpace(currentPlayer.getPosition());
+        Property currentSpace = (Property)board.getSpace(currentPlayer.getPosition());
         Player owner = currentSpace.getOwner();
         if(owner != null && owner != currentPlayer){
             int rent = currentSpace.getRent(board.getLastMovement());

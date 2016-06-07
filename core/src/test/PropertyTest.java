@@ -5,7 +5,7 @@ import org.junit.Test;
 import logic.BuildingLot;
 import logic.Group;
 import logic.Player;
-import logic.Propriety;
+import logic.Property;
 import logic.Service;
 import logic.Stations;
 import logic.effects.Effect;
@@ -14,13 +14,13 @@ import logic.effects.Move;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class ProprietyTest {
+public class PropertyTest {
 
 	@Test
 	public void testProprietyBuilder() {
 		Group g1 = new Group("Red");
 		int[] p1_rents= {20,100,250,500,1000};
-		Propriety p1 = new BuildingLot("Porto", g1, 300, p1_rents);
+		Property p1 = new BuildingLot("Porto", g1, 300, p1_rents);
 		
 		assertEquals(p1.getPrice(), 300);
 		assertEquals(p1.getName(), "Porto");

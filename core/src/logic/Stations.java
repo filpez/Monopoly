@@ -7,7 +7,7 @@ import logic.effects.PayRent;
  * A station is a propriety so it can be bought or sold.
  * There are four stations on the standard board.
  */
-public class Stations extends Propriety {
+public class Stations extends Property {
 	private static int baseCost;
 
 	/**

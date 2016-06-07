@@ -7,7 +7,7 @@ import logic.effects.PayRent;
  * A building lot is a propriety so it can be bought or sold.
  * Keeps track of the houses built.
  */
-public class BuildingLot extends Propriety{
+public class BuildingLot extends Property {
 	
 	private int[] rents;// = new int[5];
 	private int houses;

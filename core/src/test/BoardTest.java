@@ -12,7 +12,7 @@ import logic.Deck;
 import logic.GoToJailSpace;
 import logic.Group;
 import logic.Player;
-import logic.Propriety;
+import logic.Property;
 import logic.Service;
 import logic.Space;
 import logic.Stations;
@@ -116,7 +116,7 @@ public class BoardTest {
 		p1.setPosition(10);
 		assertEquals(10, p1.getPosition());
 
-		ArrayList<Propriety> p= new ArrayList<Propriety>();
+		ArrayList<Property> p= new ArrayList<Property>();
 		p.add(new Service("Water works", new Group("Service"),100));
 
 		p1.setProprieties(p);
@@ -144,41 +144,41 @@ public class BoardTest {
 
 	@Test
 	public void testBuyingAndSellingAPropriety() {
-		//Test if the players buys a propriety correctly.
+		//Test if the players buys a property correctly.
 
 		Board board = getBoard();
 		board.setCurrentPlayer(board.getPlayers().get(0));
 		Player p1 = board.getCurrentPlayer();
 
 		int funds_p1 = p1.getFunds();
-		Propriety propriety = (Propriety)board.getSpace(0);
-		int price = propriety.getPrice();
+		Property property = (Property)board.getSpace(0);
+		int price = property.getPrice();
 
-		assertEquals(true, p1.canBuy(propriety));
-		p1.buy(propriety);
+		assertEquals(true, p1.canBuy(property));
+		p1.buy(property);
 
 		assertEquals(funds_p1-price,p1.getFunds());
-		assertEquals(p1, propriety.getOwner());
-		assertEquals(true,p1.getProprieties().contains(propriety));
-		assertEquals(1, p1.getNumberOfProprieties(propriety.getGroup()));
+		assertEquals(p1, property.getOwner());
+		assertEquals(true,p1.getProprieties().contains(property));
+		assertEquals(1, p1.getNumberOfProprieties(property.getGroup()));
 
 		Player p2 = board.nextPlayer();
 		int funds_p2 = p2.getFunds();
 
-		p2.buy(propriety,price,p1);
+		p2.buy(property,price,p1);
 
 		assertEquals(funds_p2-price,p2.getFunds());
-		assertEquals(p2, propriety.getOwner());
-		assertEquals(true,p2.getProprieties().contains(propriety));
-		assertEquals(false,p1.getProprieties().contains(propriety));
-		assertEquals(1, p2.getNumberOfProprieties(propriety.getGroup()));
+		assertEquals(p2, property.getOwner());
+		assertEquals(true,p2.getProprieties().contains(property));
+		assertEquals(false,p1.getProprieties().contains(property));
+		assertEquals(1, p2.getNumberOfProprieties(property.getGroup()));
 
 		funds_p2 = funds_p2-price;
-		p2.sell(propriety);
+		p2.sell(property);
 
 		assertEquals(funds_p2+price/2, p2.getFunds());
-		assertEquals(null, propriety.getOwner());
-		assertEquals(false,p2.getProprieties().contains(propriety));
+		assertEquals(null, property.getOwner());
+		assertEquals(false,p2.getProprieties().contains(property));
 	}
 
 	@Test
@@ -228,15 +228,15 @@ public class BoardTest {
 		assertEquals(funds-price,board.getCurrentPlayer().getFunds());
 
 		// PayRent
-		Propriety propriety = (Propriety)board.getSpace(1);
+		Property property = (Property)board.getSpace(1);
 
-		assertEquals(0, ((Propriety) board.getSpace(1)).getRent(0));	// space has no owner
+		assertEquals(0, ((Property) board.getSpace(1)).getRent(0));	// space has no owner
 
-		board.getCurrentPlayer().buy(propriety);
+		board.getCurrentPlayer().buy(property);
 		board.endTurn();
 
 		funds = board.getCurrentPlayer().getFunds();
-		int rent = ((Propriety) board.getSpace(1)).getRent(0);			// BuildingLot
+		int rent = ((Property) board.getSpace(1)).getRent(0);			// BuildingLot
 		// rent = 2*rents[0]
 		board.getCurrentPlayer().setPosition(1);
 		board.applyCurrentSpaceEffect();

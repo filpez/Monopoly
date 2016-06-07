@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Player {
 	private String name;
 	private int funds;
-	private ArrayList<Propriety> proprieties;
+	private ArrayList<Property> proprieties;
 	private int position;
 	private int remainingArrestedTurns;
 
@@ -22,7 +22,7 @@ public class Player {
 		super();
 		this.name = name;
 		this.funds = 1500;		// initial funds of player
-		this.proprieties = new ArrayList<Propriety>();
+		this.proprieties = new ArrayList<Property>();
 		this.position = 0;
 		this.remainingArrestedTurns = 0;
 	}
@@ -75,57 +75,57 @@ public class Player {
 		this.funds += funds;
 	}
 
-	public ArrayList<Propriety> getProprieties() {
+	public ArrayList<Property> getProprieties() {
 		return proprieties;
 	}
 
-	public void setProprieties(ArrayList<Propriety> proprieties) {
+	public void setProprieties(ArrayList<Property> proprieties) {
 		this.proprieties = proprieties;
 	}
 
 	/**
-	 * Checks if the player can buy a given propriety
-	 * @param propriety - propriety to be checked
-	 * @return true if the price of the propriety is less or equal than players' funds
+	 * Checks if the player can buy a given property
+	 * @param property - property to be checked
+	 * @return true if the price of the property is less or equal than players' funds
      */
-	public boolean canBuy(Propriety propriety){
-		return (propriety.getPrice() <= funds);
+	public boolean canBuy(Property property){
+		return (property.getPrice() <= funds);
 	}
 
 	/**
-	 * Buy an already owned propriety
-	 * @param propriety - propriety to be bought
-	 * @param price - price of the propriety
-	 * @param player - owner of given propriety
+	 * Buy an already owned property
+	 * @param property - property to be bought
+	 * @param price - price of the property
+	 * @param player - owner of given property
      */
-	public void buy(Propriety propriety, int price, Player player){
-		propriety.setOwner(this);
-		player.proprieties.remove(propriety);
-		this.proprieties.add(propriety);
+	public void buy(Property property, int price, Player player){
+		property.setOwner(this);
+		player.proprieties.remove(property);
+		this.proprieties.add(property);
 		
 		this.pay(price);
 		player.receive(price);
 	}
 
 	/**
-	 * Buy a propriety
-	 * @param propriety - propriety to be bought
+	 * Buy a property
+	 * @param property - property to be bought
      */
-	public void buy(Propriety propriety){
-		int price = propriety.getPrice();
-		propriety.setOwner(this);
-		this.proprieties.add(propriety);
+	public void buy(Property property){
+		int price = property.getPrice();
+		property.setOwner(this);
+		this.proprieties.add(property);
 		this.pay(price);
 	}
 
 	/**
-	 * Sell a propriety
-	 * @param propriety - propriety to be sold
+	 * Sell a property
+	 * @param property - property to be sold
      */
-	public void sell(Propriety propriety){
-		int price = propriety.getPrice();
-		propriety.setOwner(null);
-		this.proprieties.remove(propriety);
+	public void sell(Property property){
+		int price = property.getPrice();
+		property.setOwner(null);
+		this.proprieties.remove(property);
 		this.receive(price/2);
 	}
 
@@ -143,8 +143,8 @@ public class Player {
 	 * @return true if the player owns all proprieties in a group, no if otherwise
      */
 	public boolean hasMonopoly(Group group) {
-		for (Propriety propriety: group.getProprieties())
-			if (propriety.getOwner() != this)
+		for (Property property : group.getProprieties())
+			if (property.getOwner() != this)
 				return false;
 		return true;
 	}
@@ -156,8 +156,8 @@ public class Player {
      */
 	public int getNumberOfProprieties(Group group) {
 		int n = 0;
-		for (Propriety propriety: group.getProprieties())
-			if (propriety.getOwner() == this)
+		for (Property property : group.getProprieties())
+			if (property.getOwner() == this)
 				n++;
 		return n;
 	}
@@ -168,10 +168,10 @@ public class Player {
      */
 	public boolean isBankrupt() {
 		int totalMoney = funds;
-		for (Propriety propriety: getProprieties()) {
-			totalMoney += propriety.getPrice() / 2;		// each propriety can be sold for half of its original price
-			if (propriety instanceof BuildingLot){
-				totalMoney += ((BuildingLot)propriety).getHouses() * propriety.getGroup().getHouseValue()/2;
+		for (Property property : getProprieties()) {
+			totalMoney += property.getPrice() / 2;		// each property can be sold for half of its original price
+			if (property instanceof BuildingLot){
+				totalMoney += ((BuildingLot) property).getHouses() * property.getGroup().getHouseValue()/2;
 				// each house can only be sold for half of its original cost
 			}
 		}

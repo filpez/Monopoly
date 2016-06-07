@@ -1,9 +1,52 @@
-BLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
-asdfffffffffffffffffffffffffff
-BLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLBLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+*********
+OBJECTIVE
+*********
+The objective of the game of MONOPOLY is to become the wealthiest player through buying, renting and selling property.
 
-BLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+*********
+GAMEPLAY
+*********
+Each turn has three phases:
+    Throwing the dices - the player throws two dices and moves the resulting number of spaces on the board, in a clock-wise direction.
+    Applying the effects - the player acts according to whatever the space he land on asks him to do.
+    Ending the turn - the player can buy, sell, or directly end the turn.
 
-BLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+*********
+BOARD
+*********
+The game board is made of 40 spaces:
 
-BLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLBLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+"Start"
+Each time a player's MONOPOLY token lands on or passes over "Start", whether by throw of the dice or by drawing a card, the Bank pays him $200 salary.
+
+Properties
+When a player lands on MONOPOLY property owned by another player the owner collects rent from him. Whenever a player lands on an unowned MONOPOLY property he may buy that property from the Bank at its printed price.
+
+"Chance" & "Community"
+When a player lands on either of these spaces on the MONOPOLY game board, he takes the top card from the deck indicated, follows the instructions and returns the card face-down to the bottom of the deck.
+
+"Income Tax"
+When a player lands on the "Income Tax" space of the MONOPOLY game board, he must pay the indicated value to the bank.
+
+"Go to Jail"
+When a player lands on the "Go to Jail" space of the MONOPOLY game board, he is sent to Jail for 2 turns. A player can be freed early be getting doubles on the dices.
+
+"Jail" & "Free Parking"
+When a player lands on the "Jail" or "Free Parking" spaces of the MONOPOLY game board, NOTHING happens.
+
+*********
+MONOPOLY
+*********
+When you own all the MONOPOLY building lots in a color-group you may buy houses from the Bank and erect them on those properties. Additionally, building lots without houses in that group double their rent value.
+
+*********
+BANKRUPTCY
+*********
+A player loses when he gets to the end of turn with debts and has no way to pay them.
+
+*********
+END OF GAME
+*********
+The last player standing is the winner!!
+
+GOOD LUCK ;)

@@ -54,7 +54,7 @@ public class SettingsScreen implements Screen {
         Label rulesLabel = new Label(getRulesText(), skin);
         rulesLabel.setWrap(true);
         rulesLabel.setFontScale(3.0f);
-        rulesLabel.setAlignment(Align.topLeft);
+        rulesLabel.setAlignment(Align.top);
 
         ScrollPane rulesPane = new ScrollPane(rulesLabel);
         rulesPane.setFadeScrollBars(true);

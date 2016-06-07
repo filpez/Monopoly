@@ -3,11 +3,11 @@ package logic;
 import logic.effects.PayRent;
 
 /**
- * Represents an Propriety of type Service.
+ * Represents an Property of type Service.
  * Since it is a propriety, it can be bought or sold.
  * There are only two services on the Board (Electric Company and Water Works)
  */
-public class Service extends Propriety {
+public class Service extends Property {
 	private final static int singleMultiplier = 4;
 	private final static int monopolyMultiplier = 10;
 

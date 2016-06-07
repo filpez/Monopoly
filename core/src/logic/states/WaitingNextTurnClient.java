@@ -3,7 +3,7 @@ package logic.states;
 import logic.Board;
 import logic.BuildingLot;
 import logic.Player;
-import logic.Propriety;
+import logic.Property;
 import logic.controller.BoardController;
 import logic.controller.BoardControllerClient;
 
@@ -20,12 +20,12 @@ public class WaitingNextTurnClient implements State {
         Board board = boardController.getBoard();
         Player currentPlayer = board.getCurrentPlayer();
 
-        //Check if it is a Propriety
-        if (!(board.getSpace(i) instanceof Propriety)) {
+        //Check if it is a Property
+        if (!(board.getSpace(i) instanceof Property)) {
             board.addMessageToLog("You can't buy " + board.getSpace(i).getName() + "!\n");
             return;
         }
-        Propriety selectedSpace = (Propriety) board.getSpace(i);
+        Property selectedSpace = (Property) board.getSpace(i);
 
         //Owner == null
         if (selectedSpace.getOwner() == null){
@@ -59,7 +59,7 @@ public class WaitingNextTurnClient implements State {
     @Override
     public void buyEcho(BoardController boardController, int i) {
         Board board = boardController.getBoard();
-        Propriety selectedSpace = (Propriety) board.getSpace(i);
+        Property selectedSpace = (Property) board.getSpace(i);
         Player currentPlayer = board.getCurrentPlayer();
         if (selectedSpace.getOwner() == currentPlayer){
             board.addActionToLog(" built at " + selectedSpace.getName() + "!\n");
@@ -93,14 +93,14 @@ public class WaitingNextTurnClient implements State {
     @Override
     public void sell(BoardController boardController, int i) {
         Board board = boardController.getBoard();
-        Propriety selectedSpace;
+        Property selectedSpace;
         Player currentPlayer = board.getCurrentPlayer();
-        if (!(board.getSpace(i) instanceof Propriety)) {
+        if (!(board.getSpace(i) instanceof Property)) {
             boardController.getBoard().addMessageToLog("You can't sell " + board.getSpace(i).getName() + "!\n");
             return;
         }
         else
-            selectedSpace = (Propriety) board.getSpace(i);
+            selectedSpace = (Property) board.getSpace(i);
 
         if (selectedSpace.getOwner() != currentPlayer){
             boardController.getBoard().addMessageToLog("You don't own " +board.getSpace(i).getName() + "!\n");
@@ -113,7 +113,7 @@ public class WaitingNextTurnClient implements State {
 
     public void sellEcho(BoardController boardController, int i) {
         Board board = boardController.getBoard();
-        Propriety selectedSpace = (Propriety) board.getSpace(i);
+        Property selectedSpace = (Property) board.getSpace(i);
         Player currentPlayer = board.getCurrentPlayer();
         if (selectedSpace instanceof BuildingLot && ((BuildingLot)selectedSpace).getHouses() > 0 ){
             board.addActionToLog(" demolished an house at " + selectedSpace.getName() + "!\n");

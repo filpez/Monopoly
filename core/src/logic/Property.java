@@ -5,7 +5,7 @@ package logic;
  * Keeps track of the owner and the group of Proprieties it belongs to.
  * BuildingLot, Service and Stations are proprieties.
  */
-public abstract class Propriety extends Space{
+public abstract class Property extends Space{
 	//public enum Group{UtilitiesOne, UtilitiesTwo, Stations, Brown, LightBlue, Pink, Orange, Red, Yellow, Green, DarkBlue};
 	
 	private int price;
@@ -19,7 +19,7 @@ public abstract class Propriety extends Space{
 	 * @param group - group to which the propriety belongs
 	 * @param price - price of the propriety
      */
-	public Propriety(String name, Group group, int price) {
+	public Property(String name, Group group, int price) {
 		super(name);
 		this.price = price;
 		this.mortgaged = false;
